@@ -1,0 +1,1434 @@
+[
+  {
+    "id": "model/AbstractDocument",
+    "isDefault": true,
+    "name": "AbstractDocument",
+    "sourceFile": "model/AbstractDocument.js",
+    "sourceLine": 19,
+    "namespace": "model",
+    "type": "class",
+    "description": "<p>Abstract Document implementation.</p>\n",
+    "params": [],
+    "isAbstract": true,
+    "members": [
+      "model/AbstractDocument#schema",
+      "model/AbstractDocument#_setAutoAttach",
+      "model/AbstractDocument#setText",
+      "model/AbstractDocument#createSelection"
+    ]
+  },
+  {
+    "parent": "model/AbstractDocument",
+    "name": "schema",
+    "sourceFile": "model/AbstractDocument.js",
+    "sourceLine": 26,
+    "id": "model/AbstractDocument#schema",
+    "type": "property",
+    "description": "<p>The schema.</p>\n",
+    "dataType": "{model/DocumentSchema}"
+  },
+  {
+    "parent": "model/AbstractDocument",
+    "name": "_setAutoAttach",
+    "sourceFile": "model/AbstractDocument.js",
+    "sourceLine": 77,
+    "id": "model/AbstractDocument#_setAutoAttach",
+    "type": "method",
+    "description": "<p>Enable or disable auto-attaching of nodes.\nWhen this is enabled (default), a created node\ngets attached to the document instantly.\nOtherwise you need to take care of that yourself.</p>\n<p>Used internally e.g., by AbstractDocument.prototype.loadSeed()</p>\n",
+    "params": [],
+    "isPrivate": true
+  },
+  {
+    "parent": "model/AbstractDocument",
+    "name": "setText",
+    "sourceFile": "model/AbstractDocument.js",
+    "sourceLine": 233,
+    "id": "model/AbstractDocument#setText",
+    "type": "method",
+    "description": "<p>Sets the text of a property together with annotations.</p>\n",
+    "params": [
+      {
+        "type": "Array.<String>",
+        "name": "path",
+        "description": "<p>Path to the text property.</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "model/AbstractDocument",
+    "name": "createSelection",
+    "example": "<pre><code class=\"hljs lang-js\">doc.createSelection({\n  type: <span class=\"hljs-string\">'property'</span>,\n  path: [ <span class=\"hljs-string\">'text1'</span>, <span class=\"hljs-string\">'content'</span>],\n  startOffset: <span class=\"hljs-number\">10</span>,\n  endOffset: <span class=\"hljs-number\">20</span>\n})\n</code><pre>\n",
+    "sourceFile": "model/AbstractDocument.js",
+    "sourceLine": 266,
+    "id": "model/AbstractDocument#createSelection",
+    "type": "method",
+    "description": "<p>Creates a selection which is attached to this document.\nEvery selection implementation provides its own\nparameter format which is basically a JSON representation.</p>\n",
+    "params": [
+      {
+        "type": "model/Selection",
+        "name": "sel",
+        "description": "<p>An object describing the selection.</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "id": "model/ContainerAnnotation",
+    "isDefault": true,
+    "name": "ContainerAnnotation",
+    "example": "<pre><code class=\"hljs lang-js\">{\n  <span class=\"hljs-string\">\"id\"</span>: <span class=\"hljs-string\">\"subject_reference_1\"</span>,\n  <span class=\"hljs-string\">\"type\"</span>: <span class=\"hljs-string\">\"subject_reference\"</span>,\n  <span class=\"hljs-string\">\"container\"</span>: <span class=\"hljs-string\">\"content\"</span>,\n  <span class=\"hljs-string\">\"startPath\"</span>: [<span class=\"hljs-string\">\"text_2\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">100</span>,\n  <span class=\"hljs-string\">\"endPath\"</span>: [<span class=\"hljs-string\">\"text_4\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">40</span>\n}\n</code><pre>\n",
+    "sourceFile": "model/ContainerAnnotation.js",
+    "sourceLine": 30,
+    "namespace": "model",
+    "type": "class",
+    "description": "<p>Describes an annotation sticking on a container that can span over multiple\nnodes.</p>\n",
+    "params": [],
+    "members": []
+  },
+  {
+    "id": "model/Document",
+    "isDefault": true,
+    "name": "Document",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> Document = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/Document'</span>);\n<span class=\"hljs-keyword\">var</span> Article = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">schema</span>) </span>{\n  Document.call(schema);\n\n  <span class=\"hljs-comment\">// We set up a container that holds references to</span>\n  <span class=\"hljs-comment\">// block nodes (in our example paragraphs)</span>\n  <span class=\"hljs-keyword\">this</span>.create({\n    type: <span class=\"hljs-string\">\"container\"</span>,\n    id: <span class=\"hljs-string\">\"body\"</span>,\n    nodes: []\n  });\n};\n\nOO.inherit(Article, Document);\n</code><pre>\n<p>Substance documents are manipulated incrementally using operations.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> doc = <span class=\"hljs-keyword\">new</span> Article();\n</code><pre>\n<p>When you want to update a document, you must wrap your changes in a transaction, to avoid inconsistent in-between states. The API is fairly easy. Let's create two paragraph nodes in one transaction.</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'p1'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'Hi I am a Substance paragraph.'</span>\n  });\n  tx.create({\n    id: <span class=\"hljs-string\">'p2'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'And I am the second pargraph'</span>\n  });\n});\n</code><pre>\n<p>A Substance document works like an object store, you can create as many nodes as you wish and assign unique id's to them. In order to create a sequence of nodes, we have to <code>show</code> them on a container node.</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> body = tx.get(<span class=\"hljs-string\">'body'</span>);\n  body.show(<span class=\"hljs-string\">'p1'</span>);\n  body.show(<span class=\"hljs-string\">'p2'</span>);\n});\n</code><pre>\n<p>Now let's make a <strong>strong</strong> annotation. In Substance annotations are stored separately from the text. Annotations are just regular nodes in the document. They refer to a certain range (<code>startOffset, endOffset</code>) in a text property (<code>path</code>).</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'s1'</span>,\n    type: <span class=\"hljs-string\">'strong'</span>,\n    path: [<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n    <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">10</span>,\n    <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">19</span>\n  });\n});\n</code><pre>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 92,
+    "namespace": "model",
+    "type": "class",
+    "description": "<p>Abstract class used for deriving a custom article implementation.</p>\n",
+    "params": [
+      {
+        "type": "model/Schema",
+        "name": "schema",
+        "description": "<p>The document schema.</p>\n"
+      }
+    ],
+    "isAbstract": true,
+    "superClass": "model/AbstractDocument",
+    "members": [
+      "model/Document#transaction",
+      "model/Document#_setAutoAttach"
+    ]
+  },
+  {
+    "parent": "model/Document",
+    "name": "transaction",
+    "example": "<pre><code class=\"hljs lang-js\">doc.transaction({ selection: sel }, {<span class=\"hljs-string\">'event-hack'</span>: <span class=\"hljs-literal\">true</span>}, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  tx.update(...);\n  ...\n  <span class=\"hljs-keyword\">return</span> {\n    selection: newSelection\n  };\n})\n</code><pre>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 199,
+    "id": "model/Document#transaction",
+    "type": "method",
+    "description": "<p>Start a transaction to manipulate the document</p>\n",
+    "params": [
+      {
+        "type": "object",
+        "name": "beforeState",
+        "description": "<p>object which will be used as before start of transaction</p>\n"
+      },
+      {
+        "type": "object",
+        "name": "eventData",
+        "description": "<p>object which will be used as payload for the emitted change event</p>\n"
+      },
+      {
+        "type": "function",
+        "name": "transformation",
+        "description": "<p>a function(tx) that performs actions on the transaction document tx</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "model/Document",
+    "name": "_setAutoAttach",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 339,
+    "id": "model/Document#_setAutoAttach",
+    "type": "method",
+    "description": "<p>Enable or disable auto-attaching of nodes.\nWhen this is enabled (default), a created node\ngets attached to the document instantly.\nOtherwise you need to take care of that yourself.</p>\n<p>Used internally e.g., by AbstractDocument.prototype.loadSeed()</p>\n",
+    "params": [],
+    "isPrivate": true
+  },
+  {
+    "id": "model/documentHelpers",
+    "isDefault": true,
+    "name": "documentHelpers",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> documentHelpers = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/documentHelpers'</span>);\ndocumentHelpers.isContainerAnnotation(doc, <span class=\"hljs-string\">'comment'</span>)\n</code><pre>\n",
+    "sourceFile": "model/documentHelpers.js",
+    "sourceLine": 15,
+    "namespace": "model",
+    "type": "module",
+    "description": "",
+    "members": [
+      "model/documentHelpers.isContainerAnnotation",
+      "model/documentHelpers.getPropertyAnnotationsForSelection",
+      "model/documentHelpers.getContainerAnnotationsForSelection",
+      "model/documentHelpers.getAnnotationsForSelection",
+      "model/documentHelpers.getTextForSelection"
+    ]
+  },
+  {
+    "id": "model/documentHelpers.isContainerAnnotation",
+    "parent": "model/documentHelpers",
+    "name": "isContainerAnnotation",
+    "sourceFile": "model/documentHelpers.js",
+    "sourceLine": 23,
+    "type": "method",
+    "description": "<p>Returns true if given type is a container selection</p>\n",
+    "params": [
+      {
+        "type": "model/Document",
+        "name": "doc",
+        "description": ""
+      },
+      {
+        "type": "String",
+        "name": "type",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "id": "model/documentHelpers.getPropertyAnnotationsForSelection",
+    "parent": "model/documentHelpers",
+    "name": "getPropertyAnnotationsForSelection",
+    "sourceFile": "model/documentHelpers.js",
+    "sourceLine": 36,
+    "type": "method",
+    "description": "<p>For a given selection get all property annotations</p>\n",
+    "params": [
+      {
+        "type": "model/Document",
+        "name": "doc",
+        "description": ""
+      },
+      {
+        "type": "model/Selection",
+        "name": "sel",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "",
+      "description": "<p>An array of property annotations.           Returns an empty array when selection is a container selection.</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "id": "model/documentHelpers.getContainerAnnotationsForSelection",
+    "parent": "model/documentHelpers",
+    "name": "getContainerAnnotationsForSelection",
+    "sourceFile": "model/documentHelpers.js",
+    "sourceLine": 65,
+    "type": "method",
+    "description": "<p>For a given selection get all container annotations</p>\n",
+    "params": [
+      {
+        "type": "model/Document",
+        "name": "doc",
+        "description": ""
+      },
+      {
+        "type": "model/Selection",
+        "name": "sel",
+        "description": ""
+      },
+      {
+        "type": "model/Container",
+        "name": "container",
+        "description": ""
+      },
+      {
+        "type": "object",
+        "name": "options",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "Array",
+      "description": "<p>An array of container annotations</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "id": "model/documentHelpers.getAnnotationsForSelection",
+    "parent": "model/documentHelpers",
+    "name": "getAnnotationsForSelection",
+    "sourceFile": "model/documentHelpers.js",
+    "sourceLine": 99,
+    "type": "method",
+    "description": "<p>For a given selection, get annotations of a certain type</p>\n",
+    "params": [
+      {
+        "type": "Document",
+        "name": "doc",
+        "description": ""
+      },
+      {
+        "type": "Document.Selection",
+        "name": "sel",
+        "description": ""
+      },
+      {
+        "type": "String",
+        "name": "annotationType",
+        "description": ""
+      },
+      {
+        "type": "String",
+        "name": "containerId",
+        "description": "<p>(only needed when type is a container annotation)</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "Array",
+      "description": "<p>all matching annotations</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "id": "model/documentHelpers.getTextForSelection",
+    "parent": "model/documentHelpers",
+    "name": "getTextForSelection",
+    "sourceFile": "model/documentHelpers.js",
+    "sourceLine": 122,
+    "type": "method",
+    "description": "<p>For a given selection, get the corresponding text string</p>\n",
+    "params": [
+      {
+        "type": "Document",
+        "name": "doc",
+        "description": ""
+      },
+      {
+        "type": "Document.Selection",
+        "name": "sel",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "String",
+      "description": "<p>text enclosed by the annotation</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "id": "model/DocumentSchema",
+    "isDefault": true,
+    "name": "DocumentSchema",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> Paragraph = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/Paragraph'</span>);\n<span class=\"hljs-keyword\">var</span> Emphasis = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/Emphasis'</span>);\n<span class=\"hljs-keyword\">var</span> Strong = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/Strong'</span>);\n<span class=\"hljs-keyword\">var</span> Annotation = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/Annotation'</span>);\n\n<span class=\"hljs-keyword\">var</span> Comment = Annotation.extend({\n  name: <span class=\"hljs-string\">'comment'</span>,\n  properties: {\n    content: <span class=\"hljs-string\">'string'</span>\n  }\n});\n\n<span class=\"hljs-keyword\">var</span> schema = <span class=\"hljs-keyword\">new</span> Document.Schema(<span class=\"hljs-string\">'my-article'</span>, <span class=\"hljs-string\">'1.0.0'</span>);\nschema.getDefaultTextType = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">\"paragraph\"</span>;\n};\nschema.addNodes([Paragraph, Emphasis, Strong, Comment]);\n</code><pre>\n",
+    "sourceFile": "model/DocumentSchema.js",
+    "sourceLine": 40,
+    "namespace": "model",
+    "type": "class",
+    "description": "<p>Used to define custom article formats. Predefined node types can be combined with custom ones.</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "name",
+        "description": "<p>schema identifier</p>\n"
+      },
+      {
+        "type": "String",
+        "name": "schema",
+        "description": "<p>schema version</p>\n"
+      }
+    ],
+    "members": [
+      "model/DocumentSchema#getDefaultTextType"
+    ]
+  },
+  {
+    "parent": "model/DocumentSchema",
+    "name": "getDefaultTextType",
+    "sourceFile": "model/DocumentSchema.js",
+    "sourceLine": 54,
+    "id": "model/DocumentSchema#getDefaultTextType",
+    "type": "method",
+    "description": "<p>Returns default text type. E.g. used when hitting ENTER in a text node, which\nproduces a new node of the type returned here. Abstract method, which must be implemented.</p>\n",
+    "params": [],
+    "returns": {
+      "type": "String",
+      "description": "<p>default text type (e.g. 'paragraph')</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "id": "model/transform/breakNode",
+    "isDefault": true,
+    "name": "breakNode",
+    "sourceFile": "model/transform/breakNode.js",
+    "sourceLine": 18,
+    "namespace": "model/transform",
+    "type": "function",
+    "description": "<p>A transformation that breaks a node at the current position,\ne.g. used when you hit ENTER inside a paragraph.</p>\n",
+    "params": [
+      {
+        "type": "model/TransactionDocument",
+        "name": "tx",
+        "description": "<p>the document instance</p>\n"
+      },
+      {
+        "type": "Object",
+        "name": "args",
+        "description": "<p>object with fields <code>selection</code>, <code>containerId</code></p>\n"
+      }
+    ],
+    "isStatic": true
+  },
+  {
+    "id": "ui/ContainerAnnotator",
+    "isDefault": true,
+    "name": "ContainerAnnotator",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ContainerAnnotator = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/ContainerAnnotator'</span>);\n<span class=\"hljs-keyword\">var</span> Component = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/Component'</span>);\n<span class=\"hljs-keyword\">var</span> ToggleStrong = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/strong/ToggleStrong'</span>);\n\n<span class=\"hljs-keyword\">var</span> MyAnnotator = Component.extend({\n  render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> annotator = $$(ContainerAnnotator, {\n      name: <span class=\"hljs-string\">'main'</span>,\n      containerId: <span class=\"hljs-string\">'main'</span>,\n      doc: doc,\n      commands: [ToggleStrong]\n    }).ref(<span class=\"hljs-string\">'annotator'</span>);\n    <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).addClass(<span class=\"hljs-string\">'my-annotator'</span>).append(annotator);\n  }\n});\n</code><pre>\n",
+    "sourceFile": "ui/ContainerAnnotator.js",
+    "sourceLine": 38,
+    "namespace": "ui",
+    "type": "class",
+    "description": "<p>Represents a flow annotator that manages a sequence of nodes in a container. Instantiate\nthis class using <a href=\"#ui/Component.$$\" data-type=\"cross-link\" data-node-id=\"ui/Component.$$\">ui/Component.$$</a> within the render method of a component. Needs to be\ninstantiated within a <a href=\"#ui/Controller\" data-type=\"cross-link\" data-node-id=\"ui/Controller\">ui/Controller</a> context.</p>\n",
+    "params": [],
+    "superClass": "ui/ContainerEditor",
+    "members": []
+  },
+  {
+    "id": "ui/ContainerEditor",
+    "isDefault": true,
+    "name": "ContainerEditor",
+    "example": "<p>Create a full-fledged <code>ContainerEditor</code> for the <code>body</code> container of a document. Allow Strong and Emphasis annotations and to switch text types between paragraph and heading at level 1.</p>\n<pre><code class=\"hljs lang-js\">$$(ContainerEditor, {\n  name: <span class=\"hljs-string\">'bodyEditor'</span>,\n  containerId: <span class=\"hljs-string\">'body'</span>,\n  textTypes: [\n    {name: <span class=\"hljs-string\">'paragraph'</span>, data: {type: <span class=\"hljs-string\">'paragraph'</span>}},\n    {name: <span class=\"hljs-string\">'heading1'</span>,  data: {type: <span class=\"hljs-string\">'heading'</span>, level: <span class=\"hljs-number\">1</span>}}\n  ],\n  commands: [StrongCommand, EmphasisCommand, SwitchTextTypeCommand],\n})\n</code><pre>\n",
+    "sourceFile": "ui/ContainerEditor.js",
+    "sourceLine": 44,
+    "namespace": "ui",
+    "type": "class",
+    "description": "<p>Represents a flow editor that manages a sequence of nodes in a container. Needs to be\ninstantiated inside a <a href=\"#ui/Controller\" data-type=\"cross-link\" data-node-id=\"ui/Controller\">ui/Controller</a> context.</p>\n",
+    "params": [],
+    "superClass": "ui/Surface",
+    "members": [
+      "ui/ContainerEditor#delete"
+    ]
+  },
+  {
+    "parent": "ui/ContainerEditor",
+    "name": "delete",
+    "sourceFile": "ui/ContainerEditor.js",
+    "sourceLine": 137,
+    "id": "ui/ContainerEditor#delete",
+    "type": "method",
+    "description": "<p>Performs a <code>deleteSelection</code> tr</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "id": "ui/Controller",
+    "isDefault": true,
+    "name": "Controller",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 30,
+    "namespace": "ui",
+    "type": "class",
+    "description": "<p>Controls Substance infrastructure. Needs to be supplied as a top level instance\nto serve editors, commands and tools as a context.</p>\n<p>In order to construct a controller, you need to have a document instance ready,\nas well as a set of components and commands that you want your app to support.\nA controller can manage one or more editing surfaces.</p>\n<p>The controller is the interface for your app to trigger editor actions. For\ninstance from any component, not only from a predefined toolbar commands\ncan be executed on the controller to update the document.</p>\n",
+    "params": [],
+    "members": [
+      "ui/Controller#toolManager",
+      "ui/Controller#dispose",
+      "ui/Controller#getChildContext",
+      "ui/Controller#getToolManager",
+      "ui/Controller#getCommand",
+      "ui/Controller#executeCommand",
+      "ui/Controller#getDocument",
+      "ui/Controller#getSurface",
+      "ui/Controller#getFocusedSurface",
+      "ui/Controller#getSelection",
+      "ui/Controller#getContainerId",
+      "ui/Controller#registerSurface",
+      "ui/Controller#unregisterSurface",
+      "ui/Controller#hasSurfaces",
+      "ui/Controller#didFocus",
+      "ui/Controller#pushState",
+      "ui/Controller#popState",
+      "ui/Controller#saveDocument",
+      "ui/Controller#render",
+      "ui/Controller.concatStrings",
+      "ui/Controller@command:executed",
+      "ui/Controller@selection:changed",
+      "ui/Controller@document:saved"
+    ]
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "toolManager",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 48,
+    "id": "ui/Controller#toolManager",
+    "type": "property",
+    "description": "<p>Manages tools.</p>\n",
+    "dataType": "ui.ToolManager"
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "dispose",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 65,
+    "id": "ui/Controller#dispose",
+    "type": "method",
+    "description": "<p>Dispose component when component life ends. If you need to implement dispose\nin your custom Controller class, don't forget the super call.</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getChildContext",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 109,
+    "id": "ui/Controller#getChildContext",
+    "type": "method",
+    "description": "<p>Defines the child context. You should override this to provide your own contexts.</p>\n",
+    "params": [],
+    "returns": {
+      "type": "object",
+      "description": "<p>the child context</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getToolManager",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 125,
+    "id": "ui/Controller#getToolManager",
+    "type": "method",
+    "description": "<p>Get the associated ToolManager instance</p>\n",
+    "params": [],
+    "returns": {
+      "type": "ui/ToolManager",
+      "description": "<p>the ToolManager instance</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getCommand",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 152,
+    "id": "ui/Controller#getCommand",
+    "type": "method",
+    "description": "<p>Get registered controller command by name</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "commandName",
+        "description": "<p>the command name</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "ui/ControllerCommand",
+      "description": "<p>A controller command</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "executeCommand",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 166,
+    "id": "ui/Controller#executeCommand",
+    "type": "method",
+    "description": "<p>Execute command with given name if registered. In most cases this triggers a document transformation and\ncorresponding UI updates. For instance when pressing <code>ctrl+b</code> the\n<code>toggleStrong</code> command is executed. Each implemented command returns a custom\ninfo object, describing the action that has been performed.\nAfter execution a <code>command:executed</code> event is emitted on the controller.</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "commandName",
+        "description": "<p>the command name</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "ui/ControllerCommand",
+      "description": "<p>A controller command</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getDocument",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 196,
+    "id": "ui/Controller#getDocument",
+    "type": "method",
+    "description": "<p>Get document instance</p>\n",
+    "params": [],
+    "returns": {
+      "type": "model/Document",
+      "description": "<p>The document instance owned by the controller</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getSurface",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 207,
+    "id": "ui/Controller#getSurface",
+    "type": "method",
+    "description": "<p>Get Surface instance</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "name",
+        "description": "<p>Name under which the surface is registered</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "ui/Surface",
+      "description": "<p>The surface instance</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getFocusedSurface",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 221,
+    "id": "ui/Controller#getFocusedSurface",
+    "type": "method",
+    "description": "<p>Get the currently focused Surface.</p>\n",
+    "params": [],
+    "returns": {
+      "type": "ui/Surface",
+      "description": "<p>Surface instance</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getSelection",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 231,
+    "id": "ui/Controller#getSelection",
+    "type": "method",
+    "description": "<p>Get selection of currently focused surface. We recomment to use getSelection on Surface\ninstances directly when possible.</p>\n",
+    "params": [],
+    "returns": {
+      "type": "model/Selection",
+      "description": "<p>the current selection derived from the surface.</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "getContainerId",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 245,
+    "id": "ui/Controller#getContainerId",
+    "type": "method",
+    "description": "<p>Get containerId for currently focused surface</p>\n",
+    "params": [],
+    "returns": {
+      "type": "String",
+      "description": "<p>container id for currently focused surface, or undefined</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "registerSurface",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 257,
+    "id": "ui/Controller#registerSurface",
+    "type": "method",
+    "description": "<p>Register a surface</p>\n",
+    "params": [
+      {
+        "type": "",
+        "name": "surface",
+        "description": "<p>{ui/Surface} A new surface instance to register</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "unregisterSurface",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 270,
+    "id": "ui/Controller#unregisterSurface",
+    "type": "method",
+    "description": "<p>Unregister a surface</p>\n",
+    "params": [
+      {
+        "type": "",
+        "name": "surface",
+        "description": "<p>{ui/Surface} A surface instance to unregister</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "hasSurfaces",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 283,
+    "id": "ui/Controller#hasSurfaces",
+    "type": "method",
+    "description": "<p>Check if there are any surfaces registered</p>\n",
+    "params": [],
+    "returns": {
+      "type": "true|false",
+      "description": "<p>true if surface count &gt; 0</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "didFocus",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 292,
+    "id": "ui/Controller#didFocus",
+    "type": "method",
+    "description": "<p>Called whenever a surface has been focused.</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "pushState",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 402,
+    "id": "ui/Controller#pushState",
+    "type": "method",
+    "description": "<p>Push surface state</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "popState",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 417,
+    "id": "ui/Controller#popState",
+    "type": "method",
+    "description": "<p>Pop surface state</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "saveDocument",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 428,
+    "id": "ui/Controller#saveDocument",
+    "type": "method",
+    "description": "<p>Start document save workflow</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "render",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 462,
+    "id": "ui/Controller#render",
+    "type": "method",
+    "description": "<p>Render method of the controller component. This needs to be implemented by the\ncustom Controller class.</p>\n",
+    "params": [],
+    "returns": {
+      "type": "ui/Component.VirtualNode",
+      "description": "<p>VirtualNode created using Component.$$</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "concatStrings",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 475,
+    "isStatic": true,
+    "id": "ui/Controller.concatStrings",
+    "type": "method",
+    "description": "<p>Controller static method. This is just to test documentation</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "a",
+        "description": "<p>a string</p>\n"
+      },
+      {
+        "type": "String",
+        "name": "b",
+        "description": "<p>another string</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "String",
+      "description": "<p>The result of the static method</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "command:executed",
+    "example": "<pre><code class=\"hljs lang-js\">LinkTool.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.didInitialize = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> ctrl = <span class=\"hljs-keyword\">this</span>.getController();\n\n    ctrl.connect(<span class=\"hljs-keyword\">this</span>, {\n      <span class=\"hljs-string\">'command:executed'</span>: <span class=\"hljs-keyword\">this</span>.onCommandExecuted\n    });\n  };\n\n  <span class=\"hljs-keyword\">this</span>.onCommandExecuted = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">info, commandName</span>) </span>{\n    <span class=\"hljs-keyword\">if</span> (commandName === <span class=\"hljs-keyword\">this</span>.static.command) {\n      <span class=\"hljs-comment\">// Toggle the edit prompt when either edit is</span>\n      <span class=\"hljs-comment\">// requested or a new link has been created</span>\n      <span class=\"hljs-keyword\">if</span> (_.includes([<span class=\"hljs-string\">'edit'</span>,<span class=\"hljs-string\">'create'</span>], info.mode)) {\n        <span class=\"hljs-keyword\">this</span>.togglePrompt();\n      }\n    }\n  };\n  ...\n};\n</code><pre>\n",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 479,
+    "id": "ui/Controller@command:executed",
+    "type": "event",
+    "description": "<p>Emitted after a command has been executed. Since we did not allow command\nimplementations to access UI components, UI components can listen to\nthe <code>command:executed</code> event and perform necessary action then.</p>\n",
+    "params": [
+      {
+        "type": "object",
+        "name": "info",
+        "description": "<p>information about the command execution</p>\n"
+      },
+      {
+        "type": "String",
+        "name": "commandName",
+        "description": "<p>the command name (e.g. 'strong', 'emphasis')</p>\n"
+      },
+      {
+        "type": "ui/Command",
+        "name": "cmd",
+        "description": "<p>the command instance</p>\n"
+      }
+    ]
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "selection:changed",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 515,
+    "id": "ui/Controller@selection:changed",
+    "type": "event",
+    "description": "<p>Emitted when the active selection has changed, e.g. through cursor movement.\nTransports <code>sel</code> a DocumentSelection that can be expected but also the\nsurface in which the selection change happened.</p>\n",
+    "params": [
+      {
+        "type": "ui/Command",
+        "name": "cmd",
+        "description": "<p>the command instance</p>\n"
+      }
+    ]
+  },
+  {
+    "parent": "ui/Controller",
+    "name": "document:saved",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 524,
+    "id": "ui/Controller@document:saved",
+    "type": "event",
+    "description": "<p>Emitted when a save workflow has been completed successfully.</p>\n",
+    "params": []
+  },
+  {
+    "id": "ui/ControllerCommand",
+    "isDefault": true,
+    "name": "ControllerCommand",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ControllerCommand = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands'</span>).ControllerCommand;\n<span class=\"hljs-keyword\">var</span> Save = Command.extend({\n  static: {\n    name: <span class=\"hljs-string\">'save'</span>\n  },\n\n  execute: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.getController().saveDocument();\n  }\n});\n</code><pre>\n",
+    "sourceFile": "ui/ControllerCommand.js",
+    "sourceLine": 31,
+    "namespace": "ui",
+    "type": "class",
+    "description": "<p>A class for commands intended to be executed on the <a href=\"#module:ui.Controller\" data-type=\"cross-link\" data-node-id=\"module:ui.Controller\">module:ui.Controller</a>\nlevel. See the example below to learn how to define a custom <code>ControllerCommand</code>.</p>\n",
+    "params": [
+      {
+        "type": "ui/Controller",
+        "name": "controller",
+        "description": "<p>The controller the command will operate on</p>\n"
+      }
+    ],
+    "superClass": "ui/Command",
+    "members": [
+      "ui/ControllerCommand#getController",
+      "ui/ControllerCommand#getDocument",
+      "ui/ControllerCommand#execute"
+    ]
+  },
+  {
+    "parent": "ui/ControllerCommand",
+    "name": "getController",
+    "sourceFile": "ui/ControllerCommand.js",
+    "sourceLine": 42,
+    "id": "ui/ControllerCommand#getController",
+    "type": "method",
+    "description": "<p>Get controller instance</p>\n",
+    "params": [],
+    "returns": {
+      "type": "ui/Controller",
+      "description": "<p>The controller instance</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/ControllerCommand",
+    "name": "getDocument",
+    "sourceFile": "ui/ControllerCommand.js",
+    "sourceLine": 51,
+    "id": "ui/ControllerCommand#getDocument",
+    "type": "method",
+    "description": "<p>Get document instance</p>\n",
+    "params": [],
+    "returns": {
+      "type": "data/Document",
+      "description": "<p>The document instance owned by the controller</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/ControllerCommand",
+    "name": "execute",
+    "sourceFile": "ui/ControllerCommand.js",
+    "sourceLine": 60,
+    "id": "ui/ControllerCommand#execute",
+    "type": "method",
+    "description": "<p>Execute command</p>\n",
+    "params": [],
+    "returns": {
+      "type": "object",
+      "description": "<p>info object with execution details</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "id": "ui/Surface",
+    "isDefault": true,
+    "name": "Surface",
+    "sourceFile": "ui/Surface.js",
+    "sourceLine": 19,
+    "namespace": "ui",
+    "type": "class",
+    "description": "<p>Abstract interface for editing components.\nDances with contenteditable, so you don't have to.</p>\n",
+    "params": [],
+    "members": [
+      "ui/Surface#onKeyDown",
+      "ui/Surface#transaction",
+      "ui/Surface#setSelection",
+      "ui/Surface#_setModelSelection"
+    ]
+  },
+  {
+    "parent": "ui/Surface",
+    "name": "onKeyDown",
+    "sourceFile": "ui/Surface.js",
+    "sourceLine": 322,
+    "id": "ui/Surface#onKeyDown",
+    "type": "method",
+    "description": "<p>Handle document key down events.</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Surface",
+    "name": "transaction",
+    "example": "<p>Returning a new selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> selection = args.selection;\n  ...\n  selection = tx.createSelection(...);\n  <span class=\"hljs-keyword\">return</span> {\n    selection: selection\n  };\n});\n</code><pre>\n<p>Reusing the current selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n  <span class=\"hljs-keyword\">this</span>.foo();\n  ...\n  <span class=\"hljs-keyword\">return</span> args;\n}, <span class=\"hljs-keyword\">this</span>);\n</code><pre>\n<p>Adding custom information to the transaction:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(beforeState, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n});\n</code><pre>\n",
+    "sourceFile": "ui/Surface.js",
+    "sourceLine": 433,
+    "id": "ui/Surface#transaction",
+    "type": "method",
+    "description": "<p>Run a transformation as a transaction properly configured for this surface.</p>\n",
+    "params": [
+      {
+        "type": "",
+        "name": "beforeState",
+        "description": "<p>(optional) use this to override the default before-state (e.g. to use a different the initial selection).</p>\n"
+      },
+      {
+        "type": "",
+        "name": "transformation",
+        "description": "<p>a (surface) transformation function(tx, args) which receives                           the selection the transaction was started with, and should return\noutput arguments containing a selection, as well.</p>\n"
+      },
+      {
+        "type": "",
+        "name": "ctx",
+        "description": "<p>(optional) will be used as <code>this</code> object when calling the transformation.</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Surface",
+    "name": "setSelection",
+    "sourceFile": "ui/Surface.js",
+    "sourceLine": 702,
+    "id": "ui/Surface#setSelection",
+    "type": "method",
+    "description": "<p>Set the model selection and update the DOM selection accordingly</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/Surface",
+    "name": "_setModelSelection",
+    "sourceFile": "ui/Surface.js",
+    "sourceLine": 777,
+    "id": "ui/Surface#_setModelSelection",
+    "type": "method",
+    "description": "<p>Set the model selection only (without DOM selection update).</p>\n<p>Used internally if we derive the model selection from the DOM selcection.</p>\n",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "id": "ui/SurfaceCommand",
+    "isDefault": true,
+    "name": "SurfaceCommand",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ControllerCommand = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands'</span>).ControllerCommand;\n<span class=\"hljs-keyword\">var</span> Save = Command.extend({\n  static: {\n    name: <span class=\"hljs-string\">'save'</span>\n  },\n\n  execute: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.getController().saveDocument();\n  }\n});\n</code><pre>\n",
+    "sourceFile": "ui/SurfaceCommand.js",
+    "sourceLine": 29,
+    "namespace": "ui",
+    "type": "class",
+    "description": "<p>A class for commands intended to be executed on the <a href=\"#module:ui.surface.Surface\" data-type=\"cross-link\" data-node-id=\"module:ui.surface.Surface\">module:ui.surface.Surface</a>\nlevel. See the example below to learn how to define a custom <code>SurfaceCommand</code>.</p>\n",
+    "params": [
+      {
+        "type": "ui/Surface",
+        "name": "surface",
+        "description": "<p>surface the command will operate on</p>\n"
+      }
+    ],
+    "superClass": "ui/Command",
+    "members": [
+      "ui/SurfaceCommand#getSurface",
+      "ui/SurfaceCommand#getSelection",
+      "ui/SurfaceCommand#getContainerId",
+      "ui/SurfaceCommand#getDocument",
+      "ui/SurfaceCommand#execute"
+    ]
+  },
+  {
+    "parent": "ui/SurfaceCommand",
+    "name": "getSurface",
+    "sourceFile": "ui/SurfaceCommand.js",
+    "sourceLine": 39,
+    "id": "ui/SurfaceCommand#getSurface",
+    "type": "method",
+    "description": "<p>Get Surface instance</p>\n",
+    "params": [],
+    "returns": {
+      "type": "ui/Surface",
+      "description": "<p>The surface instance</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/SurfaceCommand",
+    "name": "getSelection",
+    "sourceFile": "ui/SurfaceCommand.js",
+    "sourceLine": 48,
+    "id": "ui/SurfaceCommand#getSelection",
+    "type": "method",
+    "description": "<p>Get current selection of surface bound to the command</p>\n",
+    "params": [],
+    "returns": {
+      "type": "model/Selection",
+      "description": "<p>the current Document.Selection derived from the surface.</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/SurfaceCommand",
+    "name": "getContainerId",
+    "sourceFile": "ui/SurfaceCommand.js",
+    "sourceLine": 58,
+    "id": "ui/SurfaceCommand#getContainerId",
+    "type": "method",
+    "description": "<p>Get containerId. Only available on container surfaces, e.g. <a href=\"#module:ui.surface.ContainerEditor\" data-type=\"cross-link\" data-node-id=\"module:ui.surface.ContainerEditor\">module:ui.surface.ContainerEditor</a>.</p>\n",
+    "params": [],
+    "returns": {
+      "type": "String",
+      "description": "<p>the container id</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/SurfaceCommand",
+    "name": "getDocument",
+    "sourceFile": "ui/SurfaceCommand.js",
+    "sourceLine": 68,
+    "id": "ui/SurfaceCommand#getDocument",
+    "type": "method",
+    "description": "<p>Get the current document</p>\n",
+    "params": [],
+    "returns": {
+      "type": "data/Document",
+      "description": "<p>the container id</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "ui/SurfaceCommand",
+    "name": "execute",
+    "sourceFile": "ui/SurfaceCommand.js",
+    "sourceLine": 79,
+    "id": "ui/SurfaceCommand#execute",
+    "type": "method",
+    "description": "<p>Execute the command. Needs to be implemented by the custom command class.</p>\n",
+    "params": [],
+    "returns": {
+      "type": "data/Document",
+      "description": "<p>The document instance owned by the controller</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "id": "ui/TextPropertyAnnotator",
+    "isDefault": true,
+    "name": "TextPropertyAnnotator",
+    "sourceFile": "ui/TextPropertyAnnotator.js",
+    "sourceLine": 16,
+    "namespace": "ui",
+    "type": "function",
+    "description": "<p>TextPropertyAnnotator</p>\n",
+    "params": [],
+    "isStatic": true
+  },
+  {
+    "id": "ui/TextPropertyEditor",
+    "isDefault": true,
+    "name": "TextPropertyEditor",
+    "example": "<p>Create a <code>TextPropertyEditor</code> for the <code>name</code> property of an author object. Allow emphasis annotations.</p>\n<pre><code class=\"hljs lang-js\">$$(TextPropertyEditor, {\n  name: <span class=\"hljs-string\">'authorNameEditor'</span>,\n  path: [<span class=\"hljs-string\">'author_1'</span>, <span class=\"hljs-string\">'name'</span>],\n  commands: [EmphasisCommand]\n})\n</code><pre>\n",
+    "sourceFile": "ui/TextPropertyEditor.js",
+    "sourceLine": 33,
+    "namespace": "ui",
+    "type": "class",
+    "description": "<p>Editor for a text property (annotated string). Needs to be\ninstantiated inside a <a href=\"#ui/Controller\" data-type=\"cross-link\" data-node-id=\"ui/Controller\">ui/Controller</a> context.</p>\n",
+    "params": [],
+    "superClass": "module:ui/Surface",
+    "members": []
+  },
+  {
+    "id": "util/EventEmitter",
+    "isDefault": true,
+    "name": "EventEmitter",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 11,
+    "namespace": "util",
+    "type": "class",
+    "description": "<p>Event support.</p>\n",
+    "params": [],
+    "members": [
+      "util/EventEmitter#_on",
+      "util/EventEmitter#_off",
+      "util/EventEmitter#_connect",
+      "util/EventEmitter#_disconnect",
+      "util/EventEmitter#emit",
+      "util/EventEmitter#connect",
+      "util/EventEmitter#disconnect",
+      "util/EventEmitter#on",
+      "util/EventEmitter#off"
+    ]
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "_on",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 47,
+    "id": "util/EventEmitter#_on",
+    "type": "method",
+    "description": "<p>Internal implementation for registering a listener.</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "event",
+        "description": ""
+      },
+      {
+        "type": "Function",
+        "name": "method",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "name": "context",
+        "description": ""
+      }
+    ],
+    "isPrivate": true
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "_off",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 73,
+    "id": "util/EventEmitter#_off",
+    "type": "method",
+    "description": "<p>Remove a listener.</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "event",
+        "description": ""
+      },
+      {
+        "type": "Function",
+        "name": "method",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "name": "context",
+        "description": ""
+      }
+    ],
+    "isPrivate": true
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "_connect",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 109,
+    "id": "util/EventEmitter#_connect",
+    "type": "method",
+    "description": "<p>Internal implementation of connect.</p>\n",
+    "params": [],
+    "isPrivate": true
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "_disconnect",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 127,
+    "id": "util/EventEmitter#_disconnect",
+    "type": "method",
+    "description": "<p>Internal implementation of disconnect.</p>\n",
+    "params": [],
+    "isPrivate": true
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "emit",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 151,
+    "id": "util/EventEmitter#emit",
+    "type": "method",
+    "description": "<p>Emit an event.</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "event",
+        "description": ""
+      },
+      {
+        "type": "",
+        "name": "...arguments",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "",
+      "description": "<p>true if a listener was notified, false otherwise.</p>\n"
+    },
+    "isPrivate": false
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "connect",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 185,
+    "id": "util/EventEmitter#connect",
+    "type": "method",
+    "description": "<p>Connect a listener to a set of events.</p>\n<p>Optionally, a <code>priority</code> can be provided to control the order\nof all bindings. The default priority is 0. All listeners with the\nsame priority remain in order of registration.\nA lower priority will make the listener be called later, a higher\npriority earlier.</p>\n",
+    "params": [
+      {
+        "type": "Object",
+        "name": "listener",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "name": "hash",
+        "description": "<p>with event as keys, and handler functions as values.</p>\n"
+      },
+      {
+        "type": "Number",
+        "name": "hash",
+        "description": "<p>with <code>priority</code> as ordering hint (default is 0).</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "disconnect",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 198,
+    "id": "util/EventEmitter#disconnect",
+    "type": "method",
+    "description": "<p>Disconnect a listener (all bindings).</p>\n",
+    "params": [
+      {
+        "type": "Object",
+        "name": "listener",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "on",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 210,
+    "id": "util/EventEmitter#on",
+    "type": "method",
+    "description": "<p>Subscribe a listener to a event.</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "event",
+        "description": ""
+      },
+      {
+        "type": "Function",
+        "name": "method",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "name": "context",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "name": "options",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "parent": "util/EventEmitter",
+    "name": "off",
+    "sourceFile": "util/EventEmitter.js",
+    "sourceLine": 227,
+    "id": "util/EventEmitter#off",
+    "type": "method",
+    "description": "<p>Unsubscrive a listener from an event.</p>\n",
+    "params": [
+      {
+        "type": "String",
+        "name": "event",
+        "description": ""
+      },
+      {
+        "type": "Function",
+        "name": "method",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "name": "context",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "name": "options",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "id": "util/oo",
+    "isDefault": true,
+    "name": "oo",
+    "sourceFile": "util/oo.js",
+    "sourceLine": 10,
+    "namespace": "util",
+    "type": "module",
+    "description": "<p>Helpers for oo programming.</p>\n",
+    "members": [
+      "util/oo.initClass",
+      "util/oo.inherit"
+    ]
+  },
+  {
+    "id": "util/oo.initClass",
+    "parent": "util/oo",
+    "name": "initClass",
+    "sourceFile": "util/oo.js",
+    "sourceLine": 103,
+    "type": "method",
+    "description": "<p>Initialize a class.</p>\n",
+    "params": [
+      {
+        "type": "Constructor",
+        "name": "clazz",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "id": "util/oo.inherit",
+    "parent": "util/oo",
+    "name": "inherit",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> oo = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/basics/oo'</span>);\n<span class=\"hljs-keyword\">var</span> Parent = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{};\nParent.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.foo = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{ <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">'foo'</span>; }\n}\n<span class=\"hljs-keyword\">var</span> Child = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  Parent.apply(<span class=\"hljs-keyword\">this</span>, <span class=\"hljs-built_in\">arguments</span>);\n}\noo.inherit(Child, Parent);\n</code><pre>\n",
+    "sourceFile": "util/oo.js",
+    "sourceLine": 166,
+    "type": "method",
+    "description": "<p>Inherit from a parent class.</p>\n",
+    "params": [
+      {
+        "type": "Constructor",
+        "name": "clazz",
+        "description": "<p>class constructor</p>\n"
+      },
+      {
+        "type": "Constructor",
+        "name": "parentClazz",
+        "description": "<p>parent constructor</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "namespace",
+    "id": "model",
+    "name": "model",
+    "description": "<p>All you need for defining custom article formats and manipulate them.</p>\n",
+    "members": [
+      "model/AbstractDocument",
+      "model/ContainerAnnotation",
+      "model/Document",
+      "model/documentHelpers",
+      "model/DocumentSchema"
+    ]
+  },
+  {
+    "type": "namespace",
+    "id": "model/transform",
+    "name": "transform",
+    "description": "<p>Transformations are there to define higher level document operations that editor implementations can use. We implemented a range of useful transformations and made them available in the <code>model/transform</code> module. However, you are encouraged to define your own functions. Below is a shortened version of a possible searchAndReplace transformation.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">searchAndReplace</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-comment\">// 1. verify arguments args.searchStr, args.replaceStr, args.container</span>\n  <span class=\"hljs-comment\">// 2. implement your transformation using low level operations (e.g. tx.create)</span>\n  <span class=\"hljs-comment\">// ...</span>\n  <span class=\"hljs-keyword\">var</span> searchResult = search(tx, args);\n\n  searchResult.matches.forEach(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">match</span>) </span>{\n    <span class=\"hljs-keyword\">var</span> replaceArgs = _.extend({}, args, {selection: match, replaceStr: args.replaceStr});\n    replaceText(tx, replaceArgs);\n  });\n\n  <span class=\"hljs-comment\">// 3. set new selection</span>\n  <span class=\"hljs-keyword\">if</span> (searchResult.matches.length &gt; <span class=\"hljs-number\">0</span>) {\n    <span class=\"hljs-keyword\">var</span> lastMatch = _.last(searchResult.matches);\n    args.selection = lastMatch;\n  }\n\n  <span class=\"hljs-comment\">// 4. return args for the caller or transaction context</span>\n  <span class=\"hljs-keyword\">return</span> args;\n}\n</code><pre>\n<p>Transformations always take 2 parameters: <code>tx</code> is a <code>TransactionDocument</code> and <code>args</code> are the transformation's arguments. Transformations can be composed, so in a transformation you can call another transformation. You just need to be careful to always set the args properly. Here's how the transformation we just defined can be called in a transaction.</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  args.searchStr = <span class=\"hljs-string\">\"foo\"</span>;\n  args.replaceStr = <span class=\"hljs-string\">\"bar\"</span>;\n  <span class=\"hljs-keyword\">return</span> searchAndReplace(tx, args);\n});\n</code><pre>\n<p>Using the transaction method on a Surface instance passes the current selection to the transformation automatically. So you will use surface transactions whenever some kind of selection is involved in your action. However, you could also provide the selection manually and call <code>transaction()</code> on the document or app controller instance. Make sure that your transformations are robust for both scenarios. If you look at the above example under (3) we set the selection to the last matched element after search and replace. If something has been found.</p>\n",
+    "members": [
+      "model/transform/breakNode"
+    ]
+  },
+  {
+    "type": "namespace",
+    "id": "ui",
+    "name": "ui",
+    "description": "<p>Provides all UI-related functionality. At the heart there is a Component implementation, which implements reactive rendering engine.</p>\n<p>Let's look at a complete example of a simple ProseEditor implementation. The <code>render</code> function is the heart of our custom <code>ProseEditor</code> component. It contains a bit of custom markup and utilizes predefined UI components, such as a <code>Toolbar</code> including tools like the <code>UndoTool</code> and a configured <code>ContainerEditor</code>, which will do the actual editing work.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ProseEditor = Controller.extend({\n  <span class=\"hljs-comment\">// Editor configuration</span>\n  static: {\n    config: CONFIG,\n  },\n  <span class=\"hljs-comment\">// Custom Render method for your editor</span>\n  render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> config = getConfig();\n    <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).addClass(<span class=\"hljs-string\">'sc-prose-editor'</span>).append(\n      $$(Toolbar).append(\n        $$(Toolbar.Group).append(\n          $$(TextTool, {<span class=\"hljs-string\">'title'</span>: <span class=\"hljs-keyword\">this</span>.i18n.t(<span class=\"hljs-string\">'switch_text'</span>)}),\n          $$(UndoTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-undo\"</span>})),\n          $$(RedoTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-repeat\"</span>})),\n          $$(StrongTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-bold\"</span>})),\n          $$(EmphasisTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-italic\"</span>}))\n        )\n      ),\n      $$(ContainerEditor, {\n        doc: <span class=\"hljs-keyword\">this</span>.props.doc,\n        containerId: <span class=\"hljs-string\">'body'</span>,\n        name: <span class=\"hljs-string\">'bodyEditor'</span>,\n        commands: config.bodyEditor.commands\n      }).ref(<span class=\"hljs-string\">'bodyEditor'</span>)\n    );\n  }\n});\n</code><pre>\n<p>There's also a config object that is essential for the editor to work. The following configuration sets up a component registry that assigns a visual component to each content node type. It also defines which commands should be supported on the controller level (undo, redo, save) and for the editor (strong, emphasis, link). Furthermore we need to setup which text types the editor should support.</p>\n<p>Let's now look at the config object:</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> CONFIG = {\n  <span class=\"hljs-comment\">// Controller specific configuration</span>\n  controller: {\n    <span class=\"hljs-comment\">// Component registry</span>\n    components: {\n      <span class=\"hljs-string\">'paragraph'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/ParagraphComponent'</span>),\n      <span class=\"hljs-string\">'heading'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/heading/HeadingComponent'</span>),\n      <span class=\"hljs-string\">'link'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/link/LinkComponent'</span>)\n    },\n    <span class=\"hljs-comment\">// Controller commands</span>\n    commands: [\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/undo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/redo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/save'</span>)\n    ]\n  },\n  <span class=\"hljs-comment\">// Body editor configuration</span>\n  bodyEditor: {\n    <span class=\"hljs-comment\">// Surface commands</span>\n    commands: [\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/text/SwitchTextTypeCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/strong/StrongCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/EmphasisCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/link/LinkCommand'</span>)\n    ],\n    <span class=\"hljs-comment\">// Text types available in the switch text type dropdown</span>\n    textTypes: [\n      {name: <span class=\"hljs-string\">'paragraph'</span>, data: {type: <span class=\"hljs-string\">'paragraph'</span>}},\n      {name: <span class=\"hljs-string\">'heading1'</span>,  data: {type: <span class=\"hljs-string\">'heading'</span>, level: <span class=\"hljs-number\">1</span>}},\n      {name: <span class=\"hljs-string\">'codeblock'</span>, data: {type: <span class=\"hljs-string\">'codeblock'</span>}}\n    ]\n  }\n};\n</code><pre>\n",
+    "members": [
+      "ui/ContainerAnnotator",
+      "ui/ContainerEditor",
+      "ui/Controller",
+      "ui/ControllerCommand",
+      "ui/Surface",
+      "ui/SurfaceCommand",
+      "ui/TextPropertyAnnotator",
+      "ui/TextPropertyEditor"
+    ]
+  },
+  {
+    "type": "namespace",
+    "id": "util",
+    "name": "util",
+    "description": "<p><code>util</code> provides useful functions for inheritance, an EventEmitter implementation as well as Factory and Registry implementations.</p>\n",
+    "members": [
+      "util/EventEmitter",
+      "util/oo"
+    ]
+  },
+  {
+    "type": "meta",
+    "id": "meta",
+    "description": "<p><a href=\"https://github.com/substance/substance\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n</ul>\n",
+    "repository": "https://github.com/substance/substance",
+    "sha": "25a6dea23030c732f3e6d0b644b507ee5c1d4d58"
+  }
+]

@@ -983,11 +983,15 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
 pre {
   font-size: 12px;
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace; }
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  margin-bottom: 20px; }
 
 body {
   font-size: 14px;
   overflow: hidden; }
+
+.sc-documentation-toc-panel {
+  top: 0px; }
 
 .sc-documentation-reader {
   position: absolute;
@@ -1000,7 +1004,7 @@ body {
     left: 0px;
     right: 0px;
     overflow: hidden;
-    bottom: 25px;
+    bottom: 0px;
     top: 0px; }
     .sc-documentation-reader .se-workspace .se-main {
       float: left;

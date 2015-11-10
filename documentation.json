@@ -1,83 +1,9 @@
 [
   {
-    "id": "model/AbstractDocument",
-    "isDefault": true,
-    "name": "AbstractDocument",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 19,
-    "namespace": "model",
-    "type": "class",
-    "description": "<p>Abstract Document implementation.</p>\n",
-    "params": [],
-    "isAbstract": true,
-    "members": [
-      "model/AbstractDocument#schema",
-      "model/AbstractDocument#_setAutoAttach",
-      "model/AbstractDocument#setText",
-      "model/AbstractDocument#createSelection"
-    ]
-  },
-  {
-    "parent": "model/AbstractDocument",
-    "name": "schema",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 26,
-    "id": "model/AbstractDocument#schema",
-    "type": "property",
-    "description": "<p>The schema.</p>\n",
-    "dataType": "{model/DocumentSchema}"
-  },
-  {
-    "parent": "model/AbstractDocument",
-    "name": "_setAutoAttach",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 77,
-    "id": "model/AbstractDocument#_setAutoAttach",
-    "type": "method",
-    "description": "<p>Enable or disable auto-attaching of nodes.\nWhen this is enabled (default), a created node\ngets attached to the document instantly.\nOtherwise you need to take care of that yourself.</p>\n<p>Used internally e.g., by AbstractDocument.prototype.loadSeed()</p>\n",
-    "params": [],
-    "isPrivate": true
-  },
-  {
-    "parent": "model/AbstractDocument",
-    "name": "setText",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 233,
-    "id": "model/AbstractDocument#setText",
-    "type": "method",
-    "description": "<p>Sets the text of a property together with annotations.</p>\n",
-    "params": [
-      {
-        "type": "Array.<String>",
-        "name": "path",
-        "description": "<p>Path to the text property.</p>\n"
-      }
-    ],
-    "isPrivate": false
-  },
-  {
-    "parent": "model/AbstractDocument",
-    "name": "createSelection",
-    "example": "<pre><code class=\"hljs lang-js\">doc.createSelection({\n  type: <span class=\"hljs-string\">'property'</span>,\n  path: [ <span class=\"hljs-string\">'text1'</span>, <span class=\"hljs-string\">'content'</span>],\n  startOffset: <span class=\"hljs-number\">10</span>,\n  endOffset: <span class=\"hljs-number\">20</span>\n})\n</code><pre>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 266,
-    "id": "model/AbstractDocument#createSelection",
-    "type": "method",
-    "description": "<p>Creates a selection which is attached to this document.\nEvery selection implementation provides its own\nparameter format which is basically a JSON representation.</p>\n",
-    "params": [
-      {
-        "type": "model/Selection",
-        "name": "sel",
-        "description": "<p>An object describing the selection.</p>\n"
-      }
-    ],
-    "isPrivate": false
-  },
-  {
     "id": "model/ContainerAnnotation",
     "isDefault": true,
     "name": "ContainerAnnotation",
-    "example": "<pre><code class=\"hljs lang-js\">{\n  <span class=\"hljs-string\">\"id\"</span>: <span class=\"hljs-string\">\"subject_reference_1\"</span>,\n  <span class=\"hljs-string\">\"type\"</span>: <span class=\"hljs-string\">\"subject_reference\"</span>,\n  <span class=\"hljs-string\">\"container\"</span>: <span class=\"hljs-string\">\"content\"</span>,\n  <span class=\"hljs-string\">\"startPath\"</span>: [<span class=\"hljs-string\">\"text_2\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">100</span>,\n  <span class=\"hljs-string\">\"endPath\"</span>: [<span class=\"hljs-string\">\"text_4\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">40</span>\n}\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\">{\n  <span class=\"hljs-string\">\"id\"</span>: <span class=\"hljs-string\">\"subject_reference_1\"</span>,\n  <span class=\"hljs-string\">\"type\"</span>: <span class=\"hljs-string\">\"subject_reference\"</span>,\n  <span class=\"hljs-string\">\"container\"</span>: <span class=\"hljs-string\">\"content\"</span>,\n  <span class=\"hljs-string\">\"startPath\"</span>: [<span class=\"hljs-string\">\"text_2\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">100</span>,\n  <span class=\"hljs-string\">\"endPath\"</span>: [<span class=\"hljs-string\">\"text_4\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">40</span>\n}\n</code></pre>\n",
     "sourceFile": "model/ContainerAnnotation.js",
     "sourceLine": 30,
     "namespace": "model",
@@ -90,9 +16,9 @@
     "id": "model/Document",
     "isDefault": true,
     "name": "Document",
-    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> Document = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/Document'</span>);\n<span class=\"hljs-keyword\">var</span> Article = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">schema</span>) </span>{\n  Document.call(schema);\n\n  <span class=\"hljs-comment\">// We set up a container that holds references to</span>\n  <span class=\"hljs-comment\">// block nodes (in our example paragraphs)</span>\n  <span class=\"hljs-keyword\">this</span>.create({\n    type: <span class=\"hljs-string\">\"container\"</span>,\n    id: <span class=\"hljs-string\">\"body\"</span>,\n    nodes: []\n  });\n};\n\nOO.inherit(Article, Document);\n</code><pre>\n<p>Substance documents are manipulated incrementally using operations.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> doc = <span class=\"hljs-keyword\">new</span> Article();\n</code><pre>\n<p>When you want to update a document, you must wrap your changes in a transaction, to avoid inconsistent in-between states. The API is fairly easy. Let's create two paragraph nodes in one transaction.</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'p1'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'Hi I am a Substance paragraph.'</span>\n  });\n  tx.create({\n    id: <span class=\"hljs-string\">'p2'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'And I am the second pargraph'</span>\n  });\n});\n</code><pre>\n<p>A Substance document works like an object store, you can create as many nodes as you wish and assign unique id's to them. In order to create a sequence of nodes, we have to <code>show</code> them on a container node.</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> body = tx.get(<span class=\"hljs-string\">'body'</span>);\n  body.show(<span class=\"hljs-string\">'p1'</span>);\n  body.show(<span class=\"hljs-string\">'p2'</span>);\n});\n</code><pre>\n<p>Now let's make a <strong>strong</strong> annotation. In Substance annotations are stored separately from the text. Annotations are just regular nodes in the document. They refer to a certain range (<code>startOffset, endOffset</code>) in a text property (<code>path</code>).</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'s1'</span>,\n    type: <span class=\"hljs-string\">'strong'</span>,\n    path: [<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n    <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">10</span>,\n    <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">19</span>\n  });\n});\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> Document = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/Document'</span>);\n<span class=\"hljs-keyword\">var</span> Article = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">schema</span>) </span>{\n  Document.call(schema);\n\n  <span class=\"hljs-comment\">// We set up a container that holds references to</span>\n  <span class=\"hljs-comment\">// block nodes (in our example paragraphs)</span>\n  <span class=\"hljs-keyword\">this</span>.create({\n    type: <span class=\"hljs-string\">\"container\"</span>,\n    id: <span class=\"hljs-string\">\"body\"</span>,\n    nodes: []\n  });\n};\n\nOO.inherit(Article, Document);\n</code></pre>\n",
     "sourceFile": "model/Document.js",
-    "sourceLine": 92,
+    "sourceLine": 46,
     "namespace": "model",
     "type": "class",
     "description": "<p>Abstract class used for deriving a custom article implementation.</p>\n",
@@ -113,9 +39,9 @@
   {
     "parent": "model/Document",
     "name": "transaction",
-    "example": "<pre><code class=\"hljs lang-js\">doc.transaction({ selection: sel }, {<span class=\"hljs-string\">'event-hack'</span>: <span class=\"hljs-literal\">true</span>}, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  tx.update(...);\n  ...\n  <span class=\"hljs-keyword\">return</span> {\n    selection: newSelection\n  };\n})\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\">doc.transaction({ selection: sel }, {<span class=\"hljs-string\">'event-hack'</span>: <span class=\"hljs-literal\">true</span>}, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  tx.update(...);\n  ...\n  <span class=\"hljs-keyword\">return</span> {\n    selection: newSelection\n  };\n})\n</code></pre>\n",
     "sourceFile": "model/Document.js",
-    "sourceLine": 199,
+    "sourceLine": 153,
     "id": "model/Document#transaction",
     "type": "method",
     "description": "<p>Start a transaction to manipulate the document</p>\n",
@@ -142,7 +68,7 @@
     "parent": "model/Document",
     "name": "_setAutoAttach",
     "sourceFile": "model/Document.js",
-    "sourceLine": 339,
+    "sourceLine": 293,
     "id": "model/Document#_setAutoAttach",
     "type": "method",
     "description": "<p>Enable or disable auto-attaching of nodes.\nWhen this is enabled (default), a created node\ngets attached to the document instantly.\nOtherwise you need to take care of that yourself.</p>\n<p>Used internally e.g., by AbstractDocument.prototype.loadSeed()</p>\n",
@@ -153,7 +79,7 @@
     "id": "model/documentHelpers",
     "isDefault": true,
     "name": "documentHelpers",
-    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> documentHelpers = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/documentHelpers'</span>);\ndocumentHelpers.isContainerAnnotation(doc, <span class=\"hljs-string\">'comment'</span>)\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> documentHelpers = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/documentHelpers'</span>);\ndocumentHelpers.isContainerAnnotation(doc, <span class=\"hljs-string\">'comment'</span>)\n</code></pre>\n",
     "sourceFile": "model/documentHelpers.js",
     "sourceLine": 15,
     "namespace": "model",
@@ -317,7 +243,7 @@
     "id": "model/DocumentSchema",
     "isDefault": true,
     "name": "DocumentSchema",
-    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> Paragraph = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/Paragraph'</span>);\n<span class=\"hljs-keyword\">var</span> Emphasis = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/Emphasis'</span>);\n<span class=\"hljs-keyword\">var</span> Strong = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/Strong'</span>);\n<span class=\"hljs-keyword\">var</span> Annotation = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/Annotation'</span>);\n\n<span class=\"hljs-keyword\">var</span> Comment = Annotation.extend({\n  name: <span class=\"hljs-string\">'comment'</span>,\n  properties: {\n    content: <span class=\"hljs-string\">'string'</span>\n  }\n});\n\n<span class=\"hljs-keyword\">var</span> schema = <span class=\"hljs-keyword\">new</span> Document.Schema(<span class=\"hljs-string\">'my-article'</span>, <span class=\"hljs-string\">'1.0.0'</span>);\nschema.getDefaultTextType = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">\"paragraph\"</span>;\n};\nschema.addNodes([Paragraph, Emphasis, Strong, Comment]);\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> Paragraph = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/Paragraph'</span>);\n<span class=\"hljs-keyword\">var</span> Emphasis = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/Emphasis'</span>);\n<span class=\"hljs-keyword\">var</span> Strong = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/Strong'</span>);\n<span class=\"hljs-keyword\">var</span> Annotation = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/Annotation'</span>);\n\n<span class=\"hljs-keyword\">var</span> Comment = Annotation.extend({\n  name: <span class=\"hljs-string\">'comment'</span>,\n  properties: {\n    content: <span class=\"hljs-string\">'string'</span>\n  }\n});\n\n<span class=\"hljs-keyword\">var</span> schema = <span class=\"hljs-keyword\">new</span> Document.Schema(<span class=\"hljs-string\">'my-article'</span>, <span class=\"hljs-string\">'1.0.0'</span>);\nschema.getDefaultTextType = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">\"paragraph\"</span>;\n};\nschema.addNodes([Paragraph, Emphasis, Strong, Comment]);\n</code></pre>\n",
     "sourceFile": "model/DocumentSchema.js",
     "sourceLine": 40,
     "namespace": "model",
@@ -378,10 +304,33 @@
     "isStatic": true
   },
   {
+    "id": "model/transform/createAnnotation",
+    "isDefault": true,
+    "name": "createAnnotation",
+    "sourceFile": "model/transform/createAnnotation.js",
+    "sourceLine": 48,
+    "namespace": "model/transform",
+    "type": "function",
+    "description": "<p>For a given container selection create property selections of a given type</p>\n",
+    "params": [
+      {
+        "type": "model/TransactionDocument",
+        "name": "tx",
+        "description": "<p>the document instance</p>\n"
+      },
+      {
+        "type": "Object",
+        "name": "args",
+        "description": "<p>object with fields <code>selection</code>, <code>containerId</code>, <code>annotationType</code>, <code>[annotationData]</code></p>\n"
+      }
+    ],
+    "isStatic": true
+  },
+  {
     "id": "ui/ContainerAnnotator",
     "isDefault": true,
     "name": "ContainerAnnotator",
-    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ContainerAnnotator = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/ContainerAnnotator'</span>);\n<span class=\"hljs-keyword\">var</span> Component = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/Component'</span>);\n<span class=\"hljs-keyword\">var</span> ToggleStrong = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/strong/ToggleStrong'</span>);\n\n<span class=\"hljs-keyword\">var</span> MyAnnotator = Component.extend({\n  render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> annotator = $$(ContainerAnnotator, {\n      name: <span class=\"hljs-string\">'main'</span>,\n      containerId: <span class=\"hljs-string\">'main'</span>,\n      doc: doc,\n      commands: [ToggleStrong]\n    }).ref(<span class=\"hljs-string\">'annotator'</span>);\n    <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).addClass(<span class=\"hljs-string\">'my-annotator'</span>).append(annotator);\n  }\n});\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ContainerAnnotator = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/ContainerAnnotator'</span>);\n<span class=\"hljs-keyword\">var</span> Component = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/Component'</span>);\n<span class=\"hljs-keyword\">var</span> ToggleStrong = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/strong/ToggleStrong'</span>);\n\n<span class=\"hljs-keyword\">var</span> MyAnnotator = Component.extend({\n  render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> annotator = $$(ContainerAnnotator, {\n      name: <span class=\"hljs-string\">'main'</span>,\n      containerId: <span class=\"hljs-string\">'main'</span>,\n      doc: doc,\n      commands: [ToggleStrong]\n    }).ref(<span class=\"hljs-string\">'annotator'</span>);\n    <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).addClass(<span class=\"hljs-string\">'my-annotator'</span>).append(annotator);\n  }\n});\n</code></pre>\n",
     "sourceFile": "ui/ContainerAnnotator.js",
     "sourceLine": 38,
     "namespace": "ui",
@@ -395,7 +344,7 @@
     "id": "ui/ContainerEditor",
     "isDefault": true,
     "name": "ContainerEditor",
-    "example": "<p>Create a full-fledged <code>ContainerEditor</code> for the <code>body</code> container of a document. Allow Strong and Emphasis annotations and to switch text types between paragraph and heading at level 1.</p>\n<pre><code class=\"hljs lang-js\">$$(ContainerEditor, {\n  name: <span class=\"hljs-string\">'bodyEditor'</span>,\n  containerId: <span class=\"hljs-string\">'body'</span>,\n  textTypes: [\n    {name: <span class=\"hljs-string\">'paragraph'</span>, data: {type: <span class=\"hljs-string\">'paragraph'</span>}},\n    {name: <span class=\"hljs-string\">'heading1'</span>,  data: {type: <span class=\"hljs-string\">'heading'</span>, level: <span class=\"hljs-number\">1</span>}}\n  ],\n  commands: [StrongCommand, EmphasisCommand, SwitchTextTypeCommand],\n})\n</code><pre>\n",
+    "example": "<p>Create a full-fledged <code>ContainerEditor</code> for the <code>body</code> container of a document. Allow Strong and Emphasis annotations and to switch text types between paragraph and heading at level 1.</p>\n<pre><code class=\"hljs lang-js\">$$(ContainerEditor, {\n  name: <span class=\"hljs-string\">'bodyEditor'</span>,\n  containerId: <span class=\"hljs-string\">'body'</span>,\n  textTypes: [\n    {name: <span class=\"hljs-string\">'paragraph'</span>, data: {type: <span class=\"hljs-string\">'paragraph'</span>}},\n    {name: <span class=\"hljs-string\">'heading1'</span>,  data: {type: <span class=\"hljs-string\">'heading'</span>, level: <span class=\"hljs-number\">1</span>}}\n  ],\n  commands: [StrongCommand, EmphasisCommand, SwitchTextTypeCommand],\n})\n</code></pre>\n",
     "sourceFile": "ui/ContainerEditor.js",
     "sourceLine": 44,
     "namespace": "ui",
@@ -766,7 +715,7 @@
   {
     "parent": "ui/Controller",
     "name": "command:executed",
-    "example": "<pre><code class=\"hljs lang-js\">LinkTool.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.didInitialize = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> ctrl = <span class=\"hljs-keyword\">this</span>.getController();\n\n    ctrl.connect(<span class=\"hljs-keyword\">this</span>, {\n      <span class=\"hljs-string\">'command:executed'</span>: <span class=\"hljs-keyword\">this</span>.onCommandExecuted\n    });\n  };\n\n  <span class=\"hljs-keyword\">this</span>.onCommandExecuted = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">info, commandName</span>) </span>{\n    <span class=\"hljs-keyword\">if</span> (commandName === <span class=\"hljs-keyword\">this</span>.static.command) {\n      <span class=\"hljs-comment\">// Toggle the edit prompt when either edit is</span>\n      <span class=\"hljs-comment\">// requested or a new link has been created</span>\n      <span class=\"hljs-keyword\">if</span> (_.includes([<span class=\"hljs-string\">'edit'</span>,<span class=\"hljs-string\">'create'</span>], info.mode)) {\n        <span class=\"hljs-keyword\">this</span>.togglePrompt();\n      }\n    }\n  };\n  ...\n};\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\">LinkTool.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.didInitialize = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> ctrl = <span class=\"hljs-keyword\">this</span>.getController();\n\n    ctrl.connect(<span class=\"hljs-keyword\">this</span>, {\n      <span class=\"hljs-string\">'command:executed'</span>: <span class=\"hljs-keyword\">this</span>.onCommandExecuted\n    });\n  };\n\n  <span class=\"hljs-keyword\">this</span>.onCommandExecuted = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">info, commandName</span>) </span>{\n    <span class=\"hljs-keyword\">if</span> (commandName === <span class=\"hljs-keyword\">this</span>.static.command) {\n      <span class=\"hljs-comment\">// Toggle the edit prompt when either edit is</span>\n      <span class=\"hljs-comment\">// requested or a new link has been created</span>\n      <span class=\"hljs-keyword\">if</span> (_.includes([<span class=\"hljs-string\">'edit'</span>,<span class=\"hljs-string\">'create'</span>], info.mode)) {\n        <span class=\"hljs-keyword\">this</span>.togglePrompt();\n      }\n    }\n  };\n  ...\n};\n</code></pre>\n",
     "sourceFile": "ui/Controller.js",
     "sourceLine": 479,
     "id": "ui/Controller@command:executed",
@@ -820,7 +769,7 @@
     "id": "ui/ControllerCommand",
     "isDefault": true,
     "name": "ControllerCommand",
-    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ControllerCommand = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands'</span>).ControllerCommand;\n<span class=\"hljs-keyword\">var</span> Save = Command.extend({\n  static: {\n    name: <span class=\"hljs-string\">'save'</span>\n  },\n\n  execute: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.getController().saveDocument();\n  }\n});\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ControllerCommand = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands'</span>).ControllerCommand;\n<span class=\"hljs-keyword\">var</span> Save = Command.extend({\n  static: {\n    name: <span class=\"hljs-string\">'save'</span>\n  },\n\n  execute: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.getController().saveDocument();\n  }\n});\n</code></pre>\n",
     "sourceFile": "ui/ControllerCommand.js",
     "sourceLine": 31,
     "namespace": "ui",
@@ -916,7 +865,7 @@
   {
     "parent": "ui/Surface",
     "name": "transaction",
-    "example": "<p>Returning a new selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> selection = args.selection;\n  ...\n  selection = tx.createSelection(...);\n  <span class=\"hljs-keyword\">return</span> {\n    selection: selection\n  };\n});\n</code><pre>\n<p>Reusing the current selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n  <span class=\"hljs-keyword\">this</span>.foo();\n  ...\n  <span class=\"hljs-keyword\">return</span> args;\n}, <span class=\"hljs-keyword\">this</span>);\n</code><pre>\n<p>Adding custom information to the transaction:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(beforeState, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n});\n</code><pre>\n",
+    "example": "<p>Returning a new selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> selection = args.selection;\n  ...\n  selection = tx.createSelection(...);\n  <span class=\"hljs-keyword\">return</span> {\n    selection: selection\n  };\n});\n</code></pre>\n<p>Reusing the current selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n  <span class=\"hljs-keyword\">this</span>.foo();\n  ...\n  <span class=\"hljs-keyword\">return</span> args;\n}, <span class=\"hljs-keyword\">this</span>);\n</code></pre>\n<p>Adding custom information to the transaction:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(beforeState, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n});\n</code></pre>\n",
     "sourceFile": "ui/Surface.js",
     "sourceLine": 433,
     "id": "ui/Surface#transaction",
@@ -967,7 +916,7 @@
     "id": "ui/SurfaceCommand",
     "isDefault": true,
     "name": "SurfaceCommand",
-    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ControllerCommand = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands'</span>).ControllerCommand;\n<span class=\"hljs-keyword\">var</span> Save = Command.extend({\n  static: {\n    name: <span class=\"hljs-string\">'save'</span>\n  },\n\n  execute: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.getController().saveDocument();\n  }\n});\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ControllerCommand = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands'</span>).ControllerCommand;\n<span class=\"hljs-keyword\">var</span> Save = Command.extend({\n  static: {\n    name: <span class=\"hljs-string\">'save'</span>\n  },\n\n  execute: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.getController().saveDocument();\n  }\n});\n</code></pre>\n",
     "sourceFile": "ui/SurfaceCommand.js",
     "sourceLine": 29,
     "namespace": "ui",
@@ -1080,7 +1029,7 @@
     "id": "ui/TextPropertyEditor",
     "isDefault": true,
     "name": "TextPropertyEditor",
-    "example": "<p>Create a <code>TextPropertyEditor</code> for the <code>name</code> property of an author object. Allow emphasis annotations.</p>\n<pre><code class=\"hljs lang-js\">$$(TextPropertyEditor, {\n  name: <span class=\"hljs-string\">'authorNameEditor'</span>,\n  path: [<span class=\"hljs-string\">'author_1'</span>, <span class=\"hljs-string\">'name'</span>],\n  commands: [EmphasisCommand]\n})\n</code><pre>\n",
+    "example": "<p>Create a <code>TextPropertyEditor</code> for the <code>name</code> property of an author object. Allow emphasis annotations.</p>\n<pre><code class=\"hljs lang-js\">$$(TextPropertyEditor, {\n  name: <span class=\"hljs-string\">'authorNameEditor'</span>,\n  path: [<span class=\"hljs-string\">'author_1'</span>, <span class=\"hljs-string\">'name'</span>],\n  commands: [EmphasisCommand]\n})\n</code></pre>\n",
     "sourceFile": "ui/TextPropertyEditor.js",
     "sourceLine": 33,
     "namespace": "ui",
@@ -1357,7 +1306,7 @@
     "id": "util/oo.inherit",
     "parent": "util/oo",
     "name": "inherit",
-    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> oo = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/basics/oo'</span>);\n<span class=\"hljs-keyword\">var</span> Parent = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{};\nParent.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.foo = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{ <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">'foo'</span>; }\n}\n<span class=\"hljs-keyword\">var</span> Child = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  Parent.apply(<span class=\"hljs-keyword\">this</span>, <span class=\"hljs-built_in\">arguments</span>);\n}\noo.inherit(Child, Parent);\n</code><pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> oo = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/basics/oo'</span>);\n<span class=\"hljs-keyword\">var</span> Parent = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{};\nParent.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.foo = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{ <span class=\"hljs-keyword\">return</span> <span class=\"hljs-string\">'foo'</span>; }\n}\n<span class=\"hljs-keyword\">var</span> Child = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  Parent.apply(<span class=\"hljs-keyword\">this</span>, <span class=\"hljs-built_in\">arguments</span>);\n}\noo.inherit(Child, Parent);\n</code></pre>\n",
     "sourceFile": "util/oo.js",
     "sourceLine": 166,
     "type": "method",
@@ -1380,9 +1329,8 @@
     "type": "namespace",
     "id": "model",
     "name": "model",
-    "description": "<p>All you need for defining custom article formats and manipulate them.</p>\n",
+    "description": "<p>All you need for defining custom article formats and manipulate them. If you want to update a document, you must wrap your changes in a transaction, to avoid inconsistent in-between states. The API is fairly easy.</p>\n<p>Let's create two paragraph nodes in a transaction.</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'p1'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'Hi I am a Substance paragraph.'</span>\n  });\n  tx.create({\n    id: <span class=\"hljs-string\">'p2'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'And I am the second pargraph'</span>\n  });\n});\n</code></pre>\n<p>A Substance document works like an object store, you can create as many nodes as you wish and assign unique id's to them. In order to create a sequence of nodes, we have to <code>show</code> them on a container node.</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> body = tx.get(<span class=\"hljs-string\">'body'</span>);\n  body.show(<span class=\"hljs-string\">'p1'</span>);\n  body.show(<span class=\"hljs-string\">'p2'</span>);\n});\n</code></pre>\n<p>Now let's make a <strong>strong</strong> annotation. In Substance annotations are stored separately from the text. Annotations are just regular nodes in the document. They refer to a certain range (<code>startOffset, endOffset</code>) in a text property (<code>path</code>).</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'s1'</span>,\n    type: <span class=\"hljs-string\">'strong'</span>,\n    path: [<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n    <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">10</span>,\n    <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">19</span>\n  });\n});\n</code></pre>\n",
     "members": [
-      "model/AbstractDocument",
       "model/ContainerAnnotation",
       "model/Document",
       "model/documentHelpers",
@@ -1393,16 +1341,17 @@
     "type": "namespace",
     "id": "model/transform",
     "name": "transform",
-    "description": "<p>Transformations are there to define higher level document operations that editor implementations can use. We implemented a range of useful transformations and made them available in the <code>model/transform</code> module. However, you are encouraged to define your own functions. Below is a shortened version of a possible searchAndReplace transformation.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">searchAndReplace</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-comment\">// 1. verify arguments args.searchStr, args.replaceStr, args.container</span>\n  <span class=\"hljs-comment\">// 2. implement your transformation using low level operations (e.g. tx.create)</span>\n  <span class=\"hljs-comment\">// ...</span>\n  <span class=\"hljs-keyword\">var</span> searchResult = search(tx, args);\n\n  searchResult.matches.forEach(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">match</span>) </span>{\n    <span class=\"hljs-keyword\">var</span> replaceArgs = _.extend({}, args, {selection: match, replaceStr: args.replaceStr});\n    replaceText(tx, replaceArgs);\n  });\n\n  <span class=\"hljs-comment\">// 3. set new selection</span>\n  <span class=\"hljs-keyword\">if</span> (searchResult.matches.length &gt; <span class=\"hljs-number\">0</span>) {\n    <span class=\"hljs-keyword\">var</span> lastMatch = _.last(searchResult.matches);\n    args.selection = lastMatch;\n  }\n\n  <span class=\"hljs-comment\">// 4. return args for the caller or transaction context</span>\n  <span class=\"hljs-keyword\">return</span> args;\n}\n</code><pre>\n<p>Transformations always take 2 parameters: <code>tx</code> is a <code>TransactionDocument</code> and <code>args</code> are the transformation's arguments. Transformations can be composed, so in a transformation you can call another transformation. You just need to be careful to always set the args properly. Here's how the transformation we just defined can be called in a transaction.</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  args.searchStr = <span class=\"hljs-string\">\"foo\"</span>;\n  args.replaceStr = <span class=\"hljs-string\">\"bar\"</span>;\n  <span class=\"hljs-keyword\">return</span> searchAndReplace(tx, args);\n});\n</code><pre>\n<p>Using the transaction method on a Surface instance passes the current selection to the transformation automatically. So you will use surface transactions whenever some kind of selection is involved in your action. However, you could also provide the selection manually and call <code>transaction()</code> on the document or app controller instance. Make sure that your transformations are robust for both scenarios. If you look at the above example under (3) we set the selection to the last matched element after search and replace. If something has been found.</p>\n",
+    "description": "<p>Transformations are there to define higher level document operations that editor implementations can use. We implemented a range of useful transformations and made them available in the <a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> folder. However, you are encouraged to define your own functions. Below is a shortened version of a possible searchAndReplace transformation.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">searchAndReplace</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-comment\">// 1. verify arguments args.searchStr, args.replaceStr, args.container</span>\n  <span class=\"hljs-comment\">// 2. implement your transformation using low level operations (e.g. tx.create)</span>\n  <span class=\"hljs-comment\">// ...</span>\n  <span class=\"hljs-keyword\">var</span> searchResult = search(tx, args);\n\n  searchResult.matches.forEach(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">match</span>) </span>{\n    <span class=\"hljs-keyword\">var</span> replaceArgs = _.extend({}, args, {selection: match, replaceStr: args.replaceStr});\n    replaceText(tx, replaceArgs);\n  });\n\n  <span class=\"hljs-comment\">// 3. set new selection</span>\n  <span class=\"hljs-keyword\">if</span> (searchResult.matches.length &gt; <span class=\"hljs-number\">0</span>) {\n    <span class=\"hljs-keyword\">var</span> lastMatch = _.last(searchResult.matches);\n    args.selection = lastMatch;\n  }\n\n  <span class=\"hljs-comment\">// 4. return args for the caller or transaction context</span>\n  <span class=\"hljs-keyword\">return</span> args;\n}\n</code></pre>\n<p>Transformations always take 2 parameters: <code>tx</code> is a <code>TransactionDocument</code> and <code>args</code> are the transformation's arguments. Transformations can be composed, so in a transformation you can call another transformation. You just need to be careful to always set the args properly. Here's how the transformation we just defined can be called in a transaction.</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  args.searchStr = <span class=\"hljs-string\">\"foo\"</span>;\n  args.replaceStr = <span class=\"hljs-string\">\"bar\"</span>;\n  <span class=\"hljs-keyword\">return</span> searchAndReplace(tx, args);\n});\n</code></pre>\n<p>Using the transaction method on a <a href=\"#ui/Surface\" data-type=\"cross-link\" data-node-id=\"ui/Surface\">ui/Surface</a> instance passes the current selection to the transformation automatically. So you will use surface transactions whenever some kind of selection is involved in your action. However, you could also provide the selection manually and call <code>transaction()</code> on the document or app controller instance. Make sure that your transformations are robust for both scenarios. If you look at the above example under (3) we set the selection to the last matched element after search and replace. If something has been found.</p>\n",
     "members": [
-      "model/transform/breakNode"
+      "model/transform/breakNode",
+      "model/transform/createAnnotation"
     ]
   },
   {
     "type": "namespace",
     "id": "ui",
     "name": "ui",
-    "description": "<p>Provides all UI-related functionality. At the heart there is a Component implementation, which implements reactive rendering engine.</p>\n<p>Let's look at a complete example of a simple ProseEditor implementation. The <code>render</code> function is the heart of our custom <code>ProseEditor</code> component. It contains a bit of custom markup and utilizes predefined UI components, such as a <code>Toolbar</code> including tools like the <code>UndoTool</code> and a configured <code>ContainerEditor</code>, which will do the actual editing work.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ProseEditor = Controller.extend({\n  <span class=\"hljs-comment\">// Editor configuration</span>\n  static: {\n    config: CONFIG,\n  },\n  <span class=\"hljs-comment\">// Custom Render method for your editor</span>\n  render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> config = getConfig();\n    <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).addClass(<span class=\"hljs-string\">'sc-prose-editor'</span>).append(\n      $$(Toolbar).append(\n        $$(Toolbar.Group).append(\n          $$(TextTool, {<span class=\"hljs-string\">'title'</span>: <span class=\"hljs-keyword\">this</span>.i18n.t(<span class=\"hljs-string\">'switch_text'</span>)}),\n          $$(UndoTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-undo\"</span>})),\n          $$(RedoTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-repeat\"</span>})),\n          $$(StrongTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-bold\"</span>})),\n          $$(EmphasisTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-italic\"</span>}))\n        )\n      ),\n      $$(ContainerEditor, {\n        doc: <span class=\"hljs-keyword\">this</span>.props.doc,\n        containerId: <span class=\"hljs-string\">'body'</span>,\n        name: <span class=\"hljs-string\">'bodyEditor'</span>,\n        commands: config.bodyEditor.commands\n      }).ref(<span class=\"hljs-string\">'bodyEditor'</span>)\n    );\n  }\n});\n</code><pre>\n<p>There's also a config object that is essential for the editor to work. The following configuration sets up a component registry that assigns a visual component to each content node type. It also defines which commands should be supported on the controller level (undo, redo, save) and for the editor (strong, emphasis, link). Furthermore we need to setup which text types the editor should support.</p>\n<p>Let's now look at the config object:</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> CONFIG = {\n  <span class=\"hljs-comment\">// Controller specific configuration</span>\n  controller: {\n    <span class=\"hljs-comment\">// Component registry</span>\n    components: {\n      <span class=\"hljs-string\">'paragraph'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/ParagraphComponent'</span>),\n      <span class=\"hljs-string\">'heading'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/heading/HeadingComponent'</span>),\n      <span class=\"hljs-string\">'link'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/link/LinkComponent'</span>)\n    },\n    <span class=\"hljs-comment\">// Controller commands</span>\n    commands: [\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/undo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/redo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/save'</span>)\n    ]\n  },\n  <span class=\"hljs-comment\">// Body editor configuration</span>\n  bodyEditor: {\n    <span class=\"hljs-comment\">// Surface commands</span>\n    commands: [\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/text/SwitchTextTypeCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/strong/StrongCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/EmphasisCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/link/LinkCommand'</span>)\n    ],\n    <span class=\"hljs-comment\">// Text types available in the switch text type dropdown</span>\n    textTypes: [\n      {name: <span class=\"hljs-string\">'paragraph'</span>, data: {type: <span class=\"hljs-string\">'paragraph'</span>}},\n      {name: <span class=\"hljs-string\">'heading1'</span>,  data: {type: <span class=\"hljs-string\">'heading'</span>, level: <span class=\"hljs-number\">1</span>}},\n      {name: <span class=\"hljs-string\">'codeblock'</span>, data: {type: <span class=\"hljs-string\">'codeblock'</span>}}\n    ]\n  }\n};\n</code><pre>\n",
+    "description": "<p>Provides all UI-related functionality. At the heart there is a Component implementation, which implements reactive rendering engine.</p>\n<p>Let's look at a complete example of a simple ProseEditor implementation. The <code>render</code> function is the heart of our custom <code>ProseEditor</code> component. It contains a bit of custom markup and utilizes predefined UI components, such as a <code>Toolbar</code> including tools like the <code>UndoTool</code> and a configured <code>ContainerEditor</code>, which will do the actual editing work.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ProseEditor = Controller.extend({\n  <span class=\"hljs-comment\">// Editor configuration</span>\n  static: {\n    config: CONFIG,\n  },\n  <span class=\"hljs-comment\">// Custom Render method for your editor</span>\n  render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> config = getConfig();\n    <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).addClass(<span class=\"hljs-string\">'sc-prose-editor'</span>).append(\n      $$(Toolbar).append(\n        $$(Toolbar.Group).append(\n          $$(TextTool, {<span class=\"hljs-string\">'title'</span>: <span class=\"hljs-keyword\">this</span>.i18n.t(<span class=\"hljs-string\">'switch_text'</span>)}),\n          $$(UndoTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-undo\"</span>})),\n          $$(RedoTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-repeat\"</span>})),\n          $$(StrongTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-bold\"</span>})),\n          $$(EmphasisTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-italic\"</span>}))\n        )\n      ),\n      $$(ContainerEditor, {\n        doc: <span class=\"hljs-keyword\">this</span>.props.doc,\n        containerId: <span class=\"hljs-string\">'body'</span>,\n        name: <span class=\"hljs-string\">'bodyEditor'</span>,\n        commands: config.bodyEditor.commands\n      }).ref(<span class=\"hljs-string\">'bodyEditor'</span>)\n    );\n  }\n});\n</code></pre>\n<p>There's also a config object that is essential for the editor to work. The following configuration sets up a component registry that assigns a visual component to each content node type. It also defines which commands should be supported on the controller level (undo, redo, save) and for the editor (strong, emphasis, link). Furthermore we need to setup which text types the editor should support.</p>\n<p>Let's now look at the config object:</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> CONFIG = {\n  <span class=\"hljs-comment\">// Controller specific configuration</span>\n  controller: {\n    <span class=\"hljs-comment\">// Component registry</span>\n    components: {\n      <span class=\"hljs-string\">'paragraph'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/ParagraphComponent'</span>),\n      <span class=\"hljs-string\">'heading'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/heading/HeadingComponent'</span>),\n      <span class=\"hljs-string\">'link'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/link/LinkComponent'</span>)\n    },\n    <span class=\"hljs-comment\">// Controller commands</span>\n    commands: [\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/undo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/redo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/save'</span>)\n    ]\n  },\n  <span class=\"hljs-comment\">// Body editor configuration</span>\n  bodyEditor: {\n    <span class=\"hljs-comment\">// Surface commands</span>\n    commands: [\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/text/SwitchTextTypeCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/strong/StrongCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/EmphasisCommand'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/link/LinkCommand'</span>)\n    ],\n    <span class=\"hljs-comment\">// Text types available in the switch text type dropdown</span>\n    textTypes: [\n      {name: <span class=\"hljs-string\">'paragraph'</span>, data: {type: <span class=\"hljs-string\">'paragraph'</span>}},\n      {name: <span class=\"hljs-string\">'heading1'</span>,  data: {type: <span class=\"hljs-string\">'heading'</span>, level: <span class=\"hljs-number\">1</span>}},\n      {name: <span class=\"hljs-string\">'codeblock'</span>, data: {type: <span class=\"hljs-string\">'codeblock'</span>}}\n    ]\n  }\n};\n</code></pre>\n",
     "members": [
       "ui/ContainerAnnotator",
       "ui/ContainerEditor",
@@ -1429,6 +1378,6 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "25a6dea23030c732f3e6d0b644b507ee5c1d4d58"
+    "sha": "41fff0ec32c9cd4da76b5995ed62c19e28824fea"
   }
 ]

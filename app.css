@@ -14,7 +14,7 @@
 
 .fa {
   display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
+  font: normal normal normal 14px / 1 FontAwesome;
   font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -2386,6 +2386,9 @@ a.quiet.active, a.quiet:hover {
   overflow: auto;
   line-height: 24px; }
 
+.sc-panel .se-panel-content-inner {
+  position: relative; }
+
 .sc-panel.sm-dialog {
   background: #F8F8F8; }
   .sc-panel.sm-dialog .se-panel-content {
@@ -2427,8 +2430,6 @@ a.quiet.active, a.quiet:hover {
 .sc-content-panel {
   /* For debugging purposes */
   /* Hide native scroll bar in content panel */ }
-  .sc-content-panel .se-panel-content-inner {
-    position: relative; }
   .sc-content-panel .se-panel-content {
     left: 20px; }
   .sc-content-panel .se-scanline {

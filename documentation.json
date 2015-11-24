@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "e5cd89fef6dfeda8098c969a249da5024cf5dbff"
+    "sha": "9bf7e00f1f1d633bb33aef1ead9d2f914b9d6f6c"
   },
   {
     "type": "namespace",
@@ -740,16 +740,16 @@
     "type": "class",
     "id": "model/PropertyAnnotation",
     "description": "<p>An property annotation can be used to overlay text and give it a special meaning.\nPropertyAnnotations only work on text properties. If you want to annotate multiple\nnodes you have to use a <a href=\"#model/ContainerAnnotation\" data-type=\"cross-link\" data-node-id=\"model/ContainerAnnotation\">model/ContainerAnnotation</a>.</p>\n",
-    "example": "<p>Here's how a <strong>strong</strong> annotation is created. In Substance annotations are stored separately from the text. Annotations are just regular nodes in the document. They refer to a certain range (<code>startOffset, endOffset</code>) in a text property (<code>path</code>).</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'s1'</span>,\n    type: <span class=\"hljs-string\">'strong'</span>,\n    path: [<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n    <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">10</span>,\n    <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">19</span>\n  });\n});\n</code></pre>\n",
+    "example": "<p>Here's how a <strong>strong</strong> annotation is created. In Substance annotations are stored\nseparately from the text. Annotations are just regular nodes in the document.\nThey refer to a certain range (<code>startOffset, endOffset</code>) in a text property (<code>path</code>).</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'s1'</span>,\n    type: <span class=\"hljs-string\">'strong'</span>,\n    path: [<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n    <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">10</span>,\n    <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">19</span>\n  });\n});\n</code></pre>\n",
     "sourceFile": "model/PropertyAnnotation.js",
-    "sourceLine": 35,
+    "sourceLine": 37,
     "tags": [
       {
         "type": "prop",
         "value": {
-          "type": "String",
+          "type": "Array.<String>",
           "name": "path",
-          "description": "<p>Identifies a text property in the document (e.g. [&quot;text_1&quot;, &quot;content&quot;])</p>\n"
+          "description": "<p>Identifies a text property in the document (e.g. <code>['text_1', 'content']</code>)</p>\n"
         }
       },
       {

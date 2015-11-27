@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "5cd90d0b0b102f323226fcd981f3e9d9f9b1531e"
+    "sha": "41a1a20399be58bffab07f33209864f79ec9cfd7"
   },
   {
     "type": "namespace",
@@ -4744,7 +4744,7 @@
     "description": "<p>Renders a text property. Used internally by different components (e.g. ui/TextPropertyEditor)</p>\n",
     "example": "<pre><code class=\"hljs lang-js\">$$(TextProperty, {\n  path: [ <span class=\"hljs-string\">'paragraph-1'</span>, <span class=\"hljs-string\">'content'</span>]\n})\n</code></pre>\n",
     "sourceFile": "ui/TextPropertyComponent.js",
-    "sourceLine": 29,
+    "sourceLine": 24,
     "tags": [
       {
         "type": "component",

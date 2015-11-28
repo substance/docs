@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "af203a2d3c231f34c73b8bbac067759aa5909bc7"
+    "sha": "3b7c135847df11780a939d41be970d7fd588f7e4"
   },
   {
     "type": "namespace",
@@ -51,20 +51,46 @@
     "description": "<p>Describes an annotation sticking on a container that can span over multiple\nnodes.</p>\n",
     "example": "<pre><code class=\"hljs lang-js\">{\n  <span class=\"hljs-string\">\"id\"</span>: <span class=\"hljs-string\">\"subject_reference_1\"</span>,\n  <span class=\"hljs-string\">\"type\"</span>: <span class=\"hljs-string\">\"subject_reference\"</span>,\n  <span class=\"hljs-string\">\"container\"</span>: <span class=\"hljs-string\">\"content\"</span>,\n  <span class=\"hljs-string\">\"startPath\"</span>: [<span class=\"hljs-string\">\"text_2\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">100</span>,\n  <span class=\"hljs-string\">\"endPath\"</span>: [<span class=\"hljs-string\">\"text_4\"</span>, <span class=\"hljs-string\">\"content\"</span>],\n  <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">40</span>\n}\n</code></pre>\n",
     "sourceFile": "model/ContainerAnnotation.js",
-    "sourceLine": 31,
+    "sourceLine": 32,
     "tags": [],
     "parent": "model",
     "name": "ContainerAnnotation",
     "members": [
+      "model/ContainerAnnotation#getSelection",
+      "model/ContainerAnnotation#getText",
       "model/ContainerAnnotation.Anchor",
       "model/ContainerAnnotation.Fragment"
     ]
   },
   {
+    "type": "method",
+    "id": "model/ContainerAnnotation#getSelection",
+    "description": "<p>Provides a selection which has the same range as this annotation.</p>\n",
+    "sourceFile": "model/ContainerAnnotation.js",
+    "sourceLine": 57,
+    "tags": [],
+    "parent": "model/ContainerAnnotation",
+    "name": "getSelection",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/ContainerAnnotation#getText",
+    "description": "<p>Get the plain text spanned by this annotation.</p>\n",
+    "sourceFile": "model/ContainerAnnotation.js",
+    "sourceLine": 43,
+    "tags": [],
+    "parent": "model/ContainerAnnotation",
+    "name": "getText",
+    "params": [],
+    "isPrivate": false
+  },
+  {
     "type": "class",
     "id": "model/ContainerAnnotation.Anchor",
     "sourceFile": "model/ContainerAnnotation.js",
-    "sourceLine": 165,
+    "sourceLine": 156,
     "tags": [],
     "parent": "model/ContainerAnnotation",
     "name": "Anchor",
@@ -75,7 +101,7 @@
     "type": "class",
     "id": "model/ContainerAnnotation.Fragment",
     "sourceFile": "model/ContainerAnnotation.js",
-    "sourceLine": 192,
+    "sourceLine": 205,
     "tags": [],
     "parent": "model/ContainerAnnotation",
     "name": "Fragment",
@@ -750,7 +776,7 @@
   {
     "type": "class",
     "id": "model/PropertyAnnotation",
-    "description": "<p>An property annotation can be used to overlay text and give it a special meaning.\nPropertyAnnotations only work on text properties. If you want to annotate multiple\nnodes you have to use a <a href=\"#model/ContainerAnnotation\" data-type=\"cross-link\" data-node-id=\"model/ContainerAnnotation\">model/ContainerAnnotation</a>.</p>\n",
+    "description": "<p>A property annotation can be used to overlay text and give it a special meaning.\nPropertyAnnotations only work on text properties. If you want to annotate multiple\nnodes you have to use a <a href=\"#model/ContainerAnnotation\" data-type=\"cross-link\" data-node-id=\"model/ContainerAnnotation\">model/ContainerAnnotation</a>.</p>\n",
     "example": "<p>Here's how a <strong>strong</strong> annotation is created. In Substance annotations are stored\nseparately from the text. Annotations are just regular nodes in the document.\nThey refer to a certain range (<code>startOffset, endOffset</code>) in a text property (<code>path</code>).</p>\n<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'s1'</span>,\n    type: <span class=\"hljs-string\">'strong'</span>,\n    path: [<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n    <span class=\"hljs-string\">\"startOffset\"</span>: <span class=\"hljs-number\">10</span>,\n    <span class=\"hljs-string\">\"endOffset\"</span>: <span class=\"hljs-number\">19</span>\n  });\n});\n</code></pre>\n",
     "sourceFile": "model/PropertyAnnotation.js",
     "sourceLine": 37,
@@ -778,8 +804,48 @@
     ],
     "parent": "model",
     "name": "PropertyAnnotation",
-    "members": [],
+    "members": [
+      "model/PropertyAnnotation#canSplit",
+      "model/PropertyAnnotation#getText",
+      "model/PropertyAnnotation#isAnchor"
+    ],
     "isAbstract": true
+  },
+  {
+    "type": "method",
+    "id": "model/PropertyAnnotation#canSplit",
+    "description": "<p>Determines if an annotation can be split e.g., when breaking a node.</p>\n<p>In these cases, a new annotation will be created attached to the created node.</p>\n<p>For certain annotation types,you may want to the annotation truncated\nrather than split, where you need to override this method returning <code>false</code>.</p>\n",
+    "sourceFile": "model/PropertyAnnotation.js",
+    "sourceLine": 66,
+    "tags": [],
+    "parent": "model/PropertyAnnotation",
+    "name": "canSplit",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertyAnnotation#getText",
+    "description": "<p>Get the plain text spanned by this annotation.</p>\n",
+    "sourceFile": "model/PropertyAnnotation.js",
+    "sourceLine": 48,
+    "tags": [],
+    "parent": "model/PropertyAnnotation",
+    "name": "getText",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertyAnnotation#isAnchor",
+    "description": "<p>If this annotation is a an Anchor.</p>\n<p>Anchors are annotations with a zero width.\nFor instance, ContainerAnnotation have a start and an end anchor,\nor rendered cursors are modeled as anchors.</p>\n",
+    "sourceFile": "model/PropertyAnnotation.js",
+    "sourceLine": 79,
+    "tags": [],
+    "parent": "model/PropertyAnnotation",
+    "name": "isAnchor",
+    "params": [],
+    "isPrivate": false
   },
   {
     "type": "class",

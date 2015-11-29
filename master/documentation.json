@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "f3fe421b96f06fd42b906ba6e4872b198e9371c5"
+    "sha": "bb85295dde5f4d8e1ae1d9a86d3a589aed671a6f"
   },
   {
     "type": "namespace",
@@ -119,8 +119,10 @@
     "parent": "model",
     "name": "ContainerSelection",
     "members": [
+      "model/ContainerSelection#attach",
       "model/ContainerSelection#contains",
       "model/ContainerSelection#expand",
+      "model/ContainerSelection#getContainer",
       "model/ContainerSelection#getFragments",
       "model/ContainerSelection#includesWithOneBoundary",
       "model/ContainerSelection#isInsideOf",
@@ -128,15 +130,34 @@
       "model/ContainerSelection#isRightAlignedWith",
       "model/ContainerSelection#overlaps",
       "model/ContainerSelection#splitIntoPropertySelections",
+      "model/ContainerSelection#toJSON",
       "model/ContainerSelection#truncate"
     ]
+  },
+  {
+    "type": "method",
+    "id": "model/ContainerSelection#attach",
+    "description": "<p>Attach document to selection.</p>\n",
+    "sourceFile": "model/ContainerSelection.js",
+    "sourceLine": 90,
+    "tags": [],
+    "parent": "model/ContainerSelection",
+    "name": "attach",
+    "params": [
+      {
+        "type": "Document",
+        "name": "doc",
+        "description": "<p>document to attach</p>\n"
+      }
+    ],
+    "isPrivate": false
   },
   {
     "type": "method",
     "id": "model/ContainerSelection#contains",
     "description": "<p>Checks if this selection contains another one.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 188,
+    "sourceLine": 205,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "contains",
@@ -154,7 +175,7 @@
     "id": "model/ContainerSelection#expand",
     "description": "<p>Expands this selection to include another selection.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 105,
+    "sourceLine": 122,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "expand",
@@ -169,9 +190,26 @@
   },
   {
     "type": "method",
-    "id": "model/ContainerSelection#getFragments",
+    "id": "model/ContainerSelection#getContainer",
+    "description": "<p>Return the currently used container.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 282,
+    "sourceLine": 112,
+    "tags": [],
+    "parent": "model/ContainerSelection",
+    "name": "getContainer",
+    "params": [],
+    "returns": {
+      "type": "Document.Container",
+      "description": ""
+    },
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/ContainerSelection#getFragments",
+    "description": "<p>Return fragments each corresponding to a property selection of splitted container selection.</p>\n",
+    "sourceFile": "model/ContainerSelection.js",
+    "sourceLine": 303,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "getFragments",
@@ -183,7 +221,7 @@
     "id": "model/ContainerSelection#includesWithOneBoundary",
     "description": "<p>Checks if this selection contains another but has at least one boundary in common.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 200,
+    "sourceLine": 217,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "includesWithOneBoundary",
@@ -201,7 +239,7 @@
     "id": "model/ContainerSelection#isInsideOf",
     "description": "<p>Checks if this selection is inside another one.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 175,
+    "sourceLine": 192,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "isInsideOf",
@@ -225,7 +263,7 @@
     "id": "model/ContainerSelection#isLeftAlignedWith",
     "description": "<p>Checks if this selection has the left boundary in common with another one.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 229,
+    "sourceLine": 246,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "isLeftAlignedWith",
@@ -243,7 +281,7 @@
     "id": "model/ContainerSelection#isRightAlignedWith",
     "description": "<p>Checks if this selection has the right boundary in common with another one.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 241,
+    "sourceLine": 258,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "isRightAlignedWith",
@@ -261,7 +299,7 @@
     "id": "model/ContainerSelection#overlaps",
     "description": "<p>Checks if this selection overlaps another one.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 216,
+    "sourceLine": 233,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "overlaps",
@@ -277,8 +315,9 @@
   {
     "type": "method",
     "id": "model/ContainerSelection#splitIntoPropertySelections",
+    "description": "<p>Splits container selection into property selections</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 250,
+    "sourceLine": 269,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "splitIntoPropertySelections",
@@ -287,10 +326,22 @@
   },
   {
     "type": "method",
+    "id": "model/ContainerSelection#toJSON",
+    "description": "<p>Convert container selection to JSON.</p>\n",
+    "sourceFile": "model/ContainerSelection.js",
+    "sourceLine": 72,
+    "tags": [],
+    "parent": "model/ContainerSelection",
+    "name": "toJSON",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
     "id": "model/ContainerSelection#truncate",
     "description": "<p>Creates a new selection by truncating this one by another selection.</p>\n",
     "sourceFile": "model/ContainerSelection.js",
-    "sourceLine": 141,
+    "sourceLine": 158,
     "tags": [],
     "parent": "model/ContainerSelection",
     "name": "truncate",
@@ -522,7 +573,9 @@
     "members": [
       "model/Document#_setAutoAttach",
       "model/Document#create",
+      "model/Document#delete",
       "model/Document#import",
+      "model/Document#set",
       "model/Document#transaction",
       "model/Document@Document"
     ],
@@ -534,7 +587,7 @@
     "id": "model/Document#_setAutoAttach",
     "description": "<p>Enable or disable auto-attaching of nodes.\nWhen this is enabled (default), a created node\ngets attached to the document instantly.\nOtherwise you need to take care of that yourself.</p>\n<p>Used internally e.g., by AbstractDocument.prototype.loadSeed()</p>\n",
     "sourceFile": "model/Document.js",
-    "sourceLine": 348,
+    "sourceLine": 377,
     "tags": [],
     "parent": "model/Document",
     "name": "_setAutoAttach",
@@ -547,11 +600,36 @@
     "description": "<p>Creates a new <a href=\"#model/DocumentNode\" data-type=\"cross-link\" data-node-id=\"model/DocumentNode\">model/DocumentNode</a>. Use this API on a <a href=\"#model/TransactionDocument\" data-type=\"cross-link\" data-node-id=\"model/TransactionDocument\">model/TransactionDocument</a> to ensure consistency.</p>\n",
     "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'p1'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'Hi I am a Substance paragraph.'</span>\n  });\n});\n</code></pre>\n",
     "sourceFile": "model/Document.js",
-    "sourceLine": 227,
+    "sourceLine": 229,
     "tags": [],
     "parent": "model/Document",
     "name": "create",
-    "params": [],
+    "params": [
+      {
+        "type": "Object",
+        "name": "nodeData",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/Document#delete",
+    "description": "<p>Removes a node with given nodeId.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.delete(<span class=\"hljs-string\">'p1'</span>);\n});\n</code></pre>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 257,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "delete",
+    "params": [
+      {
+        "type": "String",
+        "name": "nodeId",
+        "description": ""
+      }
+    ],
     "isPrivate": false
   },
   {
@@ -572,6 +650,30 @@
       }
     ],
     "isPrivate": true
+  },
+  {
+    "type": "method",
+    "id": "model/Document#set",
+    "description": "<p>Set a node's property to a new value.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.set([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], <span class=\"hljs-string\">\"Hello there! I'm a new paragraph.\"</span>);\n});\n</code></pre>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 285,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "set",
+    "params": [
+      {
+        "type": "Array",
+        "name": "path",
+        "description": ""
+      },
+      {
+        "type": "String",
+        "name": "value",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
   },
   {
     "type": "method",
@@ -857,7 +959,312 @@
     "tags": [],
     "parent": "model",
     "name": "PropertySelection",
-    "members": []
+    "members": [
+      "model/PropertySelection#attach",
+      "model/PropertySelection#collapse",
+      "model/PropertySelection#contains",
+      "model/PropertySelection#createWithNewRange",
+      "model/PropertySelection#expand",
+      "model/PropertySelection#getDocument",
+      "model/PropertySelection#getEndOffset",
+      "model/PropertySelection#getFragments",
+      "model/PropertySelection#getPath",
+      "model/PropertySelection#getRange",
+      "model/PropertySelection#getStartOffset",
+      "model/PropertySelection#isInsideOf",
+      "model/PropertySelection#isLeftAlignedWith",
+      "model/PropertySelection#isRightAlignedWith",
+      "model/PropertySelection#overlaps",
+      "model/PropertySelection#toJSON",
+      "model/PropertySelection#truncate"
+    ]
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#attach",
+    "description": "<p>Attach document to a selection.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 79,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "attach",
+    "params": [
+      {
+        "type": "Document",
+        "name": "doc",
+        "description": "<p>document to attach</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#collapse",
+    "description": "<p>Collapse a selection to chosen direction.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 129,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "collapse",
+    "params": [
+      {
+        "type": "String",
+        "name": "direction",
+        "description": "<p>either left of right</p>\n"
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#contains",
+    "description": "<p>Checks if this selection contains another one.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 210,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "contains",
+    "params": [
+      {
+        "type": "Selection",
+        "name": "other",
+        "description": ""
+      },
+      {
+        "type": "Boolean",
+        "name": "[strict]",
+        "description": "<p>true if should check that it is strictly contains the other</p>\n",
+        "optional": true
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#createWithNewRange",
+    "description": "<p>Creates a new selection with given range and same path.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 307,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "createWithNewRange",
+    "params": [
+      {
+        "type": "Number",
+        "name": "startOffset",
+        "description": ""
+      },
+      {
+        "type": "Number",
+        "name": "endOffset",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#expand",
+    "description": "<p>Expands selection to include another selection.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 286,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "expand",
+    "params": [
+      {
+        "type": "Selection",
+        "name": "other",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#getDocument",
+    "description": "<p>Get attached to selection document.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 65,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "getDocument",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#getEndOffset",
+    "description": "<p>Get end of a selection range.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 165,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "getEndOffset",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#getFragments",
+    "description": "<p>Return fragments for a given selection.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 350,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "getFragments",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#getPath",
+    "description": "<p>Get path of a selection, e.g. target property where selected data is stored.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 147,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "getPath",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#getRange",
+    "description": "<p>Get range of a selection.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 95,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "getRange",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#getStartOffset",
+    "description": "<p>Get start of a selection range.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 156,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "getStartOffset",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#isInsideOf",
+    "description": "<p>Checks if this selection is inside another one.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 186,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "isInsideOf",
+    "params": [
+      {
+        "type": "Selection",
+        "name": "other",
+        "description": ""
+      },
+      {
+        "type": "Boolean",
+        "name": "[strict]",
+        "description": "<p>true if should check that it is strictly inside the other</p>\n",
+        "optional": true
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#isLeftAlignedWith",
+    "description": "<p>Checks if this selection has the left boundary in common with another one.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 270,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "isLeftAlignedWith",
+    "params": [
+      {
+        "type": "Selection",
+        "name": "other",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#isRightAlignedWith",
+    "description": "<p>Checks if this selection has the right boundary in common with another one.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 254,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "isRightAlignedWith",
+    "params": [
+      {
+        "type": "Selection",
+        "name": "other",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#overlaps",
+    "description": "<p>Checks if this selection overlaps another one.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 234,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "overlaps",
+    "params": [
+      {
+        "type": "Selection",
+        "name": "other",
+        "description": ""
+      },
+      {
+        "type": "Boolean",
+        "name": "[strict]",
+        "description": "<p>true if should check that it is strictly overlaps the other</p>\n",
+        "optional": true
+      }
+    ],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#toJSON",
+    "description": "<p>Convert container selection to JSON.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 50,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "toJSON",
+    "params": [],
+    "isPrivate": false
+  },
+  {
+    "type": "method",
+    "id": "model/PropertySelection#truncate",
+    "description": "<p>Creates a new selection by truncating this one by another selection.</p>\n",
+    "sourceFile": "model/PropertySelection.js",
+    "sourceLine": 321,
+    "tags": [],
+    "parent": "model/PropertySelection",
+    "name": "truncate",
+    "params": [
+      {
+        "type": "Selection",
+        "name": "other",
+        "description": ""
+      }
+    ],
+    "isPrivate": false
   },
   {
     "type": "class",

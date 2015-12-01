@@ -2363,11 +2363,6 @@ a.quiet.active, a.quiet:hover {
 
 /* Controller styles
 -----------------------------------------------------*/
-.sc-controller .se-clipboard {
-  position: fixed;
-  opacity: 0.0;
-  bottom: -1000px; }
-
 /* This actually happens inside a Surface
 ----------------------------------------------------*/
 .sc-surface {
@@ -2388,42 +2383,6 @@ a.quiet.active, a.quiet:hover {
 
 .sc-panel .se-panel-content-inner {
   position: relative; }
-
-.sc-panel.sm-dialog {
-  background: #F8F8F8; }
-  .sc-panel.sm-dialog .se-panel-content {
-    top: 40px; }
-  .sc-panel.sm-dialog .se-dialog-header {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    overflow: hidden;
-    height: 40px;
-    border-bottom: 1px solid #ddd; }
-    .sc-panel.sm-dialog .se-dialog-header .se-back {
-      padding-left: 20px;
-      display: block;
-      float: left;
-      line-height: 40px;
-      font-size: 16px; }
-    .sc-panel.sm-dialog .se-dialog-header .se-label {
-      padding: 0px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 39px;
-      float: left; }
-    .sc-panel.sm-dialog .se-dialog-header .se-actions {
-      overflow: hidden;
-      float: right; }
-      .sc-panel.sm-dialog .se-dialog-header .se-actions a {
-        display: block;
-        float: left;
-        font-weight: 600;
-        padding: 0px 4px;
-        font-size: 12px;
-        line-height: 40px;
-        margin-right: 20px; }
 
 /* Content Panel
 -----------------------------------------------------*/
@@ -2465,7 +2424,7 @@ a.quiet.active, a.quiet:hover {
       background: #eee;
       border-bottom: 1px solid #444; }
 
-/* TOC Panel
+/* TOC
 -----------------------------------------------------*/
 .sc-toc-panel .se-toc-entries {
   padding: 20px 0px; }
@@ -2496,6 +2455,39 @@ a.quiet.active, a.quiet:hover {
     .sc-toc-panel .se-toc-entries .se-toc-entry.sm-level-3 {
       font-size: 12px;
       margin-left: 60px; }
+
+.sc-dialog-header {
+  background: #F8F8F8;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  overflow: hidden;
+  height: 40px;
+  border-bottom: 1px solid #ddd; }
+  .sc-dialog-header .se-back {
+    padding-left: 20px;
+    display: block;
+    float: left;
+    line-height: 40px;
+    font-size: 16px; }
+  .sc-dialog-header .se-label {
+    padding: 0px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 39px;
+    float: left; }
+  .sc-dialog-header .se-actions {
+    overflow: hidden;
+    float: right; }
+    .sc-dialog-header .se-actions a {
+      display: block;
+      float: left;
+      font-weight: 600;
+      padding: 0px 4px;
+      font-size: 12px;
+      line-height: 40px;
+      margin-right: 20px; }
 
 .sc-scrollbar {
   position: absolute;

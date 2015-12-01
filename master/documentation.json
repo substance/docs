@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "5dbd476ee57a6d1a1ee8715361a4a484f4802bf5"
+    "sha": "56ab2b8417b1aff93e099b5e22abcb375a0af8b9"
   },
   {
     "type": "namespace",
@@ -4500,8 +4500,7 @@
       "ui/Controller#render",
       "ui/Controller#saveDocument",
       "ui/Controller#toolManager",
-      "ui/Controller#unregisterSurface",
-      "ui/Controller.concatStrings"
+      "ui/Controller#unregisterSurface"
     ],
     "isAbstract": true
   },
@@ -4815,36 +4814,6 @@
         "description": "<p>{ui/Surface} A surface instance to unregister</p>\n"
       }
     ]
-  },
-  {
-    "type": "method",
-    "id": "ui/Controller.concatStrings",
-    "description": "<p>Controller static method. This is just to test documentation</p>\n",
-    "sourceFile": "ui/Controller.js",
-    "sourceLine": 531,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "ui/Controller",
-    "name": "concatStrings",
-    "params": [
-      {
-        "type": "String",
-        "shortType": "String",
-        "name": "a",
-        "description": "<p>a string</p>\n"
-      },
-      {
-        "type": "String",
-        "shortType": "String",
-        "name": "b",
-        "description": "<p>another string</p>\n"
-      }
-    ],
-    "returns": {
-      "type": "String",
-      "description": "<p>The result of the static method</p>\n"
-    },
-    "isStatic": true
   },
   {
     "type": "class",

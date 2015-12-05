@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "06528a08c16e6bc15cab1c760d3154fbb3708f6c"
+    "sha": "92ecfa5f88e5f1f1af4d94215f7c498b4677e8bc"
   },
   {
     "type": "namespace",
@@ -537,7 +537,7 @@
     "id": "model/DOMImporter#_createDefaultBlockElement",
     "description": "<p>Converts an element into a default block level node.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 497,
+    "sourceLine": 493,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -560,7 +560,7 @@
     "id": "model/DOMImporter#_trimTextContent",
     "description": "<p>Removes any leading and trailing whitespaces from the content\nwithin the given element.\nAttention: this is not yet implemented fully. Atm, trimming is only done\non the first and last text node (if they exist).</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 552,
+    "sourceLine": 548,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -583,7 +583,7 @@
     "id": "model/DOMImporter#_wrapInlineElementsIntoBlockElement",
     "description": "<p>Wraps the remaining (inline) elements of a node iterator into a default\nblock node.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 468,
+    "sourceLine": 464,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",

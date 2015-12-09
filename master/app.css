@@ -2383,6 +2383,20 @@ a.quiet.active, a.quiet:hover {
   .sc-scroll-pane .se-content {
     position: relative; }
 
+/* Panels (Context panel)
+-----------------------------------------------------*/
+.sc-panel .se-panel-content {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  overflow: auto;
+  line-height: 24px; }
+
+.sc-panel .se-panel-content-inner {
+  position: relative; }
+
 /* Content Panel
 -----------------------------------------------------*/
 .sc-content-panel {

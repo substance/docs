@@ -2372,19 +2372,6 @@ a.quiet.active, a.quiet:hover {
 
 /* Panels (Context panel)
 -----------------------------------------------------*/
-.sc-scroll-pane {
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  overflow: auto;
-  line-height: 24px; }
-  .sc-scroll-pane .se-content {
-    position: relative; }
-
-/* Panels (Context panel)
------------------------------------------------------*/
 .sc-panel .se-panel-content {
   position: absolute;
   top: 0px;
@@ -2397,27 +2384,39 @@ a.quiet.active, a.quiet:hover {
 .sc-panel .se-panel-content-inner {
   position: relative; }
 
+/* Panels (Context panel)
+-----------------------------------------------------*/
+.sc-scroll-pane {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  /* For debugging purposes */ }
+  .sc-scroll-pane.sm-substance-scrollbar {
+    /* Hide native scroll bar in content panel */ }
+    .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-left .se-scrollable {
+      left: 20px; }
+    .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-right .se-scrollable {
+      right: 20px; }
+    .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar {
+      width: 0px;
+      height: 0px; }
+    .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar-thumb {
+      background-color: transparent; }
+  .sc-scroll-pane .se-scrollable {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    overflow: auto;
+    line-height: 24px; }
+  .sc-scroll-pane .se-content {
+    position: relative; }
+
 /* Content Panel
 -----------------------------------------------------*/
-.sc-content-panel {
-  /* For debugging purposes */
-  /* Hide native scroll bar in content panel */ }
-  .sc-content-panel .se-panel-content {
-    left: 20px; }
-  .sc-content-panel .se-scanline {
-    position: absolute;
-    display: none;
-    top: 50px;
-    left: 40px;
-    width: 10px;
-    height: 2px;
-    background: #ccc; }
-  .sc-content-panel .se-panel-content::-webkit-scrollbar {
-    width: 0px;
-    height: 0px; }
-  .sc-content-panel .se-panel-content::-webkit-scrollbar-thumb {
-    background-color: transparent; }
-
 .sc-context-toggles {
   height: 40px;
   border-bottom: 1px solid #ddd; }
@@ -2436,6 +2435,26 @@ a.quiet.active, a.quiet:hover {
     .sc-context-toggles .se-context-toggle.sm-active {
       background: #eee;
       border-bottom: 1px solid #444; }
+
+.sc-scrollbar {
+  position: absolute;
+  left: 0px;
+  width: 20px;
+  top: 0px;
+  bottom: 0px;
+  background: #FAFAFA;
+  box-shadow: inset -4px 0 4px 0 rgba(25, 25, 25, 0.04); }
+  .sc-scrollbar .se-thumb {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    right: 0px;
+    height: 0px;
+    background-color: rgba(0, 0, 0, 0.2); }
+  .sc-scrollbar .se-highlight {
+    position: absolute;
+    width: 100%;
+    background-color: #A5AFBD; }
 
 /* TOC
 -----------------------------------------------------*/
@@ -2469,6 +2488,16 @@ a.quiet.active, a.quiet:hover {
       font-size: 12px;
       margin-left: 60px; }
 
+.sc-context-section .se-context-panel {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px; }
+
+.sc-context-section.sm-context-toggles-shown .se-context-panel {
+  top: 40px; }
+
 .sc-dialog-header {
   background: #F8F8F8;
   position: absolute;
@@ -2501,26 +2530,6 @@ a.quiet.active, a.quiet:hover {
       font-size: 12px;
       line-height: 40px;
       margin-right: 20px; }
-
-.sc-scrollbar {
-  position: absolute;
-  left: 0px;
-  width: 20px;
-  top: 0px;
-  bottom: 0px;
-  background: #FAFAFA;
-  box-shadow: inset -4px 0 4px 0 rgba(25, 25, 25, 0.04); }
-  .sc-scrollbar .se-thumb {
-    position: absolute;
-    top: 40px;
-    left: 0px;
-    right: 0px;
-    height: 0px;
-    background-color: rgba(0, 0, 0, 0.2); }
-  .sc-scrollbar .se-highlight {
-    position: absolute;
-    width: 100%;
-    background-color: #2B303B; }
 
 /* StatusBar Component
 -----------------------------------------------------*/
@@ -2562,6 +2571,258 @@ a.quiet.active, a.quiet:hover {
 
 .sc-text-property .se-container-annotation.se-anchor {
   position: relative; }
+
+.sc-text-property .sm-highlighted {
+  background: #ddd; }
+
+/* Toolbar
+-------------------------------------------------- */
+.sc-toolbar {
+  height: 40px;
+  overflow: visible;
+  border-bottom: 1px solid #ddd;
+  font-size: 13px;
+  /* Toolbar group
+  ---------------------------- */
+  /* ???
+  ---------------------------- */
+  /* Toolbar Dropdown
+  ---------------------------- */ }
+  .sc-toolbar .se-toolbar-group {
+    float: left; }
+    .sc-toolbar .se-toolbar-group .se-tool {
+      line-height: normal;
+      float: left;
+      position: relative; }
+      .sc-toolbar .se-toolbar-group .se-tool button {
+        position: relative;
+        margin: 5px;
+        color: inherit;
+        height: 30px;
+        min-width: 30px;
+        text-align: center; }
+      .sc-toolbar .se-toolbar-group .se-tool.expand button::before, .sc-toolbar .se-toolbar-group .se-tool.truncate button::before {
+        content: " \f07e";
+        font-family: FontAwesome;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        font-size: 7px; }
+      .sc-toolbar .se-toolbar-group .se-tool.edit button::before {
+        content: " \f013";
+        font-family: FontAwesome;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        font-size: 7px; }
+      .sc-toolbar .se-toolbar-group .se-tool.sm-active button {
+        background: rgba(0, 0, 0, 0.1); }
+      .sc-toolbar .se-toolbar-group .se-tool button:hover {
+        background: rgba(0, 0, 0, 0.1); }
+      .sc-toolbar .se-toolbar-group .se-tool.sm-disabled {
+        opacity: 0.2;
+        cursor: default; }
+        .sc-toolbar .se-toolbar-group .se-tool.sm-disabled button:hover {
+          background: none; }
+  .sc-toolbar input {
+    margin: 5px;
+    margin-left: 20px;
+    min-width: 600px;
+    border: none; }
+  .sc-toolbar .se-toolbar-dropdown {
+    overflow: visible;
+    position: relative;
+    float: left; }
+    .sc-toolbar .se-toolbar-dropdown .se-toggle {
+      height: 30px;
+      padding: 0px 10px;
+      line-height: 30px;
+      margin: 5px;
+      display: block; }
+    .sc-toolbar .se-toolbar-dropdown:not(.sm-disabled) .se-toggle:after {
+      content: " \f0d7";
+      padding-left: 10px;
+      float: right;
+      font-family: FontAwesome; }
+    .sc-toolbar .se-toolbar-dropdown .se-options {
+      display: none;
+      position: absolute;
+      background: white;
+      top: 40px;
+      z-index: 5000;
+      min-width: 150px;
+      box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
+      border: 1px solid #ddd; }
+      .sc-toolbar .se-toolbar-dropdown .se-options .se-tool {
+        display: block;
+        padding: 5px 10px;
+        width: 100%; }
+        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool:hover {
+          background: rgba(0, 0, 0, 0.05); }
+        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool.sm-disabled {
+          opacity: 0.2;
+          cursor: default; }
+          .sc-toolbar .se-toolbar-dropdown .se-options .se-tool.sm-disabled button:hover {
+            background: none; }
+    .sc-toolbar .se-toolbar-dropdown.sm-open .se-options {
+      display: block; }
+
+/* Switch Text Type Component
+---------------------------- */
+.sc-switch-text-type {
+  overflow: visible;
+  position: relative;
+  float: left;
+  width: 140px; }
+  .sc-switch-text-type .se-toggle {
+    background: white;
+    height: 30px;
+    padding: 0px 10px;
+    line-height: 30px;
+    margin: 5px;
+    display: block;
+    overflow: hidden; }
+  .sc-switch-text-type:not(.sm-disabled) .se-toggle:after {
+    content: " \f0d7";
+    padding-left: 10px;
+    float: right;
+    font-family: FontAwesome; }
+  .sc-switch-text-type.sm-disabled {
+    opacity: 0.4;
+    cursor: default; }
+    .sc-switch-text-type.sm-disabled:hover {
+      background: none; }
+  .sc-switch-text-type .se-options {
+    display: none;
+    position: absolute;
+    background: white;
+    top: 40px;
+    z-index: 5000;
+    min-width: 150px;
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
+    border: 1px solid #ddd; }
+    .sc-switch-text-type .se-options .se-option {
+      display: block;
+      padding: 5px 10px;
+      width: 100%; }
+      .sc-switch-text-type .se-options .se-option:hover {
+        background: rgba(0, 0, 0, 0.05); }
+  .sc-switch-text-type.sm-open .se-options {
+    display: block; }
+
+.sc-paragraph {
+  padding-bottom: 20px; }
+
+.sc-heading {
+  padding-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: -0.5px; }
+
+.sc-heading.sm-level-1 {
+  font-size: 24px;
+  line-height: 28px; }
+
+.sc-heading.sm-level-2 {
+  font-size: 20px; }
+
+.sc-heading.sm-level-3 {
+  font-size: 16px; }
+
+/* SwitchTextTypeTool */
+.sc-switch-text-type .se-option.sm-heading1 {
+  font-size: 24px;
+  font-weight: 600; }
+
+.sc-switch-text-type .se-option.sm-heading2 {
+  font-size: 20px;
+  font-weight: 600; }
+
+.sc-switch-text-type .se-option.sm-heading3 {
+  font-size: 16px;
+  font-weight: 600; }
+
+.sc-blockquote {
+  border-left: 2px solid #ccc;
+  padding-left: 30px;
+  margin-bottom: 20px; }
+
+.sc-switch-text-type .se-option.sm-blockquote {
+  border-left: 2px solid #ccc;
+  padding-left: 30px; }
+
+.sc-codeblock {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 15px;
+  padding-bottom: 20px; }
+
+.sc-switch-text-type .se-option.sm-codeblock {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 15px; }
+
+/**
+ * Substance List styles
+ * -------
+ *
+ * Used for ordered lists
+ *
+ * Supports nesting only up to level-4
+ */
+.sc-li {
+  /* Spacing */ }
+  .sc-li.level-2 {
+    margin-left: 20px; }
+  .sc-li.level-3 {
+    margin-left: 40px; }
+  .sc-li.level-4 {
+    margin-left: 60px; }
+  .sc-li.se-list-start {
+    padding-top: 20px; }
+  .sc-li.se-list-end {
+    padding-bottom: 20px; }
+
+/**
+ * Unordered lists
+ * -------
+ */
+ul.sc-list > .sc-li::before {
+  content: "▪ "; }
+
+/**
+ * Ordered lists
+ * -------
+ *
+ * Use CSS counters and support nesting up to level 4
+ */
+/* When a new list occurs counters are reset */
+.se-list-start {
+  counter-reset: level1 level2 level3 level4 !important; }
+
+/* Resets for individual levels */
+ol.sc-list > .sc-li.level-1 {
+  counter-reset: level2 level3 level4; }
+
+ol.sc-list > .sc-li.level-2 {
+  counter-reset: level3 level4; }
+
+ol.sc-list > .sc-li.level-3 {
+  counter-reset: level4; }
+
+/* Counter displays for levels 1-3 */
+ol.sc-list > .sc-li.level-1::before {
+  counter-increment: level1;
+  content: counter(level1) ". "; }
+
+ol.sc-list > .sc-li.level-2::before {
+  counter-increment: level2;
+  content: counter(level1) "." counter(level2) ". "; }
+
+ol.sc-list > .sc-li.level-3::before {
+  counter-increment: level3;
+  content: counter(level1) "." counter(level2) "." counter(level3) ". "; }
+
+ol.sc-list > .sc-li.level-4::before {
+  counter-increment: level4;
+  content: counter(level1) "." counter(level2) "." counter(level3) "." counter(level4) ". "; }
 
 .sc-link {
   color: #2079DC;
@@ -2619,6 +2880,25 @@ a.quiet.active, a.quiet:hover {
     min-width: auto;
     padding: 0 10px; }
 
+.sc-figure {
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd; }
+  .sc-figure .se-label {
+    color: #777;
+    padding-bottom: 10px; }
+  .sc-figure .se-title {
+    font-size: 20px;
+    padding-bottom: 20px; }
+  .sc-figure .se-description {
+    padding-top: 20px;
+    line-height: 20px;
+    font-size: 14px; }
+  .sc-figure .se-image {
+    padding-bottom: 20px; }
+  .sc-figure img {
+    max-width: 100%; }
+
 /* Table nodes
 -----------------------------------------------------*/
 .table {
@@ -2649,6 +2929,20 @@ a.quiet.active, a.quiet:hover {
 
 .sc-strong {
   font-weight: bold; }
+
+.sc-subscript {
+  vertical-align: sub;
+  font-size: smaller; }
+
+.sc-superscript {
+  vertical-align: super;
+  font-size: smaller; }
+
+.sc-code {
+  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-size: 14px;
+  background: #eee;
+  padding: 2px 0px; }
 
 p {
   padding-bottom: 10px; }
@@ -2970,7 +3264,7 @@ body {
       bottom: 0px;
       left: 0px;
       right: 0px; }
-      .sc-documentation-reader .se-workspace .sc-content-panel .se-panel-content-inner {
+      .sc-documentation-reader .se-workspace .sc-content-panel .se-content {
         padding: 40px; }
     .sc-documentation-reader .se-workspace .se-resource {
       position: relative;

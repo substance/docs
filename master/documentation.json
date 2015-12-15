@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "7b0d773fffea201bba22afa521a46db27439e16e"
+    "sha": "52d256fb20f6efdfec417d676f9053a59a79b2e1"
   },
   {
     "type": "namespace",
@@ -3975,15 +3975,15 @@
     "superClass": "ui/Component"
   },
   {
-    "type": "function",
+    "type": "class",
     "id": "ui/Clipboard",
     "description": "<p>The Clipboard is a Component which should be rendered as a sibling component\nof one or multiple Surfaces.</p>\n<p>It uses the JSONImporter and JSONExporter for internal copy'n'pasting,\ni.e., within one window or between two instances with the same DocumentSchema.</p>\n<p>For inter-application copy'n'paste, the ClipboardImporter and ClipboardExporter is used.\nFor HTML coming from the clipboard we support a fixed set of content types:</p>\n<ul>\n<li>Paragraph</li>\n<li>Heading</li>\n<li>Strong/Bold</li>\n<li>Emphasis/Italic</li>\n<li>Link</li>\n<li>Table</li>\n<li>List</li>\n</ul>\n<p>To make this work for a custom schema, you must include the default nodes into your schema.\nOtherwise, only plain text will be copied. If <code>Paragraph</code> is not present in your schema,\n<code>schema.getDefaultTextType()</code> is used instead.</p>\n",
     "sourceFile": "ui/Clipboard.js",
-    "sourceLine": 32,
+    "sourceLine": 10,
     "tags": [],
     "parent": "ui",
     "name": "Clipboard",
-    "params": []
+    "members": []
   },
   {
     "type": "function",

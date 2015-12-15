@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "0e0f386abbae0a28504c34b508fa4336b27cd68f"
+    "sha": "56dca45494f0def0cc973ea171511044d592c27f"
   },
   {
     "type": "namespace",
@@ -2109,6 +2109,9 @@
     "parent": "model/data",
     "name": "Data",
     "members": [
+      "model/data/Data#_startIndexing",
+      "model/data/Data#_stopIndexing",
+      "model/data/Data#_updateIndexes",
       "model/data/Data#addIndex",
       "model/data/Data#contains",
       "model/data/Data#create",
@@ -2123,6 +2126,49 @@
       "model/data/Data@Data"
     ],
     "superClass": "util/EventEmitter"
+  },
+  {
+    "type": "method",
+    "id": "model/data/Data#_startIndexing",
+    "description": "<p>Update all index changes from indexing queue.</p>\n",
+    "sourceFile": "model/data/Data.js",
+    "sourceLine": 309,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/data/Data",
+    "name": "_startIndexing",
+    "params": []
+  },
+  {
+    "type": "method",
+    "id": "model/data/Data#_stopIndexing",
+    "description": "<p>Stops indexing process, all changes will be collected in indexing queue.</p>\n",
+    "sourceFile": "model/data/Data.js",
+    "sourceLine": 302,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/data/Data",
+    "name": "_stopIndexing",
+    "params": []
+  },
+  {
+    "type": "method",
+    "id": "model/data/Data#_updateIndexes",
+    "description": "<p>Update a node index by providing of change object.</p>\n",
+    "sourceFile": "model/data/Data.js",
+    "sourceLine": 287,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/data/Data",
+    "name": "_updateIndexes",
+    "params": [
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "change",
+        "description": ""
+      }
+    ]
   },
   {
     "type": "method",
@@ -2398,6 +2444,7 @@
     "parent": "model/data",
     "name": "IncrementalData",
     "members": [
+      "model/data/IncrementalData#_getDiffOp",
       "model/data/IncrementalData#apply",
       "model/data/IncrementalData#create",
       "model/data/IncrementalData#delete",
@@ -2406,6 +2453,35 @@
       "model/data/IncrementalData@IncrementalData"
     ],
     "superClass": "model/data/Data"
+  },
+  {
+    "type": "method",
+    "id": "model/data/IncrementalData#_getDiffOp",
+    "description": "<p>Creates proper operation based on provided node path and diff.</p>\n",
+    "sourceFile": "model/data/IncrementalData.js",
+    "sourceLine": 142,
+    "isPrivate": true,
+    "tags": [],
+    "parent": "model/data/IncrementalData",
+    "name": "_getDiffOp",
+    "params": [
+      {
+        "type": "Array",
+        "shortType": "Array",
+        "name": "path",
+        "description": ""
+      },
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "diff",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "ObjectOperation",
+      "description": "<p>operation.</p>\n"
+    }
   },
   {
     "type": "method",
@@ -2592,6 +2668,7 @@
       "model/data/Node#getPropertyType",
       "model/data/Node#getTypeNames",
       "model/data/Node#isInstanceOf",
+      "model/data/Node#toJSON",
       "model/data/Node.isInstanceOf",
       "model/data/Node.name"
     ],
@@ -2661,10 +2738,26 @@
   },
   {
     "type": "method",
+    "id": "model/data/Node#toJSON",
+    "description": "<p>Convert node to JSON.</p>\n",
+    "sourceFile": "model/data/Node.js",
+    "sourceLine": 97,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/data/Node",
+    "name": "toJSON",
+    "params": [],
+    "returns": {
+      "type": "Object",
+      "description": "<p>JSON representation of node.</p>\n"
+    }
+  },
+  {
+    "type": "method",
     "id": "model/data/Node.isInstanceOf",
     "description": "<p>Internal implementation of Node.prototype.isInstanceOf.</p>\n",
     "sourceFile": "model/data/Node.js",
-    "sourceLine": 141,
+    "sourceLine": 146,
     "isPrivate": true,
     "tags": [],
     "parent": "model/data/Node",
@@ -2681,7 +2774,7 @@
     "id": "model/data/Node.name",
     "description": "<p>Symbolic name for this model class. Must be set to a unique string by every subclass.</p>\n",
     "sourceFile": "model/data/Node.js",
-    "sourceLine": 112,
+    "sourceLine": 117,
     "tags": [],
     "parent": "model/data/Node",
     "name": "name",
@@ -3588,15 +3681,22 @@
     "name": "ui",
     "description": "<p>Provides all UI-related functionality. At the heart there is a Component implementation, which implements reactive rendering engine. We provide a range of ready-to use components that you can use to assemble your app.</p>\n",
     "members": [
+      "ui/AnnotatedTextComponent",
+      "ui/AnnotationCommand",
+      "ui/AnnotationComponent",
       "ui/Clipboard",
+      "ui/ClipboardImporter",
       "ui/Command",
       "ui/Component",
       "ui/ContainerAnnotator",
       "ui/ContainerEditor",
+      "ui/ContentPanel",
       "ui/Controller",
       "ui/ControllerCommand",
       "ui/ControllerTool",
       "ui/DOMElement",
+      "ui/ModalPanel",
+      "ui/Panel",
       "ui/ScrollPane",
       "ui/Scrollbar",
       "ui/Surface",
@@ -3611,6 +3711,270 @@
     ]
   },
   {
+    "type": "class",
+    "id": "ui/AnnotatedTextComponent",
+    "description": "<p>Renders an anotated text. Used internally by ui/TextPropertyComponent</p>\n",
+    "sourceFile": "ui/AnnotatedTextComponent.js",
+    "sourceLine": 16,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      }
+    ],
+    "parent": "ui",
+    "name": "AnnotatedTextComponent",
+    "members": [
+      "ui/AnnotatedTextComponent#getAnnotations",
+      "ui/AnnotatedTextComponent#getDocument",
+      "ui/AnnotatedTextComponent#getPath",
+      "ui/AnnotatedTextComponent#render"
+    ],
+    "superClass": "ui/AnnotationComponent"
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotatedTextComponent#getAnnotations",
+    "description": "<p>Gets annotations related to current node.</p>\n",
+    "sourceFile": "ui/AnnotatedTextComponent.js",
+    "sourceLine": 96,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotatedTextComponent",
+    "name": "getAnnotations",
+    "params": [],
+    "returns": {
+      "type": "Array",
+      "description": "<p>Node's annotations</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotatedTextComponent#getDocument",
+    "description": "<p>Gets document instance.</p>\n",
+    "sourceFile": "ui/AnnotatedTextComponent.js",
+    "sourceLine": 107,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotatedTextComponent",
+    "name": "getDocument",
+    "params": [],
+    "returns": {
+      "type": "Document",
+      "description": "<p>The document instance</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotatedTextComponent#getPath",
+    "description": "<p>Gets a node path.</p>\n",
+    "sourceFile": "ui/AnnotatedTextComponent.js",
+    "sourceLine": 116,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotatedTextComponent",
+    "name": "getPath",
+    "params": [],
+    "returns": {
+      "type": "String[]",
+      "description": "<p>Node path</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotatedTextComponent#render",
+    "description": "<p>Node render implementation. Use model/Fragmenter for rendering of annotations.</p>\n",
+    "sourceFile": "ui/AnnotatedTextComponent.js",
+    "sourceLine": 27,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotatedTextComponent",
+    "name": "render",
+    "params": [],
+    "returns": {
+      "type": "VirtualNode",
+      "description": "<p>VirtualNode created using ui/Component</p>\n"
+    }
+  },
+  {
+    "type": "class",
+    "id": "ui/AnnotationCommand",
+    "description": "<p>A class for commands intended to be executed on the annotations.\nSee the example below to learn how to define a custom <code>AnnotationCommand</code>.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> AnnotationCommand = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/AnnotationCommand'</span>);\n\n<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">SmallCapsCommand</span>(<span class=\"hljs-params\"></span>) </span>{\n  SmallCaps.super.apply(<span class=\"hljs-keyword\">this</span>, <span class=\"hljs-built_in\">arguments</span>);\n}\n\n<span class=\"hljs-keyword\">var</span> SmallCapsCommand = AnnotationCommand.extend();\n\nSmallCapsCommand.static.name = <span class=\"hljs-string\">'smallcaps'</span>;\nSmallCapsCommand.static.annotationType = <span class=\"hljs-string\">'smallcaps'</span>;\n</code></pre>\n",
+    "sourceFile": "ui/AnnotationCommand.js",
+    "sourceLine": 36,
+    "tags": [],
+    "parent": "ui",
+    "name": "AnnotationCommand",
+    "members": [
+      "ui/AnnotationCommand#canTruncate",
+      "ui/AnnotationCommand#getAnnotationData",
+      "ui/AnnotationCommand#getAnnotationType",
+      "ui/AnnotationCommand#getAnnotationsForSelection",
+      "ui/AnnotationCommand#getCommandState",
+      "ui/AnnotationCommand#isDisabled"
+    ],
+    "superClass": "ui/SurfaceCommand"
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotationCommand#canTruncate",
+    "description": "<p>Checks if annotation could be truncated.\nThere should be overlap with only a single annotation,\nselection should also have boundary in common with this annotation.</p>\n",
+    "sourceFile": "ui/AnnotationCommand.js",
+    "sourceLine": 163,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotationCommand",
+    "name": "canTruncate",
+    "params": [
+      {
+        "type": "Array",
+        "shortType": "Array",
+        "name": "annos",
+        "description": "<p>annotations</p>\n"
+      },
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "sel",
+        "description": "<p>selection</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "Boolean",
+      "description": "<p>Whether or not annotation could be truncated.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotationCommand#getAnnotationData",
+    "description": "<p>Get the annotation's data.</p>\n",
+    "sourceFile": "ui/AnnotationCommand.js",
+    "sourceLine": 60,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotationCommand",
+    "name": "getAnnotationData",
+    "params": [],
+    "returns": {
+      "type": "Object",
+      "description": "<p>The annotation's data.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotationCommand#getAnnotationType",
+    "description": "<p>Get the type of an annotation.</p>\n",
+    "sourceFile": "ui/AnnotationCommand.js",
+    "sourceLine": 47,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotationCommand",
+    "name": "getAnnotationType",
+    "params": [],
+    "returns": {
+      "type": "String",
+      "description": "<p>The annotation's type.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotationCommand#getAnnotationsForSelection",
+    "description": "<p>Gets annotations for current selection.</p>\n",
+    "sourceFile": "ui/AnnotationCommand.js",
+    "sourceLine": 177,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotationCommand",
+    "name": "getAnnotationsForSelection",
+    "params": [],
+    "returns": {
+      "type": "Array",
+      "description": "<p>annos Annotations.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotationCommand#getCommandState",
+    "description": "<p>Gets command state object.</p>\n",
+    "sourceFile": "ui/AnnotationCommand.js",
+    "sourceLine": 221,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotationCommand",
+    "name": "getCommandState",
+    "params": [],
+    "returns": {
+      "type": "Object",
+      "description": "<p>info object with command details.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/AnnotationCommand#isDisabled",
+    "description": "<p>Checks if command couldn't be executed with current selection.</p>\n",
+    "sourceFile": "ui/AnnotationCommand.js",
+    "sourceLine": 72,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/AnnotationCommand",
+    "name": "isDisabled",
+    "params": [
+      {
+        "type": "Array",
+        "shortType": "Array",
+        "name": "annos",
+        "description": "<p>annotations</p>\n"
+      },
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "sel",
+        "description": "<p>selection</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "Boolean",
+      "description": "<p>Whether or not command could be executed.</p>\n"
+    }
+  },
+  {
+    "type": "class",
+    "id": "ui/AnnotationComponent",
+    "description": "<p>Renders an annotation. Used internally by different components (e.g. ui/AnnotatedTextComponent)</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">$$(AnnotationComponent, { \n  doc: doc, \n  node: node \n})\n</code></pre>\n",
+    "sourceFile": "ui/AnnotationComponent.js",
+    "sourceLine": 26,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      },
+      {
+        "type": "prop",
+        "value": {
+          "type": "Object",
+          "shortType": "Object",
+          "name": "doc",
+          "description": "<p>document</p>\n"
+        }
+      },
+      {
+        "type": "prop",
+        "value": {
+          "type": "Object",
+          "shortType": "Object",
+          "name": "node",
+          "description": "<p>node which describes annotation</p>\n"
+        }
+      }
+    ],
+    "parent": "ui",
+    "name": "AnnotationComponent",
+    "members": [],
+    "superClass": "ui/Component"
+  },
+  {
     "type": "function",
     "id": "ui/Clipboard",
     "description": "<p>The Clipboard is a Component which should be rendered as a sibling component\nof one or multiple Surfaces.</p>\n<p>It uses the JSONImporter and JSONExporter for internal copy'n'pasting,\ni.e., within one window or between two instances with the same DocumentSchema.</p>\n<p>For inter-application copy'n'paste, the ClipboardImporter and ClipboardExporter is used.\nFor HTML coming from the clipboard we support a fixed set of content types:</p>\n<ul>\n<li>Paragraph</li>\n<li>Heading</li>\n<li>Strong/Bold</li>\n<li>Emphasis/Italic</li>\n<li>Link</li>\n<li>Table</li>\n<li>List</li>\n</ul>\n<p>To make this work for a custom schema, you must include the default nodes into your schema.\nOtherwise, only plain text will be copied. If <code>Paragraph</code> is not present in your schema,\n<code>schema.getDefaultTextType()</code> is used instead.</p>\n",
@@ -3619,6 +3983,17 @@
     "tags": [],
     "parent": "ui",
     "name": "Clipboard",
+    "params": []
+  },
+  {
+    "type": "function",
+    "id": "ui/ClipboardImporter",
+    "description": "<p>Import HTML from clipboard. Used for inter-application copy'n'paste.</p>\n",
+    "sourceFile": "ui/ClipboardImporter.js",
+    "sourceLine": 32,
+    "tags": [],
+    "parent": "ui",
+    "name": "ClipboardImporter",
     "params": []
   },
   {
@@ -4506,6 +4881,23 @@
     "parent": "ui/ContainerEditor",
     "name": "switchType",
     "params": []
+  },
+  {
+    "type": "class",
+    "id": "ui/ContentPanel",
+    "description": "<p>Scrollable content Panel with support for highlights.</p>\n",
+    "sourceFile": "ui/ContentPanel.js",
+    "sourceLine": 16,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      }
+    ],
+    "parent": "ui",
+    "name": "ContentPanel",
+    "members": [],
+    "superClass": "ui/Panel"
   },
   {
     "type": "class",
@@ -6006,6 +6398,59 @@
       "description": "<p>parsed elements</p>\n"
     },
     "isStatic": true
+  },
+  {
+    "type": "class",
+    "id": "ui/ModalPanel",
+    "description": "<p>Panel inside Modal.</p>\n",
+    "sourceFile": "ui/ModalPanel.js",
+    "sourceLine": 14,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      }
+    ],
+    "parent": "ui",
+    "name": "ModalPanel",
+    "members": [],
+    "superClass": "ui/Panel"
+  },
+  {
+    "type": "class",
+    "id": "ui/Panel",
+    "description": "<p>Abstract Panel interface.</p>\n",
+    "sourceFile": "ui/Panel.js",
+    "sourceLine": 16,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      }
+    ],
+    "parent": "ui",
+    "name": "Panel",
+    "members": [
+      "ui/Panel#getDocument"
+    ],
+    "isAbstract": true,
+    "superClass": "ui/Component"
+  },
+  {
+    "type": "method",
+    "id": "ui/Panel#getDocument",
+    "description": "<p>Get the Document instance.</p>\n",
+    "sourceFile": "ui/Panel.js",
+    "sourceLine": 32,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/Panel",
+    "name": "getDocument",
+    "params": [],
+    "returns": {
+      "type": "Document",
+      "description": ""
+    }
   },
   {
     "type": "class",

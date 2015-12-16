@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "52d256fb20f6efdfec417d676f9053a59a79b2e1"
+    "sha": "ebcd10eb52bf0596fdc98beb297d568a0ac59f43"
   },
   {
     "type": "namespace",
@@ -642,16 +642,16 @@
     "name": "convertContainer",
     "params": [
       {
-        "type": "ui/DOMElement",
-        "shortType": "DOMElement",
-        "name": "containerEl",
-        "description": "<p>An element representing a container node.</p>\n"
+        "type": "ui/DOMElement[]",
+        "shortType": "DOMElement[]",
+        "name": "elements",
+        "description": "<p>All elements that should be converted into the container.</p>\n"
       },
       {
         "type": "String",
         "shortType": "String",
         "name": "containerId",
-        "description": "<p>The id of the target container node.</p>\n"
+        "description": "<p>TODO The id of the target container node.</p>\n"
       }
     ]
   },

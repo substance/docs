@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "ebcd10eb52bf0596fdc98beb297d568a0ac59f43"
+    "sha": "d908fd6e6919760fa9bc383809fc753a1377cbdb"
   },
   {
     "type": "namespace",
@@ -537,7 +537,7 @@
     "id": "model/DOMImporter#_createDefaultBlockElement",
     "description": "<p>Converts an element into a default block level node.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 490,
+    "sourceLine": 493,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -560,7 +560,7 @@
     "id": "model/DOMImporter#_trimTextContent",
     "description": "<p>Removes any leading and trailing whitespaces from the content\nwithin the given element.\nAttention: this is not yet implemented fully. Atm, trimming is only done\non the first and last text node (if they exist).</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 545,
+    "sourceLine": 550,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -583,7 +583,7 @@
     "id": "model/DOMImporter#_wrapInlineElementsIntoBlockElement",
     "description": "<p>Wraps the remaining (inline) elements of a node iterator into a default\nblock node.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 461,
+    "sourceLine": 464,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -604,9 +604,9 @@
   {
     "type": "method",
     "id": "model/DOMImporter#annotatedText",
-    "description": "<p>Convert annotated text.</p>\n<p>Make sure you call this method only for elements where <code>this.isParagraphish(elements) === true</code>.</p>\n",
+    "description": "<p>Convert annotated text.</p>\n<p>You should call this method only for elements containing rich-text.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 261,
+    "sourceLine": 260,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -623,6 +623,18 @@
         "shortType": "String[]",
         "name": "path",
         "description": "<p>The target property where the extracted text (plus annotations) should be stored.</p>\n"
+      },
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "options",
+        "description": ""
+      },
+      {
+        "type": "Boolean",
+        "shortType": "Boolean",
+        "name": "options.preserveWhitespace",
+        "description": "<p>when true will preserve whitespace. Default: false.</p>\n"
       }
     ],
     "returns": {
@@ -635,7 +647,7 @@
     "id": "model/DOMImporter#convertContainer",
     "description": "<p>Converts and shows all children of a given element.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 153,
+    "sourceLine": 142,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -651,16 +663,20 @@
         "type": "String",
         "shortType": "String",
         "name": "containerId",
-        "description": "<p>TODO The id of the target container node.</p>\n"
+        "description": "<p>The id of the target container node.</p>\n"
       }
-    ]
+    ],
+    "returns": {
+      "type": "Object",
+      "description": "<p>the preliminary container node</p>\n"
+    }
   },
   {
     "type": "method",
     "id": "model/DOMImporter#convertElement",
     "description": "<p>Converts a single HTML element and creates a node in the current document.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 193,
+    "sourceLine": 190,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -683,7 +699,7 @@
     "id": "model/DOMImporter#customText",
     "description": "<p>Tells the converter to insert a virutal custom text.</p>\n<p>This is useful when during conversion a generated label needs to be inserted instead\nof real text.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 311,
+    "sourceLine": 314,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -702,7 +718,7 @@
     "id": "model/DOMImporter#nextId",
     "description": "<p>Generates an id. The generated id is unique with respect to all ids generated so far.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 327,
+    "sourceLine": 330,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -725,7 +741,7 @@
     "id": "model/DOMImporter#plainText",
     "description": "<p>Converts the given element as plain-text.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 292,
+    "sourceLine": 295,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",

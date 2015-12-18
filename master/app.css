@@ -2404,6 +2404,8 @@ a.quiet.active, a.quiet:hover {
       height: 0px; }
     .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar-thumb {
       background-color: transparent; }
+    .sc-scroll-pane.sm-substance-scrollbar .se-scrollable {
+      -ms-overflow-style: none; }
   .sc-scroll-pane .se-scrollable {
     position: absolute;
     top: 0px;

@@ -2370,6 +2370,9 @@ a.quiet.active, a.quiet:hover {
   .sc-surface *[contenteditable="false"] {
     cursor: default; }
 
+::-moz-selection {
+  background: rgba(77, 149, 233, 0.46); }
+
 /* Panels (Context panel)
 -----------------------------------------------------*/
 .sc-panel .se-panel-content {
@@ -2393,19 +2396,21 @@ a.quiet.active, a.quiet:hover {
   left: 0px;
   right: 0px;
   /* For debugging purposes */ }
-  .sc-scroll-pane.sm-substance-scrollbar {
-    /* Hide native scroll bar in content panel */ }
-    .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-left .se-scrollable {
-      left: 20px; }
-    .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-right .se-scrollable {
-      right: 20px; }
-    .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar {
-      width: 0px;
-      height: 0px; }
-    .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar-thumb {
-      background-color: transparent; }
-    .sc-scroll-pane.sm-substance-scrollbar .se-scrollable {
-      -ms-overflow-style: none; }
+  .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-left .se-scrollable {
+    left: 20px; }
+  .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-right .se-scrollable {
+    right: 20px; }
+  .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar {
+    width: 0px;
+    height: 0px; }
+  .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar-thumb {
+    background-color: transparent; }
+  .sc-scroll-pane.sm-substance-scrollbar .se-scrollable {
+    -ms-overflow-style: none; }
+  .sc-scroll-pane.sm-substance-scrollbar.sm-firefox .se-scrollable {
+    margin-right: -15px;
+    overflow-y: scroll;
+    overflow-x: hidden; }
   .sc-scroll-pane .se-scrollable {
     position: absolute;
     top: 0px;

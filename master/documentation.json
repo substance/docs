@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "29aaeb54524d5a1162a2cfaa68e1eeff4fcf362a"
+    "sha": "b98df0fbd62dc020943762878ce3e00c5e304fa8"
   },
   {
     "type": "namespace",
@@ -6498,7 +6498,7 @@
     "id": "ui/ScrollPane",
     "description": "<p>Wraps content in a scroll pane.</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 8,
+    "sourceLine": 9,
     "tags": [
       {
         "type": "component",
@@ -6535,7 +6535,7 @@
     "id": "ui/ScrollPane#getContentElement",
     "description": "<p>Get the <code>.se-content</code> element</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 94,
+    "sourceLine": 99,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6547,7 +6547,7 @@
     "id": "ui/ScrollPane#getContentHeight",
     "description": "<p>Returns the cumulated height of a panel's content</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 82,
+    "sourceLine": 87,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6559,7 +6559,7 @@
     "id": "ui/ScrollPane#getHeight",
     "description": "<p>Returns the height of scrollPane (inner content overflows)</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 74,
+    "sourceLine": 79,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6571,7 +6571,7 @@
     "id": "ui/ScrollPane#getPanelOffsetForElement",
     "description": "<p>Get offset relative to <code>.se-content</code>.</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 118,
+    "sourceLine": 123,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6590,7 +6590,7 @@
     "id": "ui/ScrollPane#getScrollPosition",
     "description": "<p>Get current scroll position (scrollTop) of <code>.se-scrollable</code> element</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 108,
+    "sourceLine": 113,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6602,7 +6602,7 @@
     "id": "ui/ScrollPane#getScrollableElement",
     "description": "<p>Get the <code>.se-scrollable</code> element</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 101,
+    "sourceLine": 106,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6614,7 +6614,7 @@
     "id": "ui/ScrollPane#scrollTo",
     "description": "<p>Scroll to a given sub component.</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 145,
+    "sourceLine": 150,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6690,7 +6690,7 @@
     "id": "ui/Surface#_setModelSelection",
     "description": "<p>Set the model selection only (without DOM selection update).</p>\n<p>Used internally if we derive the model selection from the DOM selcection.</p>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 734,
+    "sourceLine": 729,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -6702,7 +6702,7 @@
     "id": "ui/Surface#copy",
     "description": "<p>Copy the current selection. Performs a <a href=\"#nodeId=model/transform/copySelection\" data-type=\"cross-link\" data-node-id=\"model/transform/copySelection\">model/transform/copySelection</a>\ntransformation.</p>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 380,
+    "sourceLine": 375,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -6714,7 +6714,7 @@
     "id": "ui/Surface#setSelection",
     "description": "<p>Set the model selection and update the DOM selection accordingly</p>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 345,
+    "sourceLine": 340,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -6727,7 +6727,7 @@
     "description": "<p>Run a transformation as a transaction properly configured for this surface.</p>\n",
     "example": "<p>Returning a new selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> selection = args.selection;\n  ...\n  selection = tx.createSelection(...);\n  <span class=\"hljs-keyword\">return</span> {\n    selection: selection\n  };\n});\n</code></pre>\n<p>Reusing the current selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n  <span class=\"hljs-keyword\">this</span>.foo();\n  ...\n  <span class=\"hljs-keyword\">return</span> args;\n}, <span class=\"hljs-keyword\">this</span>);\n</code></pre>\n<p>Adding custom information to the transaction:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(beforeState, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n});\n</code></pre>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 275,
+    "sourceLine": 270,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -7368,6 +7368,7 @@
     "members": [
       "util/EventEmitter",
       "util/oo",
+      "util/platform",
       "util/serverUtils"
     ]
   },
@@ -7709,6 +7710,17 @@
         "description": ""
       }
     ]
+  },
+  {
+    "type": "module",
+    "id": "util/platform",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> platform = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/util/platform'</span>);\n</code></pre>\n",
+    "sourceFile": "util/platform.js",
+    "sourceLine": 13,
+    "tags": [],
+    "parent": "util",
+    "name": "platform",
+    "members": []
   },
   {
     "type": "module",

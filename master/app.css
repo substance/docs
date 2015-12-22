@@ -2398,6 +2398,9 @@ a.quiet.active, a.quiet:hover {
   /* For debugging purposes */ }
   .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-left .se-scrollable {
     left: 20px; }
+  .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-right .sc-scrollbar {
+    right: 0px;
+    left: auto; }
   .sc-scroll-pane.sm-substance-scrollbar.sm-scrollbar-position-right .se-scrollable {
     right: 20px; }
   .sc-scroll-pane.sm-substance-scrollbar .se-scrollable::-webkit-scrollbar {
@@ -2422,27 +2425,58 @@ a.quiet.active, a.quiet:hover {
   .sc-scroll-pane .se-content {
     position: relative; }
 
+.sc-tabbed-pane {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px; }
+  .sc-tabbed-pane .se-tabs {
+    height: 40px;
+    border-bottom: 1px solid #ddd; }
+    .sc-tabbed-pane .se-tabs .se-tab {
+      display: block;
+      float: left;
+      height: 40px;
+      line-height: 40px;
+      padding: 0px 20px;
+      color: #444;
+      font-size: 12px;
+      font-weight: 600; }
+      .sc-tabbed-pane .se-tabs .se-tab:hover {
+        background: #eee;
+        border-bottom: 1px solid #bbb; }
+      .sc-tabbed-pane .se-tabs .se-tab.sm-active {
+        background: #eee;
+        border-bottom: 1px solid #444; }
+  .sc-tabbed-pane .se-tab-content {
+    position: absolute;
+    top: 40px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px; }
+
+.sc-split-pane {
+  display: flex;
+  flex-flow: row nowrap;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px; }
+  .sc-split-pane.sm-horizontal {
+    flex-flow: column nowrap; }
+  .sc-split-pane > .se-pane {
+    position: realive; }
+    .sc-split-pane > .se-pane.sm-sized {
+      position: relative;
+      flex: 0 0 auto; }
+    .sc-split-pane > .se-pane.sm-auto-fill {
+      position: relative;
+      flex-grow: 1; }
+
 /* Content Panel
 -----------------------------------------------------*/
-.sc-context-toggles {
-  height: 40px;
-  border-bottom: 1px solid #ddd; }
-  .sc-context-toggles .se-context-toggle {
-    display: block;
-    float: left;
-    height: 40px;
-    line-height: 40px;
-    padding: 0px 20px;
-    color: #444;
-    font-size: 12px;
-    font-weight: 600; }
-    .sc-context-toggles .se-context-toggle:hover {
-      background: #eee;
-      border-bottom: 1px solid #bbb; }
-    .sc-context-toggles .se-context-toggle.sm-active {
-      background: #eee;
-      border-bottom: 1px solid #444; }
-
 .sc-scrollbar {
   position: absolute;
   left: 0px;
@@ -2494,16 +2528,6 @@ a.quiet.active, a.quiet:hover {
     .sc-toc-panel .se-toc-entries .se-toc-entry.sm-level-3 {
       font-size: 12px;
       margin-left: 60px; }
-
-.sc-context-section .se-context-panel {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px; }
-
-.sc-context-section.sm-context-toggles-shown .se-context-panel {
-  top: 40px; }
 
 .sc-dialog-header {
   background: #F8F8F8;
@@ -2887,6 +2911,9 @@ ol.sc-list > .sc-li.level-4::before {
     min-width: auto;
     padding: 0 10px; }
 
+.sc-image {
+  max-width: 100%; }
+
 .sc-figure {
   padding: 20px;
   margin-bottom: 20px;
@@ -3250,34 +3277,7 @@ body {
   left: 0px;
   right: 0px;
   bottom: 0px; }
-  .sc-documentation-reader .se-workspace {
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    overflow: hidden;
-    bottom: 0px;
-    top: 0px; }
-    .sc-documentation-reader .se-workspace .se-main {
-      float: left;
-      height: 100%;
-      background: #fff;
-      position: relative;
-      width: 65%; }
-      .sc-documentation-reader .se-workspace .se-main .content-panel-component {
-        top: 0px; }
-    .sc-documentation-reader .se-workspace .sc-content-panel {
-      position: absolute;
-      top: 0px;
-      bottom: 0px;
-      left: 0px;
-      right: 0px; }
-      .sc-documentation-reader .se-workspace .sc-content-panel .se-content {
-        padding: 40px; }
-    .sc-documentation-reader .se-workspace .se-resource {
-      position: relative;
-      float: right;
-      border-left: 1px solid #ddd;
-      height: 100%;
-      background-color: #fafafa;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-      width: 35%; }
+  .sc-documentation-reader .se-main-section .se-content {
+    padding: 40px; }
+  .sc-documentation-reader .se-context-section {
+    background-color: #fafafa; }

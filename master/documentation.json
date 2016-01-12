@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "94885cacb60c237ea839dd7aa541ad0fe5d1231b"
+    "sha": "be77177b36c7a6280ee31efda7f62f38092c0ab3"
   },
   {
     "type": "namespace",
@@ -12,7 +12,6 @@
     "name": "model",
     "description": "<p>All you need for defining custom article formats and manipulate them.</p>\n",
     "members": [
-      "model/AbstractDocument",
       "model/Container",
       "model/ContainerAnnotation",
       "model/ContainerSelection",
@@ -28,301 +27,6 @@
       "model/TransactionDocument",
       "model/documentHelpers"
     ]
-  },
-  {
-    "type": "class",
-    "id": "model/AbstractDocument",
-    "description": "<p>Abstract Document implementation.</p>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 19,
-    "tags": [],
-    "parent": "model",
-    "name": "AbstractDocument",
-    "members": [
-      "model/AbstractDocument#addIndex",
-      "model/AbstractDocument#contains",
-      "model/AbstractDocument#create",
-      "model/AbstractDocument#createSelection",
-      "model/AbstractDocument#delete",
-      "model/AbstractDocument#get",
-      "model/AbstractDocument#getIndex",
-      "model/AbstractDocument#getNodes",
-      "model/AbstractDocument#getSchema",
-      "model/AbstractDocument#set",
-      "model/AbstractDocument#toJSON",
-      "model/AbstractDocument#update"
-    ],
-    "isAbstract": true
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#addIndex",
-    "description": "<p>Add a document index.</p>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 203,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "addIndex",
-    "params": [
-      {
-        "type": "String",
-        "shortType": "String",
-        "name": "name",
-        "description": ""
-      },
-      {
-        "type": "model/DocumentIndex",
-        "shortType": "DocumentIndex",
-        "name": "index",
-        "description": ""
-      }
-    ]
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#contains",
-    "description": "<p>Check if this storage contains a node with given id.</p>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 73,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "contains",
-    "params": [],
-    "returns": {
-      "type": "Boolean",
-      "description": "<p><code>true</code> if a node with id exists, <code>false</code> otherwise.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#create",
-    "description": "<p>Create a node from the given data.</p>\n",
-    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'p1'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'Hi I am a Substance paragraph.'</span>\n  });\n});\n</code></pre>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 112,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "create",
-    "params": [
-      {
-        "type": "Object",
-        "shortType": "Object",
-        "name": "plain",
-        "description": "<p>node data.</p>\n"
-      }
-    ],
-    "returns": {
-      "type": "DocumentNode",
-      "description": "<p>The created node.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#createSelection",
-    "description": "<p>Creates a selection which is attached to this document.\nEvery selection implementation provides its own\nparameter format which is basically a JSON representation.</p>\n",
-    "example": "<p>Creating a PropertySelection:</p>\n<pre><code class=\"hljs lang-js\">doc.createSelection({\n  type: <span class=\"hljs-string\">'property'</span>,\n  path: [ <span class=\"hljs-string\">'text1'</span>, <span class=\"hljs-string\">'content'</span>],\n  startOffset: <span class=\"hljs-number\">10</span>,\n  endOffset: <span class=\"hljs-number\">20</span>\n})\n</code></pre>\n<p>Creating a ContainerSelection:</p>\n<pre><code class=\"hljs lang-js\">doc.createSelection({\n  type: <span class=\"hljs-string\">'container'</span>,\n  containerId: <span class=\"hljs-string\">'main'</span>,\n  startPath: [ <span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n  startOffset: <span class=\"hljs-number\">10</span>,\n  startPath: [ <span class=\"hljs-string\">'p2'</span>, <span class=\"hljs-string\">'content'</span>],\n  endOffset: <span class=\"hljs-number\">20</span>\n})\n</code></pre>\n<p>Creating a NullSelection:</p>\n<pre><code class=\"hljs lang-js\">doc.createSelection(<span class=\"hljs-literal\">null</span>);\n</code></pre>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 254,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "createSelection",
-    "params": [
-      {
-        "type": "model/Selection",
-        "shortType": "Selection",
-        "name": "sel",
-        "description": "<p>An object describing the selection.</p>\n"
-      }
-    ]
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#delete",
-    "description": "<p>Delete the node with given id.</p>\n",
-    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.delete(<span class=\"hljs-string\">'p1'</span>);\n});\n</code></pre>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 132,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "delete",
-    "params": [
-      {
-        "type": "String",
-        "shortType": "String",
-        "name": "nodeId",
-        "description": ""
-      }
-    ],
-    "returns": {
-      "type": "DocumentNode",
-      "description": "<p>The deleted node.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#get",
-    "description": "<p>Get a node or value via path.</p>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 83,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "get",
-    "params": [
-      {
-        "type": "String|String[]",
-        "shortType": "String|String[]",
-        "name": "path",
-        "description": "<p>node id or path to property.</p>\n"
-      }
-    ],
-    "returns": {
-      "type": "DocumentNode|any",
-      "description": "<p>a Node instance, a value or undefined if not found.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#getIndex",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 211,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "getIndex",
-    "params": [
-      {
-        "type": "String",
-        "shortType": "String",
-        "name": "name",
-        "description": ""
-      }
-    ],
-    "returns": {
-      "type": "DocumentIndex",
-      "description": "<p>the node index with given name.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#getNodes",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 90,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "getNodes",
-    "params": [],
-    "returns": {
-      "type": "Object",
-      "description": "<p>A hash of <a href=\"#nodeId=model/DocumentNode\" data-type=\"cross-link\" data-node-id=\"model/DocumentNode\">model/DocumentNode</a> instances.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#getSchema",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 64,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "getSchema",
-    "params": [],
-    "returns": {
-      "type": "model/DocumentSchema",
-      "description": "<p>the document's schema.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#set",
-    "description": "<p>Set a property to a new value.</p>\n",
-    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.set([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], <span class=\"hljs-string\">\"Hello there! I'm a new paragraph.\"</span>);\n});\n</code></pre>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 152,
-    "isPrivate": false,
-    "tags": [],
-    "parent": "model/AbstractDocument",
-    "name": "set",
-    "params": [
-      {
-        "type": "String[]",
-        "shortType": "String[]",
-        "name": "property",
-        "description": "<p>path</p>\n"
-      },
-      {
-        "type": "any",
-        "shortType": "any",
-        "name": "newValue",
-        "description": ""
-      }
-    ],
-    "returns": {
-      "type": "DocumentNode",
-      "description": "<p>The deleted node.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#toJSON",
-    "description": "<p>Convert to JSON.</p>\n<p>DEPRECATED: We moved away from having JSON as first-class exchange format.\nWe will remove this soon.</p>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 315,
-    "isPrivate": true,
-    "tags": [
-      {
-        "type": "deprecated",
-        "value": ""
-      }
-    ],
-    "parent": "model/AbstractDocument",
-    "name": "toJSON",
-    "params": [],
-    "returns": {
-      "type": "Object",
-      "description": "<p>Plain content.</p>\n"
-    }
-  },
-  {
-    "type": "method",
-    "id": "model/AbstractDocument#update",
-    "description": "<p>Update a property incrementally.</p>\n<p>DEPRECATED: this will be replaced with a more intuitive API soon.</p>\n",
-    "example": "<p>Updating a string property:</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], { <span class=\"hljs-tag\">delete</span>: {<span class=\"hljs-attribute\">start</span>: <span class=\"hljs-number\">0</span>, <span class=\"hljs-attribute\">end</span>: <span class=\"hljs-number\">3</span>} });\n</code></pre>\n<p>would turn &quot;Foobar&quot; into &quot;bar&quot;.</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], { <span class=\"hljs-tag\">insert</span>: {<span class=\"hljs-attribute\">offset</span>: <span class=\"hljs-number\">3</span>, <span class=\"hljs-attribute\">value</span>: <span class=\"hljs-string\">\"fee\"</span>} });\n</code></pre>\n<p>would turn &quot;Foobar&quot; into &quot;Foofeebar&quot;.</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>(<span class=\"hljs-attr_selector\">['body', 'nodes']</span>, <span class=\"hljs-rules\">{ <span class=\"hljs-rule\"><span class=\"hljs-attribute\">delete</span>:<span class=\"hljs-value\"> <span class=\"hljs-number\">2</span> </span></span></span>});\n</code></pre>\n<p>would turn <code>[1,2,3,4]</code> into <code>[1,2,4]</code>.</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], { <span class=\"hljs-tag\">insert</span>: {<span class=\"hljs-attribute\">offset</span>: <span class=\"hljs-number\">2</span>, <span class=\"hljs-attribute\">value</span>: <span class=\"hljs-number\">0</span>} });\n</code></pre>\n<p>would turn <code>[1,2,3,4]</code> into <code>[1,2,0,3,4]</code>.</p>\n",
-    "sourceFile": "model/AbstractDocument.js",
-    "sourceLine": 192,
-    "isPrivate": false,
-    "tags": [
-      {
-        "type": "deprecated",
-        "value": ""
-      }
-    ],
-    "parent": "model/AbstractDocument",
-    "name": "update",
-    "params": [
-      {
-        "type": "Array",
-        "shortType": "Array",
-        "name": "property",
-        "description": "<p>path</p>\n"
-      },
-      {
-        "type": "Object",
-        "shortType": "Object",
-        "name": "diff",
-        "description": ""
-      }
-    ],
-    "returns": {
-      "type": "any",
-      "description": "<p>The value before applying the update.</p>\n"
-    }
   },
   {
     "type": "class",
@@ -765,13 +469,24 @@
     "description": "<p>Abstract class used for deriving a custom article implementation.\nRequires a <a href=\"#nodeId=model/DocumentSchema\" data-type=\"cross-link\" data-node-id=\"model/DocumentSchema\">model/DocumentSchema</a> to be provided on construction.</p>\n",
     "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> Document = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/Document'</span>);\n<span class=\"hljs-keyword\">var</span> articleSchema = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'./myArticleSchema'</span>);\n<span class=\"hljs-keyword\">var</span> Article = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  Article.super.call(articleSchema);\n\n  <span class=\"hljs-comment\">// We set up a container that holds references to</span>\n  <span class=\"hljs-comment\">// block nodes (e.g. paragraphs and figures)</span>\n  <span class=\"hljs-keyword\">this</span>.create({\n    type: <span class=\"hljs-string\">\"container\"</span>,\n    id: <span class=\"hljs-string\">\"body\"</span>,\n    nodes: []\n  });\n};\n\nDocument.extend(Article);\n</code></pre>\n",
     "sourceFile": "model/Document.js",
-    "sourceLine": 15,
+    "sourceLine": 20,
     "tags": [],
     "parent": "model",
     "name": "Document",
     "members": [
+      "model/Document#addIndex",
+      "model/Document#contains",
+      "model/Document#create",
+      "model/Document#createSelection",
+      "model/Document#delete",
+      "model/Document#get",
+      "model/Document#getIndex",
+      "model/Document#getNodes",
+      "model/Document#getSchema",
       "model/Document#import",
-      "model/Document#transaction",
+      "model/Document#set",
+      "model/Document#toJSON",
+      "model/Document#update",
       "model/Document@Document"
     ],
     "isAbstract": true,
@@ -779,11 +494,195 @@
   },
   {
     "type": "method",
+    "id": "model/Document#addIndex",
+    "description": "<p>Add a document index.</p>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 298,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "addIndex",
+    "params": [
+      {
+        "type": "String",
+        "shortType": "String",
+        "name": "name",
+        "description": ""
+      },
+      {
+        "type": "model/DocumentIndex",
+        "shortType": "DocumentIndex",
+        "name": "index",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "type": "method",
+    "id": "model/Document#contains",
+    "description": "<p>Check if this storage contains a node with given id.</p>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 118,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "contains",
+    "params": [],
+    "returns": {
+      "type": "Boolean",
+      "description": "<p><code>true</code> if a node with id exists, <code>false</code> otherwise.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#create",
+    "description": "<p>Create a node from the given data.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.create({\n    id: <span class=\"hljs-string\">'p1'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'Hi I am a Substance paragraph.'</span>\n  });\n});\n</code></pre>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 203,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "create",
+    "params": [
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "plain",
+        "description": "<p>node data.</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "DocumentNode",
+      "description": "<p>The created node.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#createSelection",
+    "description": "<p>Creates a selection which is attached to this document.\nEvery selection implementation provides its own\nparameter format which is basically a JSON representation.</p>\n",
+    "example": "<p>Creating a PropertySelection:</p>\n<pre><code class=\"hljs lang-js\">doc.createSelection({\n  type: <span class=\"hljs-string\">'property'</span>,\n  path: [ <span class=\"hljs-string\">'text1'</span>, <span class=\"hljs-string\">'content'</span>],\n  startOffset: <span class=\"hljs-number\">10</span>,\n  endOffset: <span class=\"hljs-number\">20</span>\n})\n</code></pre>\n<p>Creating a ContainerSelection:</p>\n<pre><code class=\"hljs lang-js\">doc.createSelection({\n  type: <span class=\"hljs-string\">'container'</span>,\n  containerId: <span class=\"hljs-string\">'main'</span>,\n  startPath: [ <span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>],\n  startOffset: <span class=\"hljs-number\">10</span>,\n  startPath: [ <span class=\"hljs-string\">'p2'</span>, <span class=\"hljs-string\">'content'</span>],\n  endOffset: <span class=\"hljs-number\">20</span>\n})\n</code></pre>\n<p>Creating a NullSelection:</p>\n<pre><code class=\"hljs lang-js\">doc.createSelection(<span class=\"hljs-literal\">null</span>);\n</code></pre>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 349,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "createSelection",
+    "params": [
+      {
+        "type": "model/Selection",
+        "shortType": "Selection",
+        "name": "sel",
+        "description": "<p>An object describing the selection.</p>\n"
+      }
+    ]
+  },
+  {
+    "type": "method",
+    "id": "model/Document#delete",
+    "description": "<p>Delete the node with given id.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.delete(<span class=\"hljs-string\">'p1'</span>);\n});\n</code></pre>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 223,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "delete",
+    "params": [
+      {
+        "type": "String",
+        "shortType": "String",
+        "name": "nodeId",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "DocumentNode",
+      "description": "<p>The deleted node.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#get",
+    "description": "<p>Get a node or value via path.</p>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 128,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "get",
+    "params": [
+      {
+        "type": "String|String[]",
+        "shortType": "String|String[]",
+        "name": "path",
+        "description": "<p>node id or path to property.</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "DocumentNode|any",
+      "description": "<p>a Node instance, a value or undefined if not found.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#getIndex",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 306,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "getIndex",
+    "params": [
+      {
+        "type": "String",
+        "shortType": "String",
+        "name": "name",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "DocumentIndex",
+      "description": "<p>the node index with given name.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#getNodes",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 135,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "getNodes",
+    "params": [],
+    "returns": {
+      "type": "Object",
+      "description": "<p>A hash of <a href=\"#nodeId=model/DocumentNode\" data-type=\"cross-link\" data-node-id=\"model/DocumentNode\">model/DocumentNode</a> instances.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#getSchema",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 109,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "getSchema",
+    "params": [],
+    "returns": {
+      "type": "model/DocumentSchema",
+      "description": "<p>the document's schema.</p>\n"
+    }
+  },
+  {
+    "type": "method",
     "id": "model/Document#import",
     "description": "<p>Creates a context like a transaction for importing nodes.\nThis is important in presence of cyclic dependencies.\nIndexes will not be updated during the import but will afterwards\nwhen all nodes are have been created.</p>\n",
     "example": "<p>Consider the following example from our documentation generator:\nWe want to have a member index, which keeps track of members of namespaces, modules, and classes.\ngrouped by type, and in the case of classes, also grouped by 'instance' and 'class'.</p>\n<pre><code class=\"hljs\">ui\n  -<span class=\"ruby\"> <span class=\"hljs-class\"><span class=\"hljs-keyword\">class</span></span>\n</span>    -<span class=\"ruby\"> ui/<span class=\"hljs-constant\">Component</span>\n</span>ui/Component\n  -<span class=\"ruby\"> <span class=\"hljs-class\"><span class=\"hljs-keyword\">class</span></span>\n</span>    -<span class=\"ruby\"> method\n</span>      -<span class=\"ruby\"> mount\n</span>  -<span class=\"ruby\"> instance\n</span>    -<span class=\"ruby\"> method\n</span>      -<span class=\"ruby\"> render\n</span></code></pre>\n<p>To decide which grouping to apply, the parent type of a member needs to be considered.\nUsing an incremental approach, this leads to the problem, that the parent must exist\nbefore the child. At the same time, e.g. when deserializing, the parent has already\na field with all children ids. This cyclic dependency is best address, by turning\noff all listeners (such as indexes) until the data is consistent.</p>\n",
     "sourceFile": "model/Document.js",
-    "sourceLine": 164,
+    "sourceLine": 174,
     "isPrivate": true,
     "tags": [],
     "parent": "model/Document",
@@ -799,43 +698,90 @@
   },
   {
     "type": "method",
-    "id": "model/Document#transaction",
-    "description": "<p>Start a transaction to manipulate the document</p>\n",
-    "example": "<pre><code class=\"hljs lang-js\">doc.transaction({ selection: sel }, {<span class=\"hljs-string\">'event-hack'</span>: <span class=\"hljs-literal\">true</span>}, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  tx.update(...);\n  ...\n  <span class=\"hljs-keyword\">return</span> {\n    selection: newSelection\n  };\n})\n</code></pre>\n",
+    "id": "model/Document#set",
+    "description": "<p>Set a property to a new value.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">doc.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx</span>) </span>{\n  tx.set([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], <span class=\"hljs-string\">\"Hello there! I'm a new paragraph.\"</span>);\n});\n</code></pre>\n",
     "sourceFile": "model/Document.js",
-    "sourceLine": 118,
+    "sourceLine": 245,
     "isPrivate": false,
     "tags": [],
     "parent": "model/Document",
-    "name": "transaction",
+    "name": "set",
     "params": [
       {
-        "type": "object",
-        "shortType": "object",
-        "name": "[beforeState]",
-        "description": "<p>object which will be used as before start of transaction</p>\n",
-        "optional": true
+        "type": "String[]",
+        "shortType": "String[]",
+        "name": "property",
+        "description": "<p>path</p>\n"
       },
       {
-        "type": "object",
-        "shortType": "object",
-        "name": "[eventData]",
-        "description": "<p>object which will be used as payload for the emitted document:change event</p>\n",
-        "optional": true
-      },
-      {
-        "type": "function",
-        "shortType": "function",
-        "name": "transformation",
-        "description": "<p>a function(tx) that performs actions on the transaction document tx</p>\n"
+        "type": "any",
+        "shortType": "any",
+        "name": "newValue",
+        "description": ""
       }
-    ]
+    ],
+    "returns": {
+      "type": "DocumentNode",
+      "description": "<p>The deleted node.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#toJSON",
+    "description": "<p>Convert to JSON.</p>\n<p>DEPRECATED: We moved away from having JSON as first-class exchange format.\nWe will remove this soon.</p>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 439,
+    "isPrivate": true,
+    "tags": [
+      {
+        "type": "deprecated",
+        "value": ""
+      }
+    ],
+    "parent": "model/Document",
+    "name": "toJSON",
+    "params": [],
+    "returns": {
+      "type": "Object",
+      "description": "<p>Plain content.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "model/Document#update",
+    "description": "<p>Update a property incrementally.</p>\n",
+    "example": "<p>Inserting text into a string property:</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], { <span class=\"hljs-tag\">insert</span>: {<span class=\"hljs-attribute\">offset</span>: <span class=\"hljs-number\">3</span>, <span class=\"hljs-attribute\">value</span>: <span class=\"hljs-string\">\"fee\"</span>} });\n</code></pre>\n<p>would turn &quot;Foobar&quot; into &quot;Foofeebar&quot;.</p>\n<p>Deleting text from a string property:</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], { <span class=\"hljs-tag\">delete</span>: {<span class=\"hljs-attribute\">start</span>: <span class=\"hljs-number\">0</span>, <span class=\"hljs-attribute\">end</span>: <span class=\"hljs-number\">3</span>} });\n</code></pre>\n<p>would turn &quot;Foobar&quot; into &quot;bar&quot;.</p>\n<p>Inserting into an array:</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>([<span class=\"hljs-string\">'p1'</span>, <span class=\"hljs-string\">'content'</span>], { <span class=\"hljs-tag\">insert</span>: {<span class=\"hljs-attribute\">offset</span>: <span class=\"hljs-number\">2</span>, <span class=\"hljs-attribute\">value</span>: <span class=\"hljs-number\">0</span>} });\n</code></pre>\n<p>would turn <code>[1,2,3,4]</code> into <code>[1,2,0,3,4]</code>.</p>\n<p>Deleting from an array:</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">doc</span><span class=\"hljs-class\">.update</span>(<span class=\"hljs-attr_selector\">['body', 'nodes']</span>, <span class=\"hljs-rules\">{ <span class=\"hljs-rule\"><span class=\"hljs-attribute\">delete</span>:<span class=\"hljs-value\"> <span class=\"hljs-number\">2</span> </span></span></span>});\n</code></pre>\n<p>would turn <code>[1,2,3,4]</code> into <code>[1,2,4]</code>.</p>\n",
+    "sourceFile": "model/Document.js",
+    "sourceLine": 286,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/Document",
+    "name": "update",
+    "params": [
+      {
+        "type": "Array",
+        "shortType": "Array",
+        "name": "property",
+        "description": "<p>path</p>\n"
+      },
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "diff",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "any",
+      "description": "<p>The value before applying the update.</p>\n"
+    }
   },
   {
     "type": "ctor",
     "id": "model/Document@Document",
     "sourceFile": "model/Document.js",
-    "sourceLine": 48,
+    "sourceLine": 53,
     "isPrivate": false,
     "tags": [],
     "parent": "model/Document",
@@ -2002,7 +1948,7 @@
     "description": "<p>A <a href=\"#nodeId=model/Document\" data-type=\"cross-link\" data-node-id=\"model/Document\">model/Document</a> instance that is used during transaction.</p>\n<p>During editing a TransactionDocument is kept up-to-date with the real one.\nWhenever a transaction is started on the document, a TransactionDocument is used to\nrecord changes, which are applied en-bloc when the transaction is saved.</p>\n",
     "example": "",
     "sourceFile": "model/TransactionDocument.js",
-    "sourceLine": 33,
+    "sourceLine": 34,
     "tags": [
       {
         "type": "param",
@@ -2017,11 +1963,7 @@
     "parent": "model",
     "name": "TransactionDocument",
     "members": [
-      "model/TransactionDocument#cancel",
-      "model/TransactionDocument#create",
-      "model/TransactionDocument#delete",
-      "model/TransactionDocument#set",
-      "model/TransactionDocument#update"
+      "model/TransactionDocument#cancel"
     ],
     "superClass": "model/AbstractDocument"
   },
@@ -2030,75 +1972,11 @@
     "id": "model/TransactionDocument#cancel",
     "description": "<p>Cancels the current transaction, discarding all changes recorded so far.</p>\n",
     "sourceFile": "model/TransactionDocument.js",
-    "sourceLine": 115,
+    "sourceLine": 99,
     "isPrivate": false,
     "tags": [],
     "parent": "model/TransactionDocument",
     "name": "cancel",
-    "params": []
-  },
-  {
-    "type": "method",
-    "id": "model/TransactionDocument#create",
-    "sourceFile": "model/TransactionDocument.js",
-    "sourceLine": 65,
-    "isPrivate": false,
-    "tags": [
-      {
-        "type": "include",
-        "value": "model/AbstractDocument#set"
-      }
-    ],
-    "parent": "model/TransactionDocument",
-    "name": "create",
-    "params": []
-  },
-  {
-    "type": "method",
-    "id": "model/TransactionDocument#delete",
-    "sourceFile": "model/TransactionDocument.js",
-    "sourceLine": 79,
-    "isPrivate": false,
-    "tags": [
-      {
-        "type": "include",
-        "value": "model/AbstractDocument#set"
-      }
-    ],
-    "parent": "model/TransactionDocument",
-    "name": "delete",
-    "params": []
-  },
-  {
-    "type": "method",
-    "id": "model/TransactionDocument#set",
-    "sourceFile": "model/TransactionDocument.js",
-    "sourceLine": 91,
-    "isPrivate": false,
-    "tags": [
-      {
-        "type": "include",
-        "value": "model/AbstractDocument#set"
-      }
-    ],
-    "parent": "model/TransactionDocument",
-    "name": "set",
-    "params": []
-  },
-  {
-    "type": "method",
-    "id": "model/TransactionDocument#update",
-    "sourceFile": "model/TransactionDocument.js",
-    "sourceLine": 103,
-    "isPrivate": false,
-    "tags": [
-      {
-        "type": "include",
-        "value": "model/AbstractDocument#set"
-      }
-    ],
-    "parent": "model/TransactionDocument",
-    "name": "update",
     "params": []
   },
   {
@@ -4946,7 +4824,7 @@
     "description": "<p>Controls Substance infrastructure. Needs to be supplied as a top level instance\nto serve editors, commands and tools as a context.</p>\n<p>In order to construct a controller, you need to have a document instance ready,\nas well as a set of components and commands that you want your app to support.\nA controller can manage one or more editing surfaces.</p>\n<p>The controller is the interface for your app to trigger editor actions. For\ninstance from any component, not only from a predefined toolbar commands\ncan be executed on the controller to update the document.</p>\n",
     "example": "<p>We utilize a custom <a href=\"#nodeId=ui/Toolbar\" data-type=\"cross-link\" data-node-id=\"ui/Toolbar\">ui/Toolbar</a> and a configured <a href=\"#nodeId=ui/ContainerEditor\" data-type=\"cross-link\" data-node-id=\"ui/ContainerEditor\">ui/ContainerEditor</a>.\nCheck out the <a href=\"http://gitub.com/substance/examples\" target=\"_blank\">examples</a> for complete usage.</p>\n<p>as a <code>Toolbar</code> including tools like the <code>UndoTool</code> and a configured <code>ContainerEditor</code>, which will do the actual editing work.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> ProseEditor = Controller.extend({\n  <span class=\"hljs-comment\">// Editor configuration</span>\n  static: {\n    config: CONFIG,\n  },\n  <span class=\"hljs-comment\">// Custom Render method for your editor</span>\n  render: <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> config = getConfig();\n    <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).addClass(<span class=\"hljs-string\">'sc-prose-editor'</span>).append(\n      $$(Toolbar).append(\n        $$(Toolbar.Group).append(\n          $$(TextTool, {<span class=\"hljs-string\">'title'</span>: <span class=\"hljs-keyword\">this</span>.i18n.t(<span class=\"hljs-string\">'switch_text'</span>)}),\n          $$(EmphasisTool).append($$(Icon, {icon: <span class=\"hljs-string\">\"fa-italic\"</span>}))\n        )\n      ),\n      $$(ContainerEditor, {\n        doc: <span class=\"hljs-keyword\">this</span>.props.doc,\n        containerId: <span class=\"hljs-string\">'body'</span>,\n        name: <span class=\"hljs-string\">'bodyEditor'</span>,\n        commands: config.bodyEditor.commands\n      }).ref(<span class=\"hljs-string\">'bodyEditor'</span>)\n    );\n  }\n});\n</code></pre>\n<p>There's also a config object that is essential for the editor to work. The following\nconfiguration sets up a component registry that assigns a visual component to each\ncontent node type and defines which commands should be supported on the contorller\nlevel.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> CONFIG = {\n  controller: {\n    <span class=\"hljs-comment\">// Component registry</span>\n    components: {\n      <span class=\"hljs-string\">'paragraph'</span>: <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/ParagraphComponent'</span>),\n      ...\n    },\n    <span class=\"hljs-comment\">// Controller commands</span>\n    commands: [\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/undo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/redo'</span>),\n      <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/ui/commands/save'</span>)\n    ]\n  },\n  <span class=\"hljs-comment\">// Add custom configuration to this object</span>\n};\n</code></pre>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 88,
+    "sourceLine": 89,
     "tags": [
       {
         "type": "component",
@@ -4983,7 +4861,7 @@
     "id": "ui/Controller#didFocus",
     "description": "<p>Called whenever a surface has been focused.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 357,
+    "sourceLine": 366,
     "isPrivate": false,
     "tags": [
       {
@@ -5000,7 +4878,7 @@
     "id": "ui/Controller#dispose",
     "description": "<p>Dispose component when component life ends. If you need to implement dispose\nin your custom Controller class, don't forget the super call.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 130,
+    "sourceLine": 135,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5012,7 +4890,7 @@
     "id": "ui/Controller#executeCommand",
     "description": "<p>Execute command with given name if registered. In most cases this triggers a document transformation and\ncorresponding UI updates. For instance when pressing <code>ctrl+b</code> the\n<code>toggleStrong</code> command is executed. Each implemented command returns a custom\ninfo object, describing the action that has been performed.\nAfter execution a <code>command:executed</code> event is emitted on the controller.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 235,
+    "sourceLine": 240,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5035,7 +4913,7 @@
     "id": "ui/Controller#getChildContext",
     "description": "<p>Defines the child context. You should override this to provide your own contexts.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 178,
+    "sourceLine": 183,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5051,7 +4929,7 @@
     "id": "ui/Controller#getCommand",
     "description": "<p>Get registered controller command by name</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 221,
+    "sourceLine": 226,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5074,7 +4952,7 @@
     "id": "ui/Controller#getContainerId",
     "description": "<p>Get containerId for currently focused surface</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 310,
+    "sourceLine": 319,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5090,7 +4968,7 @@
     "id": "ui/Controller#getDocument",
     "description": "<p>Get document instance</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 261,
+    "sourceLine": 266,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5106,7 +4984,7 @@
     "id": "ui/Controller#getFocusedSurface",
     "description": "<p>Get the currently focused Surface.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 286,
+    "sourceLine": 295,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5122,7 +5000,7 @@
     "id": "ui/Controller#getSelection",
     "description": "<p>Get selection of currently focused surface. We recomment to use getSelection on Surface\ninstances directly when possible.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 296,
+    "sourceLine": 305,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5138,7 +5016,7 @@
     "id": "ui/Controller#getSurface",
     "description": "<p>Get Surface instance</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 272,
+    "sourceLine": 281,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5161,7 +5039,7 @@
     "id": "ui/Controller#getToolManager",
     "description": "<p>Get the associated ToolManager instance</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 194,
+    "sourceLine": 199,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5177,7 +5055,7 @@
     "id": "ui/Controller#hasSurfaces",
     "description": "<p>Check if there are any surfaces registered</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 348,
+    "sourceLine": 357,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5193,7 +5071,7 @@
     "id": "ui/Controller#popState",
     "description": "<p>Pop surface state</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 497,
+    "sourceLine": 505,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5205,7 +5083,7 @@
     "id": "ui/Controller#pushState",
     "description": "<p>Push surface state</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 482,
+    "sourceLine": 490,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5217,7 +5095,7 @@
     "id": "ui/Controller#registerSurface",
     "description": "<p>Register a surface</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 322,
+    "sourceLine": 331,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5236,7 +5114,7 @@
     "id": "ui/Controller#render",
     "description": "<p>Render method of the controller component. This needs to be implemented by the\ncustom Controller class.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 542,
+    "sourceLine": 550,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5252,7 +5130,7 @@
     "id": "ui/Controller#saveDocument",
     "description": "<p>Start document save workflow</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 508,
+    "sourceLine": 516,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5264,7 +5142,7 @@
     "id": "ui/Controller#toolManager",
     "description": "<p>Manages tools.</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 107,
+    "sourceLine": 112,
     "tags": [],
     "parent": "ui/Controller",
     "name": "toolManager"
@@ -5274,7 +5152,7 @@
     "id": "ui/Controller#unregisterSurface",
     "description": "<p>Unregister a surface</p>\n",
     "sourceFile": "ui/Controller.js",
-    "sourceLine": 335,
+    "sourceLine": 344,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Controller",
@@ -5311,7 +5189,7 @@
     "id": "ui/ControllerCommand#execute",
     "description": "<p>Execute command</p>\n",
     "sourceFile": "ui/ControllerCommand.js",
-    "sourceLine": 58,
+    "sourceLine": 62,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ControllerCommand",
@@ -6717,7 +6595,7 @@
     "id": "ui/Surface#_setModelSelection",
     "description": "<p>Set the model selection only (without DOM selection update).</p>\n<p>Used internally if we derive the model selection from the DOM selcection.</p>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 745,
+    "sourceLine": 715,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -6729,7 +6607,7 @@
     "id": "ui/Surface#copy",
     "description": "<p>Copy the current selection. Performs a <a href=\"#nodeId=model/transform/copySelection\" data-type=\"cross-link\" data-node-id=\"model/transform/copySelection\">model/transform/copySelection</a>\ntransformation.</p>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 384,
+    "sourceLine": 353,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -6741,7 +6619,7 @@
     "id": "ui/Surface#setSelection",
     "description": "<p>Set the model selection and update the DOM selection accordingly</p>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 349,
+    "sourceLine": 318,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -6752,9 +6630,9 @@
     "type": "method",
     "id": "ui/Surface#transaction",
     "description": "<p>Run a transformation as a transaction properly configured for this surface.</p>\n",
-    "example": "<p>Returning a new selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> selection = args.selection;\n  ...\n  selection = tx.createSelection(...);\n  <span class=\"hljs-keyword\">return</span> {\n    selection: selection\n  };\n});\n</code></pre>\n<p>Reusing the current selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n  <span class=\"hljs-keyword\">this</span>.foo();\n  ...\n  <span class=\"hljs-keyword\">return</span> args;\n}, <span class=\"hljs-keyword\">this</span>);\n</code></pre>\n<p>Adding custom information to the transaction:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(beforeState, <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  ...\n});\n</code></pre>\n",
+    "example": "<p>Returning a new selection:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  <span class=\"hljs-keyword\">var</span> selection = args.selection;\n  ...\n  selection = tx.createSelection(...);\n  <span class=\"hljs-keyword\">return</span> {\n    selection: selection\n  };\n});\n</code></pre>\n<p>Adding event information to the transaction:</p>\n<pre><code class=\"hljs lang-js\">surface.transaction(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">tx, args</span>) </span>{\n  tx.info.foo = <span class=\"hljs-string\">'bar'</span>;\n  ...\n});\n</code></pre>\n",
     "sourceFile": "ui/Surface.js",
-    "sourceLine": 279,
+    "sourceLine": 274,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Surface",
@@ -6763,20 +6641,8 @@
       {
         "type": "",
         "shortType": "",
-        "name": "beforeState",
-        "description": "<p>(optional) use this to override the default before-state (e.g. to use a different the initial selection).</p>\n"
-      },
-      {
-        "type": "",
-        "shortType": "",
         "name": "transformation",
-        "description": "<p>a (surface) transformation function(tx, args) which receives                       the selection the transaction was started with, and should return\noutput arguments containing a selection, as well.</p>\n"
-      },
-      {
-        "type": "",
-        "shortType": "",
-        "name": "ctx",
-        "description": "<p>(optional) will be used as <code>this</code> object when calling the transformation.</p>\n"
+        "description": "<p>a transformation function(tx, args) which receives                       the selection the transaction was started with, and should return\noutput arguments containing a selection, as well.</p>\n"
       }
     ]
   },

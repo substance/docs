@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "dbb141efbeb7c118d57914b484525e25d05f3215"
+    "sha": "2943324e2e10c8b4903712df49431e2c761d9eeb"
   },
   {
     "type": "namespace",
@@ -3596,6 +3596,7 @@
       "ui/SurfaceCommand",
       "ui/SurfaceTool",
       "ui/TOC",
+      "ui/TabbedPane",
       "ui/TextPropertyAnnotator",
       "ui/TextPropertyComponent",
       "ui/TextPropertyEditor",
@@ -6418,10 +6419,11 @@
   {
     "type": "class",
     "id": "ui/Scrollbar",
-    "description": "<p>A rich scrollbar implementation that supports highlights.</p>\n",
-    "example": "<p>$$(Scrollbar, {\nscrollPane: this,\nhighlights: {\n'bib-items': ['bib-item-citation-1', 'bib-item-citation-2']\n}\n}).ref('scrollbar')</p>\n<pre><code class=\"hljs\">\nUsually\ninstantiated <span class=\"hljs-keyword\">by</span> {<span class=\"hljs-property\">@link</span> ScrollPane}, so you will likely <span class=\"hljs-keyword\">not</span> create <span class=\"hljs-literal\">it</span>\nyourself. However, <span class=\"hljs-literal\">it</span><span class=\"hljs-string\">'s likely that you want to update the highlights\nin the scrollbar, which works like this:\n\n```js\nthis.scrollbar.extendState({\n  highlights: {\n    '</span>figures<span class=\"hljs-string\">': ['</span>figure-<span class=\"hljs-number\">1</span><span class=\"hljs-string\">', '</span>figure-citation-<span class=\"hljs-number\">1</span><span class=\"hljs-string\">']\n  }\n});\n</span></code></pre>\n",
+    "description": "<p>A rich scrollbar implementation that supports highlights.   Usually\ninstantiated by <a href=\"#nodeId=ScrollPane\" data-type=\"cross-link\" data-node-id=\"ScrollPane\">ScrollPane</a>, so you will likely not create it\nyourself.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">$$(Scrollbar, {\n  scrollPane: <span class=\"hljs-keyword\">this</span>,\n  highlights: {\n    <span class=\"hljs-string\">'bib-items'</span>: [<span class=\"hljs-string\">'bib-item-citation-1'</span>, <span class=\"hljs-string\">'bib-item-citation-2'</span>]\n  }\n}).ref(<span class=\"hljs-string\">'scrollbar'</span>)\n</code></pre>\n",
     "sourceFile": "ui/Scrollbar.js",
     "sourceLine": 8,
+    "isPrivate": true,
     "tags": [
       {
         "type": "component",
@@ -6805,6 +6807,41 @@
     ],
     "parent": "ui",
     "name": "TOC",
+    "members": []
+  },
+  {
+    "type": "class",
+    "id": "ui/TabbedPane",
+    "description": "<p>A tabbed pane layout component. The actual content is specified via append.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">$$(TabbedPane, {\n  tabs: [\n    {id: <span class=\"hljs-string\">'tabA'</span>, <span class=\"hljs-string\">'A'</span>},\n    {id: <span class=\"hljs-string\">'tabB'</span>, <span class=\"hljs-string\">'B'</span>},\n  ],\n  activeTab: <span class=\"hljs-string\">'tabA'</span>\n}).ref(<span class=\"hljs-string\">'tabbedPane'</span>).append(\n  tabAContent\n)\n</code></pre>\n",
+    "sourceFile": "ui/TabbedPane.js",
+    "sourceLine": 7,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      },
+      {
+        "type": "prop",
+        "value": {
+          "type": "Object[]",
+          "shortType": "Object[]",
+          "name": "tabs",
+          "description": "<p>an array of objects with id and name properties</p>\n"
+        }
+      },
+      {
+        "type": "prop",
+        "value": {
+          "type": "String",
+          "shortType": "String",
+          "name": "activeTab",
+          "description": "<p>id of currently active tab</p>\n"
+        }
+      }
+    ],
+    "parent": "ui",
+    "name": "TabbedPane",
     "members": []
   },
   {

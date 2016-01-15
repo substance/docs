@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "eb50d294f15b7bb36f35fb76234c8a37f4c44e1c"
+    "sha": "1727f9f3ea4efa437184ab07583688a9191e1fad"
   },
   {
     "type": "namespace",
@@ -4918,7 +4918,10 @@
       "ui/Controller#render",
       "ui/Controller#saveDocument",
       "ui/Controller#toolManager",
-      "ui/Controller#unregisterSurface"
+      "ui/Controller#unregisterSurface",
+      "ui/Controller@command:executed",
+      "ui/Controller@document:saved",
+      "ui/Controller@selection:changed"
     ],
     "isAbstract": true
   },
@@ -5229,6 +5232,66 @@
         "shortType": "",
         "name": "surface",
         "description": "<p>{ui/Surface} A surface instance to unregister</p>\n"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "id": "ui/Controller@command:executed",
+    "description": "<p>Emitted after a command has been executed. Since we did not allow command\nimplementations to access UI components, UI components can listen to\nthe <code>command:executed</code> event and perform necessary action then.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">LinkTool.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.didInitialize = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n    <span class=\"hljs-keyword\">var</span> ctrl = <span class=\"hljs-keyword\">this</span>.getController();\n\n    ctrl.connect(<span class=\"hljs-keyword\">this</span>, {\n      <span class=\"hljs-string\">'command:executed'</span>: <span class=\"hljs-keyword\">this</span>.onCommandExecuted\n    });\n  };\n\n  <span class=\"hljs-keyword\">this</span>.onCommandExecuted = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">info, commandName</span>) </span>{\n    <span class=\"hljs-keyword\">if</span> (commandName === <span class=\"hljs-keyword\">this</span>.static.command) {\n      <span class=\"hljs-comment\">// Toggle the edit prompt when either edit is</span>\n      <span class=\"hljs-comment\">// requested or a new link has been created</span>\n      <span class=\"hljs-keyword\">if</span> (_.includes([<span class=\"hljs-string\">'edit'</span>,<span class=\"hljs-string\">'create'</span>], info.mode)) {\n        <span class=\"hljs-keyword\">this</span>.togglePrompt();\n      }\n    }\n  };\n  ...\n};\n</code></pre>\n",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 560,
+    "tags": [],
+    "parent": "ui/Controller",
+    "name": "command:executed",
+    "params": [
+      {
+        "type": "object",
+        "shortType": "object",
+        "name": "info",
+        "description": "<p>information about the command execution</p>\n"
+      },
+      {
+        "type": "String",
+        "shortType": "String",
+        "name": "commandName",
+        "description": "<p>the command name (e.g. 'strong', 'emphasis')</p>\n"
+      },
+      {
+        "type": "ui/Command",
+        "shortType": "Command",
+        "name": "cmd",
+        "description": "<p>the command instance</p>\n"
+      }
+    ]
+  },
+  {
+    "type": "event",
+    "id": "ui/Controller@document:saved",
+    "description": "<p>Emitted when a save workflow has been completed successfully.</p>\n",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 605,
+    "tags": [],
+    "parent": "ui/Controller",
+    "name": "document:saved",
+    "params": []
+  },
+  {
+    "type": "event",
+    "id": "ui/Controller@selection:changed",
+    "description": "<p>Emitted when the active selection has changed, e.g. through cursor movement.\nTransports <code>sel</code> a DocumentSelection that can be expected but also the\nsurface in which the selection change happened.</p>\n",
+    "sourceFile": "ui/Controller.js",
+    "sourceLine": 596,
+    "tags": [],
+    "parent": "ui/Controller",
+    "name": "selection:changed",
+    "params": [
+      {
+        "type": "ui/Command",
+        "shortType": "Command",
+        "name": "cmd",
+        "description": "<p>the command instance</p>\n"
       }
     ]
   },
@@ -6454,7 +6517,8 @@
     "name": "Highlights",
     "members": [
       "ui/Highlights#get",
-      "ui/Highlights#set"
+      "ui/Highlights#set",
+      "ui/Highlights@highlights:updated"
     ]
   },
   {
@@ -6492,6 +6556,17 @@
         "description": "<p>object describing highlights</p>\n"
       }
     ]
+  },
+  {
+    "type": "event",
+    "id": "ui/Highlights@highlights:updated",
+    "description": "<p>Emitted when highlights have been updated</p>\n",
+    "sourceFile": "ui/Highlights.js",
+    "sourceLine": 86,
+    "tags": [],
+    "parent": "ui/Highlights",
+    "name": "highlights:updated",
+    "params": []
   },
   {
     "type": "class",

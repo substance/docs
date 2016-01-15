@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "39b0fa6583bf26ca9bf901a5b730f70bcdc04d31"
+    "sha": "ecbc2cfc75f47dd85b245f7b5654c39f01fca4c1"
   },
   {
     "type": "namespace",
@@ -20,6 +20,7 @@
       "model/DocumentIndex",
       "model/DocumentNode",
       "model/DocumentSchema",
+      "model/HTMLImporter",
       "model/PropertyAnnotation",
       "model/PropertySelection",
       "model/Selection",
@@ -1196,6 +1197,40 @@
       "type": "String",
       "description": "<p>default text type (e.g. 'paragraph')</p>\n"
     }
+  },
+  {
+    "type": "class",
+    "id": "model/HTMLImporter",
+    "example": "<p>Below is a full example taken from the <a href=\"https://github.com/substance/examples/blob/master/converter/NoteImporter.js\" target=\"_blank\">Notepad</a> example.</p>\n<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> HTMLImporter = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/model/HTMLImporter'</span>);\n<span class=\"hljs-keyword\">var</span> noteSchema = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'../note/noteSchema'</span>);\n<span class=\"hljs-keyword\">var</span> Note = <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'../note/Note'</span>);\n\n<span class=\"hljs-keyword\">var</span> converters = [\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/paragraph/ParagraphHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/blockquote/BlockquoteHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/codeblock/CodeblockHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/heading/HeadingHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/strong/StrongHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/emphasis/EmphasisHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'substance/packages/link/LinkHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'./MarkHTMLConverter'</span>),\n  <span class=\"hljs-built_in\">require</span>(<span class=\"hljs-string\">'./TodoHTMLConverter'</span>)\n];\n\n<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span> <span class=\"hljs-title\">NoteImporter</span>(<span class=\"hljs-params\"></span>) </span>{\n  NoteImporter.super.call(<span class=\"hljs-keyword\">this</span>, {\n    schema: noteSchema,\n    converters: converters,\n    DocumentClass: Note\n  });\n}\n\nNoteImporter.Prototype = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">this</span>.convertDocument = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">bodyEls</span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.convertContainer(bodyEls, <span class=\"hljs-string\">'body'</span>);\n  };\n};\n\n<span class=\"hljs-comment\">// Expose converters so we can reuse them in NoteHtmlExporter</span>\nNoteImporter.converters = converters;\n\nHTMLImporter.extend(NoteImporter);\n</code></pre>\n",
+    "sourceFile": "model/HTMLImporter.js",
+    "sourceLine": 56,
+    "tags": [],
+    "parent": "model",
+    "name": "HTMLImporter",
+    "members": [
+      "model/HTMLImporter#convertDocument"
+    ],
+    "isAbstract": true
+  },
+  {
+    "type": "method",
+    "id": "model/HTMLImporter#convertDocument",
+    "description": "<p>Orchestrates conversion of a whole document.</p>\n<p>This method should be overridden by custom importers to reflect the\nstructure of a custom HTML document or fragment, and to control where\nthings go to within the document.</p>\n",
+    "example": "<p>When a fragment <code>&lt;h1&gt;Foo&lt;/h1&gt;&lt;p&gt;&lt;/Bar&lt;/p&gt;</code> is imported the implementation\nlooks like this.</p>\n<pre><code class=\"hljs lang-js\">  <span class=\"hljs-keyword\">this</span>.convertDocument = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">els</span>) </span>{\n    <span class=\"hljs-keyword\">this</span>.convertContainer(els, <span class=\"hljs-string\">'body'</span>);\n  };\n</code></pre>\n<p>If a full document <code>&lt;html&gt;&lt;body&gt;&lt;p&gt;A&lt;/p&gt;&lt;p&gt;B&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</code> is imported\nyou get the <code>&lt;html&gt;</code> element instead of a node array.</p>\n<pre><code class=\"hljs lang-js\">  <span class=\"hljs-keyword\">this</span>.convertDocument = <span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\">htmlEl</span>) </span>{\n    <span class=\"hljs-keyword\">var</span> bodyEl = htmlEl.find(<span class=\"hljs-string\">'body'</span>);\n    <span class=\"hljs-keyword\">this</span>.convertContainer(bodyEl.children, <span class=\"hljs-string\">'body'</span>);\n  };\n</code></pre>\n",
+    "sourceFile": "model/HTMLImporter.js",
+    "sourceLine": 105,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "model/HTMLImporter",
+    "name": "convertDocument",
+    "params": [
+      {
+        "type": "ui/DOMElement",
+        "shortType": "DOMElement",
+        "name": "documentEl",
+        "description": "<p>the document element.</p>\n"
+      }
+    ]
   },
   {
     "type": "class",
@@ -3595,6 +3630,7 @@
       "ui/ControllerCommand",
       "ui/ControllerTool",
       "ui/DOMElement",
+      "ui/DefaultDOMElement",
       "ui/Highlights",
       "ui/ScrollPane",
       "ui/Scrollbar",
@@ -6249,6 +6285,113 @@
       "description": "<p>parsed elements</p>\n"
     },
     "isStatic": true
+  },
+  {
+    "type": "class",
+    "id": "ui/DefaultDOMElement",
+    "description": "<p>Implements <a href=\"#nodeId=DOMElement\" data-type=\"cross-link\" data-node-id=\"DOMElement\">DOMElement</a> interface. For the browser we use native DOM\nmanipulation where possible and jQuery where useful. On the server Cheerio\nis used to represent the DOM.</p>\n",
+    "sourceFile": "ui/DefaultDOMElement.js",
+    "sourceLine": 21,
+    "tags": [],
+    "parent": "ui",
+    "name": "DefaultDOMElement",
+    "members": [
+      "ui/DefaultDOMElement#withTagName",
+      "ui/DefaultDOMElement.NodeIterator"
+    ]
+  },
+  {
+    "type": "method",
+    "id": "ui/DefaultDOMElement#withTagName",
+    "description": "<p>A convenience method to create an element with a different\ntagName but same content.</p>\n",
+    "sourceFile": "ui/DefaultDOMElement.js",
+    "sourceLine": 151,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/DefaultDOMElement",
+    "name": "withTagName",
+    "params": [
+      {
+        "type": "String",
+        "shortType": "String",
+        "name": "tagName",
+        "description": ""
+      }
+    ],
+    "returns": {
+      "type": "DOMElement",
+      "description": "<p>a new element</p>\n"
+    }
+  },
+  {
+    "type": "class",
+    "id": "ui/DefaultDOMElement.NodeIterator",
+    "description": "<p>A class that provides a browser/server compatible way to iterate\nover all children of an HTML element.</p>\n",
+    "sourceFile": "ui/DefaultDOMElement.js",
+    "sourceLine": 519,
+    "isPrivate": true,
+    "tags": [
+      {
+        "type": "param",
+        "value": {
+          "type": "util/DefaultDOMElement",
+          "shortType": "DefaultDOMElement",
+          "name": "el",
+          "description": ""
+        }
+      }
+    ],
+    "parent": "ui/DefaultDOMElement",
+    "name": "NodeIterator",
+    "members": [
+      "ui/DefaultDOMElement.NodeIterator#back",
+      "ui/DefaultDOMElement.NodeIterator#hasNext",
+      "ui/DefaultDOMElement.NodeIterator#next"
+    ],
+    "isStatic": true
+  },
+  {
+    "type": "method",
+    "id": "ui/DefaultDOMElement.NodeIterator#back",
+    "description": "<p>Decrements the iterator.</p>\n",
+    "sourceFile": "ui/DefaultDOMElement.js",
+    "sourceLine": 551,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/DefaultDOMElement.NodeIterator",
+    "name": "back",
+    "params": []
+  },
+  {
+    "type": "method",
+    "id": "ui/DefaultDOMElement.NodeIterator#hasNext",
+    "sourceFile": "ui/DefaultDOMElement.js",
+    "sourceLine": 530,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/DefaultDOMElement.NodeIterator",
+    "name": "hasNext",
+    "params": [],
+    "returns": {
+      "type": "Boolean",
+      "description": "<p>true if there is another child node left.</p>\n"
+    }
+  },
+  {
+    "type": "method",
+    "id": "ui/DefaultDOMElement.NodeIterator#next",
+    "description": "<p>Increments the iterator providing the next child node.</p>\n",
+    "sourceFile": "ui/DefaultDOMElement.js",
+    "sourceLine": 539,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/DefaultDOMElement.NodeIterator",
+    "name": "next",
+    "params": [],
+    "returns": {
+      "type": "HTMLElement",
+      "description": "<p>The next child node.</p>\n"
+    }
   },
   {
     "type": "class",

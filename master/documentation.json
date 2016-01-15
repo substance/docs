@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "7567b0d9084dbec6563f10b375c322bd433ff6d0"
+    "sha": "3dfa25e9b293c75ae10c6c483476f065f6980c6a"
   },
   {
     "type": "namespace",
@@ -3589,6 +3589,7 @@
       "ui/ControllerCommand",
       "ui/ControllerTool",
       "ui/DOMElement",
+      "ui/Highlights",
       "ui/Panel",
       "ui/ScrollPane",
       "ui/Scrollbar",
@@ -3596,6 +3597,7 @@
       "ui/Surface",
       "ui/SurfaceCommand",
       "ui/SurfaceTool",
+      "ui/TOC",
       "ui/TextPropertyAnnotator",
       "ui/TextPropertyComponent",
       "ui/TextPropertyEditor",
@@ -6261,6 +6263,35 @@
   },
   {
     "type": "class",
+    "id": "ui/Highlights",
+    "description": "<p>Keeps track of highlights</p>\n",
+    "sourceFile": "ui/Highlights.js",
+    "sourceLine": 13,
+    "tags": [],
+    "parent": "ui",
+    "name": "Highlights",
+    "members": [
+      "ui/Highlights#getDocument"
+    ]
+  },
+  {
+    "type": "method",
+    "id": "ui/Highlights#getDocument",
+    "description": "<p>Get the Document instance.</p>\n",
+    "sourceFile": "ui/Highlights.js",
+    "sourceLine": 31,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/Highlights",
+    "name": "getDocument",
+    "params": [],
+    "returns": {
+      "type": "Document",
+      "description": ""
+    }
+  },
+  {
+    "type": "class",
     "id": "ui/Panel",
     "description": "<p>Abstract Panel interface.</p>\n",
     "sourceFile": "ui/Panel.js",
@@ -6299,6 +6330,7 @@
     "type": "class",
     "id": "ui/ScrollPane",
     "description": "<p>Wraps content in a scroll pane.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">$$(ScrollPane, {\n  scrollbarType: <span class=\"hljs-string\">'substance'</span>, <span class=\"hljs-comment\">// defaults to native</span>\n  scrollbarPosition: <span class=\"hljs-string\">'left'</span>, <span class=\"hljs-comment\">// defaults to right</span>\n  onScroll: <span class=\"hljs-keyword\">this</span>.onScroll.bind(<span class=\"hljs-keyword\">this</span>),\n  highlights: <span class=\"hljs-keyword\">this</span>.contentHighlights,\n  toc: <span class=\"hljs-keyword\">this</span>.toc\n})\n</code></pre>\n",
     "sourceFile": "ui/ScrollPane.js",
     "sourceLine": 9,
     "tags": [
@@ -6312,12 +6344,20 @@
           "type": "String",
           "shortType": "String",
           "name": "scrollbarType",
-          "description": "<p>'native' or 'substance' for a more advanced visual scrollbar. Defaults to 'native'.</p>\n"
+          "description": "<p>'native' or 'substance' for a more advanced visual scrollbar. Defaults to 'native'</p>\n"
         }
       },
       {
         "type": "prop",
-        "value": "{String} [scrollbarPosition] 'left' or 'right' only relevant when scrollBarType: 'substance'. Defaults to 'right'. \n```js\n$$(ScrollPane, {\n  scrollbarType: 'substance', // defaults to native\n  scrollbarPosition: 'left', // defaults to right\n  onScroll: this.onScroll.bind(this)\n}\n```"
+        "value": "{String} [scrollbarPosition] 'left' or 'right' only relevant when scrollBarType: 'substance'. Defaults to 'right'"
+      },
+      {
+        "type": "prop",
+        "value": "{ui/Highlights} [highlights] object that maintains highlights and can be manipulated from different sources"
+      },
+      {
+        "type": "prop",
+        "value": "{ui/TOC} [toc] object that maintains table of content entries"
       }
     ],
     "parent": "ui",
@@ -6337,7 +6377,7 @@
     "id": "ui/ScrollPane#getContentElement",
     "description": "<p>Get the <code>.se-content</code> element</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 99,
+    "sourceLine": 127,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6349,7 +6389,7 @@
     "id": "ui/ScrollPane#getContentHeight",
     "description": "<p>Returns the cumulated height of a panel's content</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 87,
+    "sourceLine": 115,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6361,7 +6401,7 @@
     "id": "ui/ScrollPane#getHeight",
     "description": "<p>Returns the height of scrollPane (inner content overflows)</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 79,
+    "sourceLine": 107,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6373,7 +6413,7 @@
     "id": "ui/ScrollPane#getPanelOffsetForElement",
     "description": "<p>Get offset relative to <code>.se-content</code>.</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 123,
+    "sourceLine": 151,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6392,7 +6432,7 @@
     "id": "ui/ScrollPane#getScrollPosition",
     "description": "<p>Get current scroll position (scrollTop) of <code>.se-scrollable</code> element</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 113,
+    "sourceLine": 141,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6404,7 +6444,7 @@
     "id": "ui/ScrollPane#getScrollableElement",
     "description": "<p>Get the <code>.se-scrollable</code> element</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 106,
+    "sourceLine": 134,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6416,7 +6456,7 @@
     "id": "ui/ScrollPane#scrollTo",
     "description": "<p>Scroll to a given sub component.</p>\n",
     "sourceFile": "ui/ScrollPane.js",
-    "sourceLine": 150,
+    "sourceLine": 178,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/ScrollPane",
@@ -6801,6 +6841,26 @@
     "parent": "ui/SurfaceTool",
     "name": "performAction",
     "params": []
+  },
+  {
+    "type": "class",
+    "id": "ui/TOC",
+    "description": "<p>Manages a table of content for a container. Default implementation considers\nall headings as TOC entries. You can extend this implementation and override\n<code>computeEntries</code>. Instantiate this class on controller level and pass it to relevant components\n(such as <a href=\"#nodeId=ui/TOCPanel\" data-type=\"cross-link\" data-node-id=\"ui/TOCPanel\">ui/TOCPanel</a> and <a href=\"#nodeId=ui/ScrollPane\" data-type=\"cross-link\" data-node-id=\"ui/ScrollPane\">ui/ScrollPane</a>).</p>\n",
+    "sourceFile": "ui/TOC.js",
+    "sourceLine": 7,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      },
+      {
+        "type": "prop",
+        "value": "{Controller}"
+      }
+    ],
+    "parent": "ui",
+    "name": "TOC",
+    "members": []
   },
   {
     "type": "class",

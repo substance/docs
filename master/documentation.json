@@ -2,9 +2,9 @@
   {
     "type": "meta",
     "id": "meta",
-    "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> -  a data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
+    "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "3bf02dd123178f538657b163f4f686f722f850be"
+    "sha": "c440df7d36b730d42038641df0c61c34bfff38c7"
   },
   {
     "type": "namespace",
@@ -29,21 +29,21 @@
     ]
   },
   {
-    "type": "class",
+    "type": "function",
     "id": "model/Container",
     "description": "<p>A Container represents a list of node ids in first place.\nAt the same time it keeps a sequence of components which are the editable\nproperties of the nodes within this container.\nWhile most editing occurs on a property level (such as editing text),\nother things happen on a node level, e.g., breaking or mergin nodes,\nor spanning annotations or so called ContainerAnnotations.\nA Container provides a bridge between those two worlds: nodes and properties.</p>\n",
-    "example": "<p>A figure node might consist of a title, an image, and a caption.\nAs the image is not editable via conventional editing, we can say, the figure consists of\ntwo editable properties 'title' and 'caption'.</p>\n<p>In our data model we can describe selections by a start coordinate and an end\ncoordinate, such as\nstart: { path: ['paragraph_1', 'content'],   offset: 10 } },\nend:   { path: ['figure_10',   'caption'],   offset: 5  } }</p>\n<p>I.e. such a selection starts in a component of a paragraph, and ends in the caption of a figure.\nIf you want to use that selection for deleting, you need to derive somehow what exactly\nlies between those coordinates. For example, there could be some paragraphs, which would\nget deleted completely and the paragraph and the figure where the selection started and ended\nwould only be updated.</p>\n",
+    "example": "<p>A figure node might consist of a title, an image, and a caption.\nAs the image is not editable via conventional editing, we can say, the figure consists of\ntwo editable properties <code>title</code> and <code>caption</code>.</p>\n<p>In our data model we can describe selections by a start coordinate and an end\ncoordinate, such as</p>\n<pre><code class=\"hljs lang-js\">{\n  start: { path: [<span class=\"hljs-string\">'paragraph_1'</span>, <span class=\"hljs-string\">'content'</span>],   offset: <span class=\"hljs-number\">10</span> } },\n  end:   { path: [<span class=\"hljs-string\">'figure_10'</span>,   <span class=\"hljs-string\">'caption'</span>],   offset: <span class=\"hljs-number\">5</span>  } }\n}\n</code></pre>\n<p>I.e. such a selection starts in a component of a paragraph, and ends in the caption of a figure.\nIf you want to use that selection for deleting, you need to derive somehow what exactly\nlies between those coordinates. For example, there could be some paragraphs, which would\nget deleted completely and the paragraph and the figure where the selection started and ended\nwould only be updated.</p>\n",
     "sourceFile": "model/Container.js",
-    "sourceLine": 38,
+    "sourceLine": 42,
     "tags": [
       {
         "type": "prop",
-        "value": "{Array<id>} nodes"
+        "value": "{String[]} nodes"
       }
     ],
     "parent": "model",
     "name": "Container",
-    "members": []
+    "params": []
   },
   {
     "type": "class",
@@ -241,7 +241,7 @@
     "id": "model/DOMImporter#_createDefaultBlockElement",
     "description": "<p>Converts an element into a default block level node.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 497,
+    "sourceLine": 496,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -264,7 +264,7 @@
     "id": "model/DOMImporter#_trimTextContent",
     "description": "<p>Removes any leading and trailing whitespaces from the content\nwithin the given element.\nAttention: this is not yet implemented fully. Atm, trimming is only done\non the first and last text node (if they exist).</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 554,
+    "sourceLine": 553,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -287,7 +287,7 @@
     "id": "model/DOMImporter#_wrapInlineElementsIntoBlockElement",
     "description": "<p>Wraps the remaining (inline) elements of a node iterator into a default\nblock node.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 468,
+    "sourceLine": 467,
     "isPrivate": true,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -308,9 +308,9 @@
   {
     "type": "method",
     "id": "model/DOMImporter#annotatedText",
-    "description": "<p>Convert annotated text.</p>\n<p>You should call this method only for elements containing rich-text.</p>\n",
+    "description": "<p>Convert annotated text. You should call this method only for elements\ncontaining rich-text.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 255,
+    "sourceLine": 254,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -403,7 +403,7 @@
     "id": "model/DOMImporter#customText",
     "description": "<p>Tells the converter to insert a virutal custom text.</p>\n<p>This is useful when during conversion a generated label needs to be inserted instead\nof real text.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 309,
+    "sourceLine": 308,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -422,7 +422,7 @@
     "id": "model/DOMImporter#nextId",
     "description": "<p>Generates an id. The generated id is unique with respect to all ids generated so far.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 325,
+    "sourceLine": 324,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -445,7 +445,7 @@
     "id": "model/DOMImporter#plainText",
     "description": "<p>Converts the given element as plain-text.</p>\n",
     "sourceFile": "model/DOMImporter.js",
-    "sourceLine": 290,
+    "sourceLine": 289,
     "isPrivate": false,
     "tags": [],
     "parent": "model/DOMImporter",
@@ -3186,7 +3186,7 @@
     "id": "model/documentHelpers.getAnnotationsForSelection",
     "description": "<p>For a given selection, get annotations of a certain type</p>\n",
     "sourceFile": "model/documentHelpers.js",
-    "sourceLine": 99,
+    "sourceLine": 98,
     "isPrivate": false,
     "tags": [],
     "parent": "model/documentHelpers",
@@ -3227,7 +3227,7 @@
     "id": "model/documentHelpers.getContainerAnnotationsForSelection",
     "description": "<p>For a given selection get all container annotations</p>\n",
     "sourceFile": "model/documentHelpers.js",
-    "sourceLine": 65,
+    "sourceLine": 64,
     "isPrivate": false,
     "tags": [],
     "parent": "model/documentHelpers",
@@ -3268,7 +3268,7 @@
     "id": "model/documentHelpers.getPropertyAnnotationsForSelection",
     "description": "<p>For a given selection get all property annotations</p>\n",
     "sourceFile": "model/documentHelpers.js",
-    "sourceLine": 36,
+    "sourceLine": 35,
     "isPrivate": false,
     "tags": [],
     "parent": "model/documentHelpers",
@@ -3288,7 +3288,7 @@
       }
     ],
     "returns": {
-      "type": "",
+      "type": "model/PropertyAnnotation[]",
       "description": "<p>An array of property annotations.         Returns an empty array when selection is a container selection.</p>\n"
     }
   },
@@ -3297,7 +3297,7 @@
     "id": "model/documentHelpers.getTextForSelection",
     "description": "<p>For a given selection, get the corresponding text string</p>\n",
     "sourceFile": "model/documentHelpers.js",
-    "sourceLine": 122,
+    "sourceLine": 121,
     "isPrivate": false,
     "tags": [],
     "parent": "model/documentHelpers",
@@ -3310,8 +3310,8 @@
         "description": ""
       },
       {
-        "type": "Document.Selection",
-        "shortType": "Document.Selection",
+        "type": "model/Selection",
+        "shortType": "Selection",
         "name": "sel",
         "description": ""
       }
@@ -3324,9 +3324,8 @@
   {
     "type": "method",
     "id": "model/documentHelpers.isContainerAnnotation",
-    "description": "<p>Returns true if given type is a container selection</p>\n",
     "sourceFile": "model/documentHelpers.js",
-    "sourceLine": 23,
+    "sourceLine": 22,
     "isPrivate": false,
     "tags": [],
     "parent": "model/documentHelpers",
@@ -3344,7 +3343,11 @@
         "name": "type",
         "description": ""
       }
-    ]
+    ],
+    "returns": {
+      "type": "Boolean",
+      "description": "<p><code>true</code> if given type is a <a href=\"#nodeId=model/ContainerAnnotation\" data-type=\"cross-link\" data-node-id=\"model/ContainerAnnotation\">model/ContainerAnnotation</a></p>\n"
+    }
   },
   {
     "type": "namespace",
@@ -3463,8 +3466,9 @@
     "type": "function",
     "id": "model/transform/deleteSelection",
     "description": "<p>Deletes a given selection.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">deleteSelection(tx, {\n  selection: bodyEditor.getSelection(),\n});\n</code></pre>\n",
     "sourceFile": "model/transform/deleteSelection.js",
-    "sourceLine": 20,
+    "sourceLine": 28,
     "tags": [],
     "parent": "model/transform",
     "name": "deleteSelection",
@@ -3484,9 +3488,10 @@
   {
     "type": "function",
     "id": "model/transform/insertNode",
-    "description": "<p>Inserts a new node at the given selection/cursor</p>\n",
+    "description": "<p>Inserts a new node at the given selection/cursor.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">insertNode(tx, {\n  selection: bodyEditor.getSelection(),\n  containerId: bodyEditor.getContainerId(),\n  node: {\n    id: <span class=\"hljs-string\">'nodeId'</span>,\n    type: <span class=\"hljs-string\">'paragraph'</span>,\n    content: <span class=\"hljs-string\">'hello'</span>\n  }\n});\n</code></pre>\n",
     "sourceFile": "model/transform/insertNode.js",
-    "sourceLine": 13,
+    "sourceLine": 28,
     "tags": [],
     "parent": "model/transform",
     "name": "insertNode",
@@ -3500,15 +3505,16 @@
     ],
     "returns": {
       "type": "Object",
-      "description": "<p>with updated <code>selection</code></p>\n"
+      "description": "<p>object with updated selection</p>\n"
     }
   },
   {
     "type": "function",
     "id": "model/transform/insertText",
     "description": "<p>Inserts text at the given selection.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">insertText(tx, {\n  selection: bodyEditor.getSelection(),\n  text: <span class=\"hljs-string\">'Guten Tag'</span>\n});\n</code></pre>\n",
     "sourceFile": "model/transform/insertText.js",
-    "sourceLine": 13,
+    "sourceLine": 23,
     "tags": [],
     "parent": "model/transform",
     "name": "insertText",
@@ -3522,7 +3528,7 @@
     ],
     "returns": {
       "type": "Object",
-      "description": "<p>with updated <code>selection</code></p>\n"
+      "description": "<p>object with updated <code>selection</code></p>\n"
     }
   },
   {
@@ -3551,8 +3557,9 @@
     "type": "function",
     "id": "model/transform/switchTextType",
     "description": "<p>Switch text type for a given node. E.g. from <code>paragraph</code> to <code>heading</code>.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">switchTextType(tx, {\n  selection: bodyEditor.getSelection(),\n  containerId: bodyEditor.getContainerId(),\n  data: {\n    type: <span class=\"hljs-string\">'heading'</span>,\n    level: <span class=\"hljs-number\">2</span>\n  }\n});\n</code></pre>\n",
     "sourceFile": "model/transform/switchTextType.js",
-    "sourceLine": 15,
+    "sourceLine": 28,
     "tags": [],
     "parent": "model/transform",
     "name": "switchTextType",
@@ -3566,7 +3573,7 @@
     ],
     "returns": {
       "type": "Object",
-      "description": "<p>with updated <code>selection</code></p>\n"
+      "description": "<p>object with updated <code>selection</code></p>\n"
     }
   },
   {
@@ -3608,7 +3615,7 @@
   {
     "type": "class",
     "id": "ui/AnnotatedTextComponent",
-    "description": "<p>Renders an anotated text. Used internally by ui/TextPropertyComponent</p>\n",
+    "description": "<p>Renders an anotated text. Used internally by <a href=\"#nodeId=ui/TextPropertyComponent\" data-type=\"cross-link\" data-node-id=\"ui/TextPropertyComponent\">ui/TextPropertyComponent</a>.</p>\n",
     "sourceFile": "ui/AnnotatedTextComponent.js",
     "sourceLine": 16,
     "tags": [
@@ -3885,7 +3892,7 @@
     "id": "ui/ClipboardImporter",
     "description": "<p>Import HTML from clipboard. Used for inter-application copy'n'paste.</p>\n",
     "sourceFile": "ui/ClipboardImporter.js",
-    "sourceLine": 32,
+    "sourceLine": 35,
     "tags": [],
     "parent": "ui",
     "name": "ClipboardImporter",
@@ -6246,31 +6253,63 @@
   {
     "type": "class",
     "id": "ui/Highlights",
-    "description": "<p>Keeps track of highlights</p>\n",
+    "description": "<p>Manages highlights. Used by <a href=\"#nodeId=ui/ScrollPane\" data-type=\"cross-link\" data-node-id=\"ui/ScrollPane\">ui/ScrollPane</a>.</p>\n",
+    "example": "<pre><code class=\"hljs\"><span class=\"hljs-keyword\">var</span> contentHighlights = <span class=\"hljs-keyword\">new</span> Highlights(doc);\n</code></pre>\n",
     "sourceFile": "ui/Highlights.js",
-    "sourceLine": 13,
-    "tags": [],
+    "sourceLine": 21,
+    "tags": [
+      {
+        "type": "param",
+        "value": {
+          "type": "model/Document",
+          "shortType": "Document",
+          "name": "doc",
+          "description": "<p>document instance</p>\n"
+        }
+      }
+    ],
     "parent": "ui",
     "name": "Highlights",
     "members": [
-      "ui/Highlights#getDocument"
+      "ui/Highlights#get",
+      "ui/Highlights#set"
     ]
   },
   {
     "type": "method",
-    "id": "ui/Highlights#getDocument",
-    "description": "<p>Get the Document instance.</p>\n",
+    "id": "ui/Highlights#get",
+    "description": "<p>Get currently active highlights.</p>\n",
     "sourceFile": "ui/Highlights.js",
-    "sourceLine": 31,
+    "sourceLine": 35,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Highlights",
-    "name": "getDocument",
+    "name": "get",
     "params": [],
     "returns": {
-      "type": "Document",
-      "description": ""
+      "type": "Object",
+      "description": "<p>Returns current highlights as a scoped object.</p>\n"
     }
+  },
+  {
+    "type": "method",
+    "id": "ui/Highlights#set",
+    "description": "<p>Set highlights.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">  highlights.set({\n    <span class=\"hljs-string\">'figures'</span>: [<span class=\"hljs-string\">'figure-1'</span>, <span class=\"hljs-string\">'figure-3'</span>]\n    <span class=\"hljs-string\">'citations'</span>: [<span class=\"hljs-string\">'citation-1'</span>, <span class=\"hljs-string\">'citation-5'</span>]\n  });\n</code></pre>\n",
+    "sourceFile": "ui/Highlights.js",
+    "sourceLine": 53,
+    "isPrivate": false,
+    "tags": [],
+    "parent": "ui/Highlights",
+    "name": "set",
+    "params": [
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "scoped",
+        "description": "<p>object describing highlights</p>\n"
+      }
+    ]
   },
   {
     "type": "class",

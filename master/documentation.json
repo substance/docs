@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "6f01c31150d8e92e3a0d4e2faf313e24125ee4a1"
+    "sha": "fe0ed41ac1b0e63f8b620f021a1c9ce7bcc19bea"
   },
   {
     "type": "namespace",
@@ -4564,7 +4564,7 @@
     "id": "ui/Component.isMounted",
     "description": "<p>Checks whether a given element has been injected in the document already</p>\n<p>We traverse up the DOM until we find the document root element. We return true\nif we can find it.</p>\n",
     "sourceFile": "ui/Component.js",
-    "sourceLine": 1509,
+    "sourceLine": 1506,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Component",
@@ -4578,7 +4578,7 @@
     "description": "<p>Mount a component onto a given DOM or jquery element.</p>\n<p>Mounting a component means, that the component gets rendered\nand then appended to the given element.\nIf the element is in the DOM, all components receive a 'didMount' event.</p>\n",
     "example": "<p>Mounting a component via Component class and providing props.</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">Component</span><span class=\"hljs-class\">.mount</span>(MyComponent, { <span class=\"hljs-attribute\">foo</span>: <span class=\"hljs-string\">\"foo\"</span> }, $(<span class=\"hljs-string\">'body'</span>));\n</code></pre>\n<p>Creating a component using <code>Component.render()</code> and mounting later:</p>\n<pre><code class=\"hljs\">var <span class=\"hljs-built_in\">comp</span> = Component.render(MyComponent);\n<span class=\"hljs-built_in\">comp</span>.addClass(<span class=\"hljs-string\">'foo'</span>);\nComponent.mount(<span class=\"hljs-built_in\">comp</span>, $(<span class=\"hljs-string\">'body'</span>));\n</code></pre>\n",
     "sourceFile": "ui/Component.js",
-    "sourceLine": 1479,
+    "sourceLine": 1476,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Component",
@@ -4615,7 +4615,7 @@
     "id": "ui/Component.render",
     "example": "<p>Creating an instace of a Component:</p>\n<pre><code class=\"hljs\"><span class=\"hljs-tag\">var</span> comp = Component.<span class=\"hljs-function\"><span class=\"hljs-title\">render</span><span class=\"hljs-params\">(MyComponent)</span></span>\n</code></pre>\n<p>Creating an anonymous Component class via a render function.\nThis is used mostly internally, e.g., in the test suite.</p>\n<pre><code class=\"hljs\"><span class=\"hljs-keyword\">var</span> comp = Component.render(<span class=\"hljs-function\"><span class=\"hljs-keyword\">function</span>(<span class=\"hljs-params\"></span>) </span>{\n  <span class=\"hljs-keyword\">return</span> $$(<span class=\"hljs-string\">'div'</span>).append(<span class=\"hljs-string\">'foo'</span>)\n})\n</code></pre>\n",
     "sourceFile": "ui/Component.js",
-    "sourceLine": 1427,
+    "sourceLine": 1424,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Component",

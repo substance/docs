@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "4cccf467501c836bf7d35e20ae704d70f1ef8c80"
+    "sha": "e05b32b1d35da906dadeb7b146d0e42ff5c39d4e"
   },
   {
     "type": "namespace",
@@ -3433,6 +3433,7 @@
       "model/transform/copySelection",
       "model/transform/createAnnotation",
       "model/transform/deleteSelection",
+      "model/transform/insertInlineNode",
       "model/transform/insertNode",
       "model/transform/insertText",
       "model/transform/paste",
@@ -3494,9 +3495,9 @@
     "type": "function",
     "id": "model/transform/createAnnotation",
     "description": "<p>For a given container selection create property selections of a given type</p>\n",
-    "example": "<pre><code class=\"hljs lang-js\">createAnnotation(tx, {\n  selection: bodyEditor.getSelection(),\n  annoType: <span class=\"hljs-string\">'link'</span>,\n  containerId: bodyEditor.getContainerId(),\n  annoData: {url: <span class=\"hljs-string\">'http://example.com'</span>}\n});\n</code></pre>\n",
+    "example": "<pre><code class=\"hljs lang-js\">createAnnotation(tx, {\n  selection: bodyEditor.getSelection(),\n  containerId: bodyEditor.getContainerId(),\n  \n  node: {\n    type: <span class=\"hljs-string\">'link'</span>,\n    url: <span class=\"hljs-string\">'http://example.com'</span>\n  }\n});\n</code></pre>\n",
     "sourceFile": "model/transform/createAnnotation.js",
-    "sourceLine": 32,
+    "sourceLine": 34,
     "tags": [
       {
         "type": "function",
@@ -3512,11 +3513,7 @@
       },
       {
         "type": "scopedparam",
-        "value": "{String} args.annotationType type of the new annotation"
-      },
-      {
-        "type": "scopedparam",
-        "value": "{Object} [args.annotationData] additional data that should be stored on the object"
+        "value": "{Object} args.node data describing the annotation node"
       }
     ],
     "parent": "model/transform",
@@ -3557,6 +3554,29 @@
     "returns": {
       "type": "Object",
       "description": "<p>with updated <code>selection</code></p>\n"
+    }
+  },
+  {
+    "type": "function",
+    "id": "model/transform/insertInlineNode",
+    "description": "<p>Inserts a new inline node at the given selection/cursor.</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\">insertInlineNode(tx, {\n  selection: bodyEditor.getSelection(),\n  containerId: bodyEditor.getContainerId(),\n  node: {\n    type: <span class=\"hljs-string\">'citation'</span>\n  }\n});\n</code></pre>\n",
+    "sourceFile": "model/transform/insertInlineNode.js",
+    "sourceLine": 26,
+    "tags": [],
+    "parent": "model/transform",
+    "name": "insertInlineNode",
+    "params": [
+      {
+        "type": "Object",
+        "shortType": "Object",
+        "name": "args",
+        "description": "<p>object with <code>selection</code>, <code>containerId</code> and <code>node</code> that has the node data</p>\n"
+      }
+    ],
+    "returns": {
+      "type": "Object",
+      "description": "<p>object with updated selection</p>\n"
     }
   },
   {

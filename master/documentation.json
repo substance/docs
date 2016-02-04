@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "f8493731616e264054789f3d9ae990a146553a55"
+    "sha": "215219923a497c975a47da0fe69cd2ed28dd3846"
   },
   {
     "type": "namespace",
@@ -4584,7 +4584,7 @@
     "id": "ui/Component.isMounted",
     "description": "<p>Checks whether a given element has been injected in the document already</p>\n<p>We traverse up the DOM until we find the document root element. We return true\nif we can find it.</p>\n",
     "sourceFile": "ui/Component.js",
-    "sourceLine": 1514,
+    "sourceLine": 1519,
     "isPrivate": false,
     "tags": [],
     "parent": "ui/Component",

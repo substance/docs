@@ -2656,9 +2656,17 @@ a.quiet.active, a.quiet:hover {
 
 .sc-text-property .se-cursor {
   outline: 1px solid #999; }
+  .sc-text-property .se-cursor.sm-user-2 {
+    outline-color: #ff9300; }
+  .sc-text-property .se-cursor.sm-user-3 {
+    outline-color: #c0eecc; }
 
 .sc-text-property .se-selection-fragment {
   background-color: #ddd; }
+  .sc-text-property .se-selection-fragment.sm-user-2 {
+    background: rgba(255, 147, 0, 0.6); }
+  .sc-text-property .se-selection-fragment.sm-user-3 {
+    background: rgba(192, 238, 204, 0.6); }
 
 .sc-text-property .se-container-annotation.se-anchor {
   position: relative; }

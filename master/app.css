@@ -2078,9 +2078,9 @@
 .fa-percent:before {
   content: ""; }
 
-/* Rounded corners */
 /* Variables
 -------------------------------------------------- */
+/* Rounded corners */
 /* Reset adapted from http://meyerweb.com/eric/tools/css/reset/
 ------------------------------------------------------- */
 html, body, div, span, applet, object, iframe,
@@ -2656,17 +2656,29 @@ a.quiet.active, a.quiet:hover {
 
 .sc-text-property .se-cursor {
   outline: 1px solid #999; }
-  .sc-text-property .se-cursor.sm-user-2 {
-    outline-color: #ff9300; }
-  .sc-text-property .se-cursor.sm-user-3 {
-    outline-color: #c0eecc; }
+  .sc-text-property .se-cursor.sm-collaborator-1 {
+    outline-color: #7ED321; }
+  .sc-text-property .se-cursor.sm-collaborator-2 {
+    outline-color: #E24A99; }
+  .sc-text-property .se-cursor.sm-collaborator-3 {
+    outline-color: #E3710C; }
+  .sc-text-property .se-cursor.sm-collaborator-4 {
+    outline-color: #50E3C2; }
+  .sc-text-property .se-cursor.sm-collaborator-5 {
+    outline-color: #EC2B2B; }
 
 .sc-text-property .se-selection-fragment {
   background-color: #ddd; }
-  .sc-text-property .se-selection-fragment.sm-user-2 {
-    background: rgba(255, 147, 0, 0.6); }
-  .sc-text-property .se-selection-fragment.sm-user-3 {
-    background: rgba(192, 238, 204, 0.6); }
+  .sc-text-property .se-selection-fragment.sm-collaborator-1 {
+    background: #CCEEA8; }
+  .sc-text-property .se-selection-fragment.sm-collaborator-2 {
+    background: #F4B8D7; }
+  .sc-text-property .se-selection-fragment.sm-collaborator-3 {
+    background: #F4C79F; }
+  .sc-text-property .se-selection-fragment.sm-collaborator-4 {
+    background: #BAF4E7; }
+  .sc-text-property .se-selection-fragment.sm-collaborator-5 {
+    background: #F8ACAC; }
 
 .sc-text-property .se-container-annotation.se-anchor {
   position: relative; }

@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "3572ebb775805af5a9bea9c933264c70c139c484"
+    "sha": "c391b17f36fc9b4b2e4a498221b3aa0e9e686bc8"
   },
   {
     "type": "namespace",
@@ -7614,9 +7614,6 @@
     "description": "<p><code>util</code> provides useful functions for inheritance, an EventEmitter implementation as well as Factory and Registry implementations.</p>\n",
     "members": [
       "util/EventEmitter",
-      "util/MessageQueue",
-      "util/ServerWebSocket",
-      "util/WebSocket",
       "util/oo",
       "util/platform",
       "util/server"
@@ -7810,39 +7807,6 @@
         "description": ""
       }
     ]
-  },
-  {
-    "type": "function",
-    "id": "util/MessageQueue",
-    "description": "<p>Websocket server implementation for client-side development of protocols</p>\n",
-    "sourceFile": "util/MessageQueue.js",
-    "sourceLine": 9,
-    "tags": [],
-    "parent": "util",
-    "name": "MessageQueue",
-    "params": []
-  },
-  {
-    "type": "function",
-    "id": "util/ServerWebSocket",
-    "description": "<p>Simple ServerWebSocket implementation for local testing</p>\n",
-    "sourceFile": "util/ServerWebSocket.js",
-    "sourceLine": 11,
-    "tags": [],
-    "parent": "util",
-    "name": "ServerWebSocket",
-    "params": []
-  },
-  {
-    "type": "function",
-    "id": "util/WebSocket",
-    "description": "<p>Simple WebSocket implementation for local testing</p>\n",
-    "sourceFile": "util/WebSocket.js",
-    "sourceLine": 11,
-    "tags": [],
-    "parent": "util",
-    "name": "WebSocket",
-    "params": []
   },
   {
     "type": "module",

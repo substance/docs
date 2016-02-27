@@ -2728,7 +2728,7 @@ a.quiet.active, a.quiet:hover {
         font-size: 7px; }
       .sc-toolbar .se-toolbar-group .se-tool.sm-active button {
         background: rgba(0, 0, 0, 0.1); }
-      .sc-toolbar .se-toolbar-group .se-tool button:hover {
+      .sc-toolbar .se-toolbar-group .se-tool button:hover, .sc-toolbar .se-toolbar-group .se-tool button:focus {
         background: rgba(0, 0, 0, 0.1); }
       .sc-toolbar .se-toolbar-group .se-tool.sm-disabled {
         opacity: 0.2;
@@ -2750,6 +2750,8 @@ a.quiet.active, a.quiet:hover {
       line-height: 30px;
       margin: 5px;
       display: block; }
+      .sc-toolbar .se-toolbar-dropdown .se-toggle button:focus {
+        background: rgba(0, 0, 0, 0.1); }
     .sc-toolbar .se-toolbar-dropdown:not(.sm-disabled) .se-toggle:after {
       content: " \f0d7";
       padding-left: 10px;
@@ -2768,7 +2770,9 @@ a.quiet.active, a.quiet:hover {
         display: block;
         padding: 5px 10px;
         width: 100%; }
-        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool:hover {
+        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool:hover, .sc-toolbar .se-toolbar-dropdown .se-options .se-tool:focus {
+          background: rgba(0, 0, 0, 0.05); }
+        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool button:focus {
           background: rgba(0, 0, 0, 0.05); }
         .sc-toolbar .se-toolbar-dropdown .se-options .se-tool.sm-disabled {
           opacity: 0.2;
@@ -2793,6 +2797,8 @@ a.quiet.active, a.quiet:hover {
     margin: 5px;
     display: block;
     overflow: hidden; }
+    .sc-switch-text-type .se-toggle:focus {
+      background: rgba(0, 0, 0, 0.1); }
   .sc-switch-text-type:not(.sm-disabled) .se-toggle:after {
     content: " \f0d7";
     padding-left: 10px;
@@ -2816,7 +2822,7 @@ a.quiet.active, a.quiet:hover {
       display: block;
       padding: 5px 10px;
       width: 100%; }
-      .sc-switch-text-type .se-options .se-option:hover {
+      .sc-switch-text-type .se-options .se-option:hover, .sc-switch-text-type .se-options .se-option:focus {
         background: rgba(0, 0, 0, 0.05); }
   .sc-switch-text-type.sm-open .se-options {
     display: block; }

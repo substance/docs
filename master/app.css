@@ -2655,7 +2655,10 @@ a.quiet.active, a.quiet:hover {
   float: right; }
 
 .sc-text-property .se-cursor {
-  outline: 1px solid #999; }
+  outline: 1px solid #999;
+  display: inline-block;
+  width: 0px;
+  height: 1em; }
   .sc-text-property .se-cursor.sm-collaborator-1 {
     outline-color: #7ED321; }
   .sc-text-property .se-cursor.sm-collaborator-2 {

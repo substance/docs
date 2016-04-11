@@ -2197,12 +2197,13 @@ strong {
 
 /* Links */
 a {
-  color: #2079DC;
+  color: #1795CD;
   text-decoration: none; }
-  a.active, a:hover {
-    color: #63b6e5; }
   a:focus {
-    outline: 2px solid #5BE3FF; }
+    outline: 1px solid #1795CD; }
+
+button:focus {
+  outline: 1px solid #1795CD; }
 
 /* Helpers
 
@@ -2581,9 +2582,7 @@ DEPRECATED: don't use!
 /* Toolbar
 -------------------------------------------------- */
 .sc-toolbar {
-  overflow: visible;
-  border-bottom: 1px solid #E0E4E4;
-  font-size: 13px;
+  font-size: 14px;
   /* Toolbar group
   ---------------------------- */
   /* ???
@@ -2591,10 +2590,10 @@ DEPRECATED: don't use!
   /* Toolbar Dropdown
   ---------------------------- */ }
   .sc-toolbar .se-toolbar-group {
-    float: left; }
+    display: inline-block; }
     .sc-toolbar .se-toolbar-group .se-tool {
       line-height: normal;
-      float: left;
+      display: inline-block;
       position: relative; }
       .sc-toolbar .se-toolbar-group .se-tool button {
         position: relative;
@@ -2634,7 +2633,7 @@ DEPRECATED: don't use!
   .sc-toolbar .se-toolbar-dropdown {
     overflow: visible;
     position: relative;
-    float: left; }
+    display: inline-block; }
     .sc-toolbar .se-toolbar-dropdown .se-toggle {
       height: 30px;
       padding: 0px 10px;
@@ -2747,16 +2746,19 @@ DEPRECATED: don't use!
   width: auto; }
 
 .sc-button {
-  padding: 0px 10px;
+  padding: 0px 20px;
   text-align: center;
   height: 40px;
-  font-size: 16px;
-  color: #2079DC;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.75);
   font-weight: 600;
   display: inline-block;
-  border: 2px solid #2079DC; }
+  border: 1px solid rgba(0, 0, 0, 0.75);
+  border-radius: 3px; }
   .sc-button:focus {
-    outline: 2px solid #5BE3FF; }
+    border-color: #1795CD;
+    color: #1795CD;
+    outline: none; }
   .sc-button:disabled {
     opacity: 0.4;
     cursor: not-allowed; }
@@ -2772,29 +2774,33 @@ DEPRECATED: don't use!
     height: 20px; }
   .sc-input:focus {
     background: #fff;
-    outline: 2px solid #5BE3FF; }
+    border-color: #1795CD; }
   .sc-input.sm-centered {
     text-align: center; }
 
-.sc-layout.sm-type-centered {
-  text-align: center; }
-
-.sc-layout.sm-width-full {
+.sc-layout {
+  padding: 20px;
+  padding-top: 40px;
   width: 100%; }
-
-.sc-layout.sm-width-medium {
-  max-width: 620px;
-  margin: 0px auto; }
-
-.sc-layout.sm-width-large {
-  max-width: 960px;
-  margin: 0px auto; }
-
-.sc-layout > p {
-  padding-bottom: 20px; }
-
-.sc-layout > h1, .sc-layout h2, .sc-layout h3, .sc-layout h4 {
-  padding-bottom: 20px; }
+  .sc-layout.sm-no-padding {
+    padding: 0; }
+  .sc-layout.sm-text-align-center {
+    text-align: center; }
+  .sc-layout.sm-text-align-right {
+    text-align: right; }
+  .sc-layout.sm-width-small {
+    max-width: 300px;
+    margin: 0px auto; }
+  .sc-layout.sm-width-medium {
+    max-width: 620px;
+    margin: 0px auto; }
+  .sc-layout.sm-width-large {
+    max-width: 960px;
+    margin: 0px auto; }
+  .sc-layout > p {
+    padding-bottom: 20px; }
+  .sc-layout > h1, .sc-layout h2, .sc-layout h3, .sc-layout h4 {
+    padding-bottom: 20px; }
 
 /* Switch Text Type Component
 ---------------------------- */
@@ -2962,8 +2968,7 @@ ol.sc-list > .sc-li.level-4::before {
   content: counter(level1) "." counter(level2) "." counter(level3) "." counter(level4) ". "; }
 
 .sc-link {
-  color: #2079DC;
-  border-bottom: 1px solid #CEDFF3; }
+  color: #2079DC; }
 
 .sc-link-tool .se-prompt {
   padding: 15px;

@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#nodeId=model\" data-type=\"cross-link\" data-node-id=\"model\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#nodeId=model/data\" data-type=\"cross-link\" data-node-id=\"model/data\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#nodeId=model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#nodeId=ui\" data-type=\"cross-link\" data-node-id=\"ui\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#nodeId=util\" data-type=\"cross-link\" data-node-id=\"util\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "f438d5ffe281bc6f9362bc394b5a26c8c2c61fc8"
+    "sha": "fea83a1fb0001174c21ea5386d7b599340298772"
   },
   {
     "type": "namespace",
@@ -3798,6 +3798,7 @@
       "ui/DOMElement",
       "ui/DefaultDOMElement",
       "ui/Highlights",
+      "ui/Layout",
       "ui/ScrollPane",
       "ui/Scrollbar",
       "ui/SplitPane",
@@ -6642,6 +6643,40 @@
     "parent": "ui/Highlights",
     "name": "highlights:updated",
     "params": []
+  },
+  {
+    "type": "class",
+    "id": "ui/Layout",
+    "description": "<p>Simple layout component for simple layout tasks, without having to write CSS</p>\n",
+    "example": "<pre><code class=\"hljs lang-js\"><span class=\"hljs-keyword\">var</span> form = $$(Layout, {\n  width: <span class=\"hljs-string\">'large'</span>,\n  textAlign: <span class=\"hljs-string\">'center'</span>\n});\n</code></pre>\n",
+    "sourceFile": "ui/Layout.js",
+    "sourceLine": 23,
+    "tags": [
+      {
+        "type": "component",
+        "value": ""
+      },
+      {
+        "type": "prop",
+        "value": {
+          "type": "String",
+          "shortType": "String",
+          "name": "width",
+          "description": "<p>'small', 'medium', 'large' and 'full'</p>\n"
+        }
+      },
+      {
+        "type": "prop",
+        "value": "{String} [textAlign] 'center', 'left' or 'right'"
+      },
+      {
+        "type": "prop",
+        "value": "{String} [noPadding] No padding around layout, will fill the whole space"
+      }
+    ],
+    "parent": "ui",
+    "name": "Layout",
+    "members": []
   },
   {
     "type": "class",

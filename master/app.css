@@ -3259,11 +3259,11 @@ blockquote {
   font-size: 12px;
   margin-bottom: 20px; }
   .sc-member-index .se-label {
-    font-weight: bold; }
+    font-weight: 600; }
   .sc-member-index .se-members {
     margin-bottom: 10px; }
     .sc-member-index .se-members a {
-      padding-right: 10px; }
+      margin-right: 10px; }
 
 /*
 

@@ -4,7 +4,7 @@
     "id": "meta",
     "description": "<p><a href=\"https://github.com/substance/substance\" target=\"_blank\">Substance</a> is a JavaScript library for web-based content editing.</p>\n<p>Here's an overview of the available API's:</p>\n<ul>\n<li><a href=\"#model\" data-type=\"cross-link\" data-node-id=\"model\" class=\"sc-cross-link\">model</a> - Define and manipulate custom articles based on data</li>\n<li><a href=\"#model/data\" data-type=\"cross-link\" data-node-id=\"model/data\" class=\"sc-cross-link\">model/data</a> - Core data representation framework</li>\n<li><a href=\"#model/transform\" data-type=\"cross-link\" data-node-id=\"model/transform\" class=\"sc-cross-link\">model/transform</a> - Higher level document operations that editor implementations can use</li>\n<li><a href=\"#ui\" data-type=\"cross-link\" data-node-id=\"ui\" class=\"sc-cross-link\">ui</a> - Reusable UI components for building advanced editing interfaces</li>\n<li><a href=\"#util\" data-type=\"cross-link\" data-node-id=\"util\" class=\"sc-cross-link\">util</a> - Utilities</li>\n</ul>\n",
     "repository": "https://github.com/substance/substance",
-    "sha": "8573ad443ba93a69078b86687269c32207b7e346"
+    "sha": "c3b052613ab5b0f1ae3cc6c5399ed3a8ef6dff0e"
   },
   {
     "type": "namespace",

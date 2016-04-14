@@ -2530,25 +2530,25 @@ DEPRECATED: don't use!
     width: 1px;
     background: #999; }
   .sc-text-property .se-cursor.sm-collaborator-1 .se-cursor-inner {
-    outline-color: #A4E57A; }
+    background: #A4E57A; }
   .sc-text-property .se-cursor.sm-collaborator-2 .se-cursor-inner {
-    outline-color: #BC90FF; }
+    background: #BC90FF; }
   .sc-text-property .se-cursor.sm-collaborator-3 .se-cursor-inner {
-    outline-color: #D6BB4C; }
+    background: #D6BB4C; }
   .sc-text-property .se-cursor.sm-collaborator-4 .se-cursor-inner {
-    outline-color: #BAA6A0; }
+    background: #BAA6A0; }
   .sc-text-property .se-cursor.sm-collaborator-5 .se-cursor-inner {
-    outline-color: #7BB5B3; }
+    background: #7BB5B3; }
   .sc-text-property .se-cursor.sm-collaborator-6 .se-cursor-inner {
-    outline-color: #FF7B7B; }
+    background: #FF7B7B; }
   .sc-text-property .se-cursor.sm-collaborator-7 .se-cursor-inner {
-    outline-color: #A0CC00; }
+    background: #A0CC00; }
   .sc-text-property .se-cursor.sm-collaborator-8 .se-cursor-inner {
-    outline-color: #89CAFF; }
+    background: #89CAFF; }
   .sc-text-property .se-cursor.sm-collaborator-9 .se-cursor-inner {
-    outline-color: #FF9FBF; }
+    background: #FF9FBF; }
   .sc-text-property .se-cursor.sm-collaborator-10 .se-cursor-inner {
-    outline-color: #FFB533; }
+    background: #FFB533; }
 
 .sc-text-property .se-selection-fragment {
   background-color: #ddd; }

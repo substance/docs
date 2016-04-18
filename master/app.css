@@ -2781,6 +2781,7 @@ DEPRECATED: don't use!
 .sc-layout {
   padding: 20px;
   padding-top: 40px;
+  padding-bottom: 40px;
   width: 100%; }
   .sc-layout.sm-no-padding {
     padding: 0; }
@@ -2801,6 +2802,30 @@ DEPRECATED: don't use!
     padding-bottom: 20px; }
   .sc-layout > h1, .sc-layout h2, .sc-layout h3, .sc-layout h4 {
     padding-bottom: 20px; }
+
+.sc-modal {
+  z-index: 500000;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: rgba(0, 0, 0, 0.7); }
+  .sc-modal .se-body {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 30px;
+    right: 30px;
+    top: 30px;
+    background: white;
+    box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.8); }
+  .sc-modal.sm-width-small .se-body {
+    max-width: 300px; }
+  .sc-modal.sm-width-medium .se-body {
+    max-width: 620px; }
+  .sc-modal.sm-width-large .se-body {
+    max-width: 960px; }
 
 /* Switch Text Type Component
 ---------------------------- */
@@ -3023,7 +3048,9 @@ ol.sc-list > .sc-li.level-4::before {
     padding: 0 10px; }
 
 .sc-image {
-  max-width: 100%; }
+  max-width: 100%;
+  display: block;
+  margin: 0px auto; }
 
 .sc-figure {
   padding: 20px;

@@ -1,20 +1,20 @@
 @charset "UTF-8";
 /*!
- *  Font Awesome 4.5.0 by @davegandy - http://fontawesome.io - @fontawesome
+ *  Font Awesome 4.6.3 by @davegandy - http://fontawesome.io - @fontawesome
  *  License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License)
  */
 /* FONT PATH
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("./fonts/fontawesome-webfont.eot?v=4.5.0");
-  src: url("./fonts/fontawesome-webfont.eot?#iefix&v=4.5.0") format("embedded-opentype"), url("./fonts/fontawesome-webfont.woff2?v=4.5.0") format("woff2"), url("./fonts/fontawesome-webfont.woff?v=4.5.0") format("woff"), url("./fonts/fontawesome-webfont.ttf?v=4.5.0") format("truetype"), url("./fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular") format("svg");
+  src: url("./fonts/fontawesome-webfont.eot?v=4.6.3");
+  src: url("./fonts/fontawesome-webfont.eot?#iefix&v=4.6.3") format("embedded-opentype"), url("./fonts/fontawesome-webfont.woff2?v=4.6.3") format("woff2"), url("./fonts/fontawesome-webfont.woff?v=4.6.3") format("woff"), url("./fonts/fontawesome-webfont.ttf?v=4.6.3") format("truetype"), url("./fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 
 .fa {
   display: inline-block;
-  font: normal normal normal 14px / 1 FontAwesome;
+  font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
@@ -113,31 +113,31 @@
     transform: rotate(359deg); } }
 
 .fa-rotate-90 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
   -webkit-transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   transform: rotate(90deg); }
 
 .fa-rotate-180 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg); }
 
 .fa-rotate-270 {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg);
   -ms-transform: rotate(270deg);
   transform: rotate(270deg); }
 
 .fa-flip-horizontal {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
   -webkit-transform: scale(-1, 1);
   -ms-transform: scale(-1, 1);
   transform: scale(-1, 1); }
 
 .fa-flip-vertical {
-  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
   -webkit-transform: scale(1, -1);
   -ms-transform: scale(1, -1);
   transform: scale(1, -1); }
@@ -1377,7 +1377,7 @@
 .fa-digg:before {
   content: ""; }
 
-.fa-pied-piper:before {
+.fa-pied-piper-pp:before {
   content: ""; }
 
 .fa-pied-piper-alt:before {
@@ -1503,6 +1503,7 @@
   content: ""; }
 
 .fa-ra:before,
+.fa-resistance:before,
 .fa-rebel:before {
   content: ""; }
 
@@ -2078,6 +2079,117 @@
 .fa-percent:before {
   content: ""; }
 
+.fa-gitlab:before {
+  content: ""; }
+
+.fa-wpbeginner:before {
+  content: ""; }
+
+.fa-wpforms:before {
+  content: ""; }
+
+.fa-envira:before {
+  content: ""; }
+
+.fa-universal-access:before {
+  content: ""; }
+
+.fa-wheelchair-alt:before {
+  content: ""; }
+
+.fa-question-circle-o:before {
+  content: ""; }
+
+.fa-blind:before {
+  content: ""; }
+
+.fa-audio-description:before {
+  content: ""; }
+
+.fa-volume-control-phone:before {
+  content: ""; }
+
+.fa-braille:before {
+  content: ""; }
+
+.fa-assistive-listening-systems:before {
+  content: ""; }
+
+.fa-asl-interpreting:before,
+.fa-american-sign-language-interpreting:before {
+  content: ""; }
+
+.fa-deafness:before,
+.fa-hard-of-hearing:before,
+.fa-deaf:before {
+  content: ""; }
+
+.fa-glide:before {
+  content: ""; }
+
+.fa-glide-g:before {
+  content: ""; }
+
+.fa-signing:before,
+.fa-sign-language:before {
+  content: ""; }
+
+.fa-low-vision:before {
+  content: ""; }
+
+.fa-viadeo:before {
+  content: ""; }
+
+.fa-viadeo-square:before {
+  content: ""; }
+
+.fa-snapchat:before {
+  content: ""; }
+
+.fa-snapchat-ghost:before {
+  content: ""; }
+
+.fa-snapchat-square:before {
+  content: ""; }
+
+.fa-pied-piper:before {
+  content: ""; }
+
+.fa-first-order:before {
+  content: ""; }
+
+.fa-yoast:before {
+  content: ""; }
+
+.fa-themeisle:before {
+  content: ""; }
+
+.fa-google-plus-circle:before,
+.fa-google-plus-official:before {
+  content: ""; }
+
+.fa-fa:before,
+.fa-font-awesome:before {
+  content: ""; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+
+.sr-only-focusable:active, .sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto; }
+
 /* Variables
 -------------------------------------------------- */
 /* Rounded corners */
@@ -2200,10 +2312,10 @@ a {
   color: #1795CD;
   text-decoration: none; }
   a:focus {
-    outline: 1px solid #1795CD; }
+    outline: 1px solid transparent; }
 
 button:focus {
-  outline: 1px solid #1795CD; }
+  outline: 1px solid transparent; }
 
 /* Helpers
 
@@ -2290,17 +2402,82 @@ DEPRECATED: don't use!
 .sh-shadow {
   box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15); }
 
-/* Controller styles
------------------------------------------------------*/
 /* This actually happens inside a Surface
 ----------------------------------------------------*/
 .sc-surface {
   /* Non-Editables should have a regular cursor */ }
   .sc-surface *[contenteditable="false"] {
     cursor: default; }
+  .sc-surface *[contenteditable="true"] {
+    cursor: text; }
 
 ::-moz-selection {
   background: rgba(77, 149, 233, 0.46); }
+
+.sm-selected-node {
+  outline: 2px solid;
+  outline-color: #A3CDFD; }
+  .sm-selected-node.sm-collaborator-1 {
+    outline-color: #A4E57A; }
+  .sm-selected-node.sm-collaborator-2 {
+    outline-color: #BC90FF; }
+  .sm-selected-node.sm-collaborator-3 {
+    outline-color: #D6BB4C; }
+  .sm-selected-node.sm-collaborator-4 {
+    outline-color: #BAA6A0; }
+  .sm-selected-node.sm-collaborator-5 {
+    outline-color: #7BB5B3; }
+
+/*
+  This just serves as a container for positioning overlay content
+*/
+.sc-overlay {
+  z-index: 200;
+  position: absolute; }
+  .sc-overlay.sm-hidden {
+    visibility: hidden;
+    position: fixed; }
+
+.sc-inline-node {
+  cursor: default; }
+  .sc-inline-node > .se-slug {
+    opacity: 0; }
+
+.sc-isolated-node {
+  position: relative; }
+  .sc-isolated-node > .se-container {
+    display: inline-block;
+    position: relative; }
+    .sc-isolated-node > .se-container > .se-blocker {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1; }
+    .sc-isolated-node > .se-container > .se-cursor {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px; }
+      .sc-isolated-node > .se-container > .se-cursor.sm-before {
+        left: -5px;
+        border-left: 2px solid #A3CDFD; }
+      .sc-isolated-node > .se-container > .se-cursor.sm-after {
+        right: -5px;
+        border-right: 2px solid #A3CDFD; }
+    .sc-isolated-node > .se-container.sm-full-width {
+      display: block; }
+  .sc-isolated-node > .se-slug {
+    opacity: 0;
+    font-size: 1px; }
+  .sc-isolated-node.sm-default-style.sm-selected > .se-container, .sc-isolated-node.sm-default-style.sm-co-selected > .se-container {
+    background: rgba(163, 205, 253, 0.6);
+    outline: 2px solid;
+    outline-color: #A3CDFD; }
+  .sc-isolated-node.sm-default-style.sm-focused > .se-container, .sc-isolated-node.sm-default-style.sm-co-focused > .se-container {
+    outline: 2px solid;
+    outline-color: #A3CDFD; }
 
 /* Panels (Context panel)
 -----------------------------------------------------*/
@@ -2401,8 +2578,6 @@ DEPRECATED: don't use!
     .sc-split-pane > .se-pane.sm-auto-fill {
       flex-grow: 1; }
 
-/* Content Panel
------------------------------------------------------*/
 .sc-scrollbar {
   position: absolute;
   left: 0px;
@@ -2454,71 +2629,6 @@ DEPRECATED: don't use!
     .sc-toc-panel .se-toc-entries .se-toc-entry.sm-level-3 {
       font-size: 12px;
       margin-left: 60px; }
-
-.sc-dialog-header {
-  background: #F8F8F8;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  overflow: hidden;
-  height: 40px;
-  border-bottom: 1px solid #ddd; }
-  .sc-dialog-header .se-back {
-    padding-left: 20px;
-    display: block;
-    float: left;
-    line-height: 40px;
-    font-size: 16px; }
-  .sc-dialog-header .se-label {
-    padding: 0px 20px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 39px;
-    float: left; }
-  .sc-dialog-header .se-actions {
-    overflow: hidden;
-    float: right; }
-    .sc-dialog-header .se-actions a {
-      display: block;
-      float: left;
-      font-weight: 600;
-      padding: 0px 4px;
-      font-size: 12px;
-      line-height: 40px;
-      margin-right: 20px; }
-
-/* StatusBar Component
------------------------------------------------------*/
-.status-bar-component {
-  border-top: 1px solid #ddd;
-  position: fixed;
-  height: 25px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  overflow: hidden;
-  line-height: 25px;
-  font-size: 12px; }
-
-.status-bar-component.error {
-  background: #F4E2E2;
-  color: #c83939; }
-
-.status-bar-component.success {
-  background: #E3EAD6;
-  color: #476247; }
-
-.status-bar-component .document-status {
-  float: left;
-  padding: 0 20px; }
-
-.status-bar-component .icon {
-  float: right;
-  padding: 0 20px; }
-
-.status-bar-component .message {
-  float: right; }
 
 .sc-text-property {
   white-space: pre-wrap; }
@@ -2578,98 +2688,35 @@ DEPRECATED: don't use!
   .sc-text-property .sm-highlighted {
     background: #ddd; }
 
-/* Toolbar
--------------------------------------------------- */
-.sc-toolbar {
+.sc-tool-group {
   font-size: 14px;
-  /* Toolbar group
-  ---------------------------- */
-  /* ???
-  ---------------------------- */
-  /* Toolbar Dropdown
-  ---------------------------- */ }
-  .sc-toolbar .se-toolbar-group {
-    display: inline-block; }
-    .sc-toolbar .se-toolbar-group .se-tool {
-      line-height: normal;
-      display: inline-block;
-      position: relative; }
-      .sc-toolbar .se-toolbar-group .se-tool button {
-        position: relative;
-        margin: 5px;
-        color: inherit;
-        height: 30px;
-        min-width: 30px;
-        text-align: center; }
-      .sc-toolbar .se-toolbar-group .se-tool.expand button::before, .sc-toolbar .se-toolbar-group .se-tool.truncate button::before {
-        content: " \f07e";
-        font-family: FontAwesome;
-        position: absolute;
-        top: 3px;
-        right: 3px;
-        font-size: 7px; }
-      .sc-toolbar .se-toolbar-group .se-tool.edit button::before {
-        content: " \f013";
-        font-family: FontAwesome;
-        position: absolute;
-        top: 3px;
-        right: 3px;
-        font-size: 7px; }
-      .sc-toolbar .se-toolbar-group .se-tool.sm-active button {
-        background: rgba(0, 0, 0, 0.1); }
-      .sc-toolbar .se-toolbar-group .se-tool button:hover, .sc-toolbar .se-toolbar-group .se-tool button:focus {
-        background: rgba(0, 0, 0, 0.1); }
-      .sc-toolbar .se-toolbar-group .se-tool.sm-disabled {
-        opacity: 0.2;
-        cursor: default; }
-        .sc-toolbar .se-toolbar-group .se-tool.sm-disabled button:hover {
-          background: none; }
-  .sc-toolbar input {
-    margin: 5px;
-    margin-left: 20px;
-    min-width: 600px;
-    border: none; }
-  .sc-toolbar .se-toolbar-dropdown {
-    overflow: visible;
-    position: relative;
-    display: inline-block; }
-    .sc-toolbar .se-toolbar-dropdown .se-toggle {
-      height: 30px;
-      padding: 0px 10px;
-      line-height: 30px;
+  display: inline-block; }
+  .sc-tool-group .se-tool {
+    line-height: normal;
+    display: inline-block;
+    position: relative; }
+    .sc-tool-group .se-tool button {
+      position: relative;
       margin: 5px;
-      display: block; }
-      .sc-toolbar .se-toolbar-dropdown .se-toggle button:focus {
-        background: rgba(0, 0, 0, 0.1); }
-    .sc-toolbar .se-toolbar-dropdown:not(.sm-disabled) .se-toggle:after {
-      content: " \f0d7";
-      padding-left: 10px;
-      float: right;
-      font-family: FontAwesome; }
-    .sc-toolbar .se-toolbar-dropdown .se-options {
-      display: none;
-      position: absolute;
-      background: white;
-      top: 40px;
-      z-index: 5000;
-      min-width: 150px;
-      box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
-      border: 1px solid #E0E4E4; }
-      .sc-toolbar .se-toolbar-dropdown .se-options .se-tool {
-        display: block;
-        padding: 5px 10px;
-        width: 100%; }
-        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool:hover, .sc-toolbar .se-toolbar-dropdown .se-options .se-tool:focus {
-          background: rgba(0, 0, 0, 0.05); }
-        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool button:focus {
-          background: rgba(0, 0, 0, 0.05); }
-        .sc-toolbar .se-toolbar-dropdown .se-options .se-tool.sm-disabled {
-          opacity: 0.2;
-          cursor: default; }
-          .sc-toolbar .se-toolbar-dropdown .se-options .se-tool.sm-disabled button:hover {
-            background: none; }
-    .sc-toolbar .se-toolbar-dropdown.sm-open .se-options {
-      display: block; }
+      color: inherit;
+      height: 30px;
+      min-width: 30px;
+      text-align: center; }
+    .sc-tool-group .se-tool.sm-active button {
+      background: rgba(0, 0, 0, 0.1); }
+    .sc-tool-group .se-tool button:hover, .sc-tool-group .se-tool button:focus {
+      background: rgba(0, 0, 0, 0.1); }
+    .sc-tool-group .se-tool.sm-disabled {
+      opacity: 0.2;
+      cursor: default; }
+      .sc-tool-group .se-tool.sm-disabled button:hover {
+        background: none; }
+
+.se-tool.sm-annotation-tool .se-mode {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  font-size: 7px; }
 
 .sc-grid > .se-row, .sc-grid > .se-cell {
   box-sizing: border-box; }
@@ -2755,8 +2802,8 @@ DEPRECATED: don't use!
   border: 1px solid rgba(0, 0, 0, 0.75);
   border-radius: 3px; }
   .sc-button:focus {
-    border-color: #1795CD;
-    color: #1795CD;
+    border-color: transparent;
+    color: transparent;
     outline: none; }
   .sc-button:disabled {
     opacity: 0.4;
@@ -2766,14 +2813,12 @@ DEPRECATED: don't use!
   width: 100%;
   max-width: 500px;
   height: 40px;
-  padding: 0px 10px;
-  line-height: 40px;
-  border: 1px solid #E0E4E4; }
+  line-height: 40px; }
   .sc-input.short {
     height: 20px; }
   .sc-input:focus {
     background: #fff;
-    border-color: #1795CD; }
+    border-color: transparent; }
   .sc-input.sm-centered {
     text-align: center; }
 
@@ -2826,6 +2871,55 @@ DEPRECATED: don't use!
   .sc-modal.sm-width-large .se-body {
     max-width: 960px; }
 
+.sc-prompt .se-arrow {
+  margin: 0 auto;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 4px 8px 4px;
+  border-color: transparent transparent #2E2E2C transparent; }
+
+.sc-prompt .se-content {
+  border-radius: 2px;
+  background: #2E2E2C;
+  overflow: auto;
+  color: rgba(255, 255, 255, 0.7); }
+  .sc-prompt .se-content .se-label {
+    float: left;
+    padding: 5px;
+    padding-left: 10px;
+    line-height: 30px;
+    font-size: 14px; }
+  .sc-prompt .se-content .se-action {
+    display: block;
+    outline: none;
+    float: left;
+    height: 40px;
+    line-height: 30px;
+    text-align: center;
+    padding: 5px;
+    min-width: 40px;
+    color: rgba(255, 255, 255, 0.7); }
+    .sc-prompt .se-content .se-action:hover {
+      color: #fff; }
+  .sc-prompt .se-content .se-input {
+    border: none;
+    font-size: 14px;
+    background: #2E2E2C;
+    color: #fff;
+    display: block;
+    outline: none;
+    float: left;
+    height: 40px;
+    padding: 5px 10px;
+    width: 200px; }
+  .sc-prompt .se-content .se-separator {
+    float: left;
+    width: 1px;
+    height: 30px;
+    margin: 5px 5px;
+    background: rgba(255, 255, 255, 0.3); }
+
 /* Switch Text Type Component
 ---------------------------- */
 .sc-switch-text-type {
@@ -2871,11 +2965,7 @@ DEPRECATED: don't use!
   .sc-switch-text-type.sm-open .se-options {
     display: block; }
 
-.sc-paragraph {
-  padding-bottom: 20px; }
-
 .sc-heading {
-  padding-bottom: 20px;
   font-weight: 600;
   letter-spacing: -0.5px; }
 
@@ -2910,8 +3000,7 @@ DEPRECATED: don't use!
 
 .sc-blockquote {
   border-left: 2px solid #ccc;
-  padding-left: 30px;
-  margin-bottom: 20px; }
+  padding-left: 30px; }
 
 .sc-switch-text-type .se-option.sm-blockquote {
   border-left: 2px solid #ccc;
@@ -2919,162 +3008,81 @@ DEPRECATED: don't use!
 
 .sc-codeblock {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 15px;
-  padding-bottom: 20px; }
+  font-size: 15px; }
 
 .sc-switch-text-type .se-option.sm-codeblock {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   font-size: 15px; }
 
-/**
- * Substance List styles
- * -------
- *
- * Used for ordered lists
- *
- * Supports nesting only up to level-4
- */
-.sc-li {
-  /* Spacing */ }
-  .sc-li.level-2 {
-    margin-left: 20px; }
-  .sc-li.level-3 {
-    margin-left: 40px; }
-  .sc-li.level-4 {
-    margin-left: 60px; }
-  .sc-li.se-list-start {
-    padding-top: 20px; }
-  .sc-li.se-list-end {
-    padding-bottom: 20px; }
+.sc-list-item {
+  margin: 0 0 0 20px;
+  position: relative; }
+  .sc-list-item:last-of-type {
+    margin-bottom: 20px; }
+  .sc-list-item.sm-unordered:before {
+    position: absolute;
+    content: "•";
+    left: -20px; }
 
-/**
- * Unordered lists
- * -------
- */
-ul.sc-list > .sc-li::before {
-  content: "▪ "; }
-
-/**
- * Ordered lists
- * -------
- *
- * Use CSS counters and support nesting up to level 4
- */
-/* When a new list occurs counters are reset */
-.se-list-start {
-  counter-reset: level1 level2 level3 level4 !important; }
-
-/* Resets for individual levels */
-ol.sc-list > .sc-li.level-1 {
-  counter-reset: level2 level3 level4; }
-
-ol.sc-list > .sc-li.level-2 {
-  counter-reset: level3 level4; }
-
-ol.sc-list > .sc-li.level-3 {
-  counter-reset: level4; }
-
-/* Counter displays for levels 1-3 */
-ol.sc-list > .sc-li.level-1::before {
-  counter-increment: level1;
-  content: counter(level1) ". "; }
-
-ol.sc-list > .sc-li.level-2::before {
-  counter-increment: level2;
-  content: counter(level1) "." counter(level2) ". "; }
-
-ol.sc-list > .sc-li.level-3::before {
-  counter-increment: level3;
-  content: counter(level1) "." counter(level2) "." counter(level3) ". "; }
-
-ol.sc-list > .sc-li.level-4::before {
-  counter-increment: level4;
-  content: counter(level1) "." counter(level2) "." counter(level3) "." counter(level4) ". "; }
+.sc-list-item + :not(.sc-list-item) {
+  margin-top: 20px; }
 
 .sc-link {
   color: #2079DC; }
-
-.sc-link-tool .se-prompt {
-  padding: 15px;
-  padding-bottom: 0px;
-  background: white;
-  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
-  border: 1px solid #E0E4E4;
-  position: absolute;
-  left: -150px;
-  top: 40px;
-  z-index: 50000;
-  width: 300px; }
-  .sc-link-tool .se-prompt .se-prompt-title {
-    font-size: 16px;
-    font-weight: bold; }
-  .sc-link-tool .se-prompt a.se-delete-link {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    font-size: 13px;
-    color: red; }
-  .sc-link-tool .se-prompt input {
-    margin: 15px 0;
-    width: 100%;
-    font-size: 14px;
-    display: block;
-    border: 1px solid #ddd;
-    min-width: auto;
-    padding: 0 10px; }
-
-.sc-embed-tool .se-prompt {
-  padding: 15px;
-  padding-bottom: 0px;
-  background: white;
-  box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
-  border: 1px solid #E0E4E4;
-  position: absolute;
-  left: -150px;
-  top: 40px;
-  z-index: 50000;
-  width: 300px; }
-  .sc-embed-tool .se-prompt .se-prompt-title {
-    font-size: 16px;
-    font-weight: bold; }
-  .sc-embed-tool .se-prompt input {
-    margin: 15px 0;
-    width: 100%;
-    font-size: 14px;
-    display: block;
-    border: 1px solid #ddd;
-    min-width: auto;
-    padding: 0 10px; }
 
 .sc-image {
   max-width: 100%;
   display: block;
   margin: 0px auto; }
 
-/* Table nodes
------------------------------------------------------*/
-.table {
-  width: 100%;
-  margin: 10px 0px;
-  border-collapse: collapse;
-  table-layout: fixed; }
+.sc-insert-image-tool > input {
+  position: fixed;
+  top: -1000px;
+  left: -1000px; }
 
-.table th, .table td {
-  border: 1px solid #efefef; }
+.sc-table {
+  position: relative;
+  margin: 0px 10px 20px 5px; }
+  .sc-table > table {
+    table-layout: fixed;
+    border-collapse: collapse; }
+    .sc-table > table td.se-hspace {
+      width: 0px; }
+    .sc-table > table > .se-head > .se-column-controls > .se-column-handle {
+      opacity: 0;
+      text-align: center;
+      font-size: smaller;
+      border: 1px solid transparent; }
+    .sc-table > table > .se-body > .se-row > .se-row-handle {
+      opacity: 0;
+      max-width: 15px;
+      text-align: center;
+      font-size: smaller;
+      vertical-align: middle;
+      border: 1px solid transparent; }
+    .sc-table > table > .se-body > .se-row > .se-hspace {
+      max-width: 15px; }
+    .sc-table > table > .se-body > .se-row > .se-cell {
+      border: 1px solid #ccc;
+      padding: 2px 5px;
+      min-width: 20px; }
+  .sc-table > .se-selection {
+    position: absolute; }
+    .sc-table > .se-selection.sm-visible {
+      border: 2px solid #A3CDFD; }
 
-.table th {
-  font-weight: bold;
-  background: #eee;
-  text-align: center; }
+/* make selection invisible inside the table when selected */
+.sc-isolated-node.sm-selected > .se-container > .sc-table ::selection {
+  background: none; }
 
-.table td {
-  padding: 2px 5px; }
+/* show column/row controls only when selected or focused */
+.sc-isolated-node.sm-selected > .se-container > .sc-table .se-column-handle,
+.sc-isolated-node.sm-focused > .se-container > .sc-table .se-column-handle {
+  opacity: 1.0; }
 
-.table .selected {
-  background-color: cyan; }
-
-.table.table-editing-mode .text-property {
-  cursor: default; }
+.sc-isolated-node.sm-selected > .se-container > .sc-table .se-row-handle,
+.sc-isolated-node.sm-focused > .se-container > .sc-table .se-row-handle {
+  opacity: 1.0; }
 
 .sc-emphasis {
   font-style: italic; }
@@ -3095,6 +3103,14 @@ ol.sc-list > .sc-li.level-4::before {
   font-size: 14px;
   background: rgba(0, 0, 0, 0.05);
   padding: 2px 0px; }
+
+.sc-prose-editor .sc-container-editor {
+  padding: 20px; }
+  .sc-prose-editor .sc-container-editor > * + * {
+    padding-top: 20px; }
+
+.sc-prose-editor .sc-prose-editor-toolbar {
+  border-bottom: 1px solid #E0E4E4; }
 
 p {
   padding-bottom: 10px; }
@@ -3282,86 +3298,63 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   overflow-x: auto;
   padding: 0.5em;
   color: #333;
-  background: #f8f8f8;
-  -webkit-text-size-adjust: none; }
+  background: #f8f8f8; }
 
 .hljs-comment,
-.diff .hljs-header {
+.hljs-quote {
   color: #998;
   font-style: italic; }
 
 .hljs-keyword,
-.css .rule .hljs-keyword,
-.hljs-winutils,
-.nginx .hljs-title,
-.hljs-subst,
-.hljs-request,
-.hljs-status {
+.hljs-selector-tag,
+.hljs-subst {
   color: #333;
   font-weight: bold; }
 
 .hljs-number,
-.hljs-hexcolor,
-.ruby .hljs-constant {
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
   color: #008080; }
 
 .hljs-string,
-.hljs-tag .hljs-value,
-.hljs-doctag,
-.tex .hljs-formula {
+.hljs-doctag {
   color: #d14; }
 
 .hljs-title,
-.hljs-id,
-.scss .hljs-preprocessor {
+.hljs-section,
+.hljs-selector-id {
   color: #900;
   font-weight: bold; }
 
-.hljs-list .hljs-keyword,
 .hljs-subst {
   font-weight: normal; }
 
-.hljs-class .hljs-title,
 .hljs-type,
-.vhdl .hljs-literal,
-.tex .hljs-command {
+.hljs-class .hljs-title {
   color: #458;
   font-weight: bold; }
 
 .hljs-tag,
-.hljs-tag .hljs-title,
-.hljs-rule .hljs-property,
-.django .hljs-tag .hljs-keyword {
+.hljs-name,
+.hljs-attribute {
   color: #000080;
   font-weight: normal; }
 
-.hljs-attribute,
-.hljs-variable,
-.lisp .hljs-body,
-.hljs-name {
-  color: #008080; }
-
-.hljs-regexp {
+.hljs-regexp,
+.hljs-link {
   color: #009926; }
 
 .hljs-symbol,
-.ruby .hljs-symbol .hljs-string,
-.lisp .hljs-keyword,
-.clojure .hljs-keyword,
-.scheme .hljs-keyword,
-.tex .hljs-special,
-.hljs-prompt {
+.hljs-bullet {
   color: #990073; }
 
-.hljs-built_in {
+.hljs-built_in,
+.hljs-builtin-name {
   color: #0086b3; }
 
-.hljs-preprocessor,
-.hljs-pragma,
-.hljs-pi,
-.hljs-doctype,
-.hljs-shebang,
-.hljs-cdata {
+.hljs-meta {
   color: #999;
   font-weight: bold; }
 
@@ -3371,11 +3364,11 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 .hljs-addition {
   background: #dfd; }
 
-.diff .hljs-change {
-  background: #0086b3; }
+.hljs-emphasis {
+  font-style: italic; }
 
-.hljs-chunk {
-  color: #aaa; }
+.hljs-strong {
+  font-weight: bold; }
 
 pre {
   font-size: 12px;

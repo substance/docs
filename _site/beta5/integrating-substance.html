@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="github.css" rel="stylesheet" type="text/css">
+    <link href='substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="about.html">Substance</a></div><div class="se-pages"><a href="about.html" class="se-page">About</a><a href="guides.html" class="se-page">Guides</a><a href="api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-page-toc"><a href="guides.html" class="se-title">Guides</a><div class="se-sections"><a href="your-first-editor.html" class="se-section">Your first editor</a><a href="integrating-substance.html" class="se-section">Integration</a></div></div></div><div class="se-main-section"><div data-id="integrating-substance" class="sc-content"><div class="se-title">Integration</div><div class="se-description"><p>You can install Substance via npm and use it with a build tool of your choice.</p>
+<pre><code class="hljs lang-bash">npm install substance
+</code></pre>
+<p>Let's assume the following project structure.</p>
+<pre><code class="hljs lang-bash">app - application setup (html, css, js)
+lib - reusable library code of your editor
+node_modules - dependencies such as substance and font-awesome
+</code></pre>
+<h2>Bundling</h2>
+<p>Now we want to create a distribution (bundle), that combines all those source files into dist folder that can be hosted on a webserver.</p>
+<pre><code class="hljs lang-bash">dist/index.html - HTML page
+dist/app.css - bundled CSS
+dist/app.js - bundled Javascript code
+dist/substance/*
+dist/font-awesome/*
+</code></pre>
+<p>Your <code>index.html</code> file should look like this:</p>
+<pre><code class="hljs lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./substance/substance.js"</span>/&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./app.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"./app.css"</span>/&gt;</span>
+</code></pre>
+<h3>Using Substance Bundler</h3>
+<p>Substance Bundler is a lightweight build tool for Javascript.</p>
+<pre><code class="hljs lang-bash">npm install substance-bundler
+</code></pre>
+<p>Now you need to write a simple build script (<code>make.js</code>) that does the actual work.</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">var</span> b = <span class="hljs-built_in">require</span>(<span class="hljs-string">'substance-bundler'</span>)
+
+b.task(<span class="hljs-string">'clean'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  b.rm(<span class="hljs-string">'./dist'</span>)
+})
+
+b.task(<span class="hljs-string">'assets'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  b.copy(<span class="hljs-string">'lib/**/*.css'</span>, <span class="hljs-string">'./dist/'</span>)
+  b.copy(<span class="hljs-string">'node_modules/font-awesome'</span>, <span class="hljs-string">'./dist/font-awesome'</span>)
+})
+
+<span class="hljs-comment">// this optional task makes it easier to work on Substance core</span>
+b.task(<span class="hljs-string">'substance'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  b.make(<span class="hljs-string">'substance'</span>, <span class="hljs-string">'clean'</span>, <span class="hljs-string">'css'</span>, <span class="hljs-string">'browser'</span>)
+  b.copy(<span class="hljs-string">'node_modules/substance/dist'</span>, <span class="hljs-string">'./dist/substance'</span>)
+})
+
+b.task(<span class="hljs-string">'build'</span>, [<span class="hljs-string">'clean'</span>, <span class="hljs-string">'substance'</span>, <span class="hljs-string">'assets'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  b.copy(<span class="hljs-string">'app/index.html'</span>, <span class="hljs-string">'./dist/index.html'</span>)
+  b.copy(<span class="hljs-string">'app/app.css'</span>, <span class="hljs-string">'./dist/app.css'</span>)
+  b.js(<span class="hljs-string">'app/app.js'</span>, {
+    external: [<span class="hljs-string">'substance'</span>],
+    commonjs: { include: [<span class="hljs-string">'node_modules/lodash/**'</span>] },
+    dest: <span class="hljs-string">'./dist/app.js'</span>,
+    format: <span class="hljs-string">'umd'</span>,
+    moduleName: <span class="hljs-string">'app'</span>
+  })
+})
+
+b.task(<span class="hljs-string">'default'</span>, [<span class="hljs-string">'build'</span>])
+
+<span class="hljs-comment">// starts a server when CLI argument '-s' is set</span>
+b.setServerPort(<span class="hljs-number">5555</span>)
+b.serve({
+  <span class="hljs-keyword">static</span>: <span class="hljs-literal">true</span>, route: <span class="hljs-string">'/'</span>, folder: <span class="hljs-string">'dist'</span>
+})
+</code></pre>
+<p>And now run:</p>
+<pre><code class="hljs lang-bash">node make
+</code></pre>
+<p>Please you want to look at a complete project setup, just clone and run <a href="http://github.com/substance/simple-writer" target="_blank">SimpleWriter</a>.</p>
+<h3>Using Browserify and Babel</h3>
+<p>This does the same job, for bundling the Javascript.</p>
+<pre><code class="hljs lang-bash">npm install -g browserify
+npm install babel-preset-es2015 babelify
+browserify app/app.js -t babelify -o app.js
+</code></pre>
+<h3>Other tools</h3>
+<p>You are free to use other build tools, such as <a href="https://webpack.github.io/">Webpack</a> or Gulp. Please consult the websites
+of those projects for usage documentation.</p>
+</div></div></div></div></div>
+  </body>
+</html>

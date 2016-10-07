@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="../github.css" rel="stylesheet" type="text/css">
+    <link href='../substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='../reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="../about.html">Substance</a></div><div class="se-pages"><a href="../about.html" class="se-page">About</a><a href="../guides.html" class="se-page">Guides</a><a href="../api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-api-toc"><div class="se-category"><div class="se-label">Classes</div><div class="se-items"><a href="../ui/AbstractEditor.html" class="se-item">AbstractEditor</a><a href="../ui/AnnotationCommand.html" class="se-item">AnnotationCommand</a><a href="../ui/Command.html" class="se-item">Command</a><a href="../ui/Component.html" class="se-item">Component</a><a href="../util/Configurator.html" class="se-item">Configurator</a><a href="../model/ContainerSelection.html" class="se-item">ContainerSelection</a><a href="../ui/DOMElement.html" class="se-item">DOMElement</a><a href="../model/DOMImporter.html" class="se-item">DOMImporter</a><a href="../model/Document.html" class="se-item">Document</a><a href="../model/DocumentNode.html" class="se-item">DocumentNode</a><a href="../ui/EditAnnotationCommand.html" class="se-item">EditAnnotationCommand</a><a href="../util/EventEmitter.html" class="se-item">EventEmitter</a><a href="../packages/inline-node/InsertInlineNodeCommand.html" class="se-item">InsertInlineNodeCommand</a><a href="../model/PropertyAnnotation.html" class="se-item">PropertyAnnotation</a><a href="../model/PropertySelection.html" class="se-item">PropertySelection</a><a href="../packages/prose-editor/ProseEditor.html" class="se-item">ProseEditor</a><a href="../model/Selection.html" class="se-item">Selection</a><a href="../model/TextNode.html" class="se-item">TextNode</a><a href="../model/TransactionDocument.html" class="se-item">TransactionDocument</a><a href="../ui/VirtualElement.html" class="se-item">VirtualElement</a></div></div><div class="se-category"><div class="se-label">Components</div><div class="se-items"><a href="../ui/AnnotatedTextComponent.html" class="se-item">AnnotatedTextComponent</a><a href="../ui/AnnotationComponent.html" class="se-item">AnnotationComponent</a><a href="../ui/AnnotationTool.html" class="se-item">AnnotationTool</a><a href="../ui/ContainerEditor.html" class="se-item">ContainerEditor</a><a href="../packages/link/EditLinkTool.html" class="se-item">EditLinkTool</a><a href="../packages/layout/Layout.html" class="se-item">Layout</a><a href="../packages/modal/Modal.html" class="se-item">Modal</a><a href="../packages/scroll-pane/ScrollPane.html" class="se-item">ScrollPane</a><a href="../packages/scrollbar/Scrollbar.html" class="se-item">Scrollbar</a><a href="../packages/split-pane/SplitPane.html" class="se-item">SplitPane</a><a href="../packages/surface/Surface.html" class="se-item">Surface</a><a href="../packages/switch-text-type/SwitchTextTypeTool.html" class="se-item">SwitchTextTypeTool</a><a href="../ui/TextPropertyComponent.html" class="se-item">TextPropertyComponent</a><a href="../ui/TextPropertyEditor.html" class="se-item">TextPropertyEditor</a><a href="../packages/tools/Tool.html" class="se-item">Tool</a></div></div><div class="se-category"><div class="se-label">Modules</div><div class="se-items"><a href="../model/documentHelpers.html" class="se-item">documentHelpers</a><a href="../util/platform.html" class="se-item">platform</a></div></div></div></div><div class="se-main-section"><div data-id="ui/Command" class="sc-class"><div class="sc-doc-heading"><div class="se-header"><span class="se-name">Command</span></div><div class="se-details class"><strong class="se-type">Abstract Class</strong><span class="se-source"><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.5.5/ui/Command.js#L28" target="_blank" data-source-file="ui/Command.js" data-source-line="28" class="sc-source-link">ui/Command.js#28</a></span></div></div><div class="se-description"><p>Commands are used to perform UI triggered actions on the document. For instance the
+<a href="../ui/AnnotationCommand.html">ui/AnnotationCommand</a> takes care of creating, expanding, truncating and
+deleting annotations such as strong and emphasis. It does so by determining a
+commandState by inspecting the current selection, which is used to parametrize
+the corresponding tool component. E.g. the strong tool gets active and clickable
+in create mode when a word in the text is selected. Triggered by a click on the tool,
+or a keyboard shortcut, the command gets executed by running the code specified in the
+execute method.</p>
+</div><div class="se-usage"><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyCommand</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Command</span> </span>{
+  getCommandState(params, context) {
+    <span class="hljs-comment">// determine commandState based on params and context</span>
+  }
+
+  execute(params, context) {
+    <span class="hljs-comment">// perform operations on the document</span>
+  }
+}
+</code></pre>
+</div></div></div></div><div class="se-member-category"><div class="se-members"><div data-id="ui/Command()" id="Command" class="sc-method"><div class="sc-signature"><a href="../ui/Command.html#Command" class="se-declaration"><span class="se-storage">new </span><span class="se-name">Command</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Constructor</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.5.5/ui/Command.js#L36" target="_blank" data-source-file="ui/Command.js" data-source-line="36" class="sc-source-link">ui/Command.js#36</a></div></div><div class="se-description"><p>Construcutor is only used internally.</p>
+</div></div></div></div><div class="se-member-category"><div class="se-members"><div data-id="ui/Command#getName()" id="getName" class="sc-method"><div class="sc-signature"><a href="../ui/Command.html#getName" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getName</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.5.5/ui/Command.js#L52" target="_blank" data-source-file="ui/Command.js" data-source-line="52" class="sc-source-link">ui/Command.js#52</a></div></div><div class="se-description"><p>Get the command name specified at command registration. See
+<a href="javascript:void(0)">util/Configurator#addCommand</a></p>
+</div></div><div data-id="ui/Command#getCommandState()" id="getCommandState" class="sc-method"><div class="sc-signature"><a href="../ui/Command.html#getCommandState" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getCommandState</span>(<span class="se-arguments">params, context</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.5.5/ui/Command.js#L82" target="_blank" data-source-file="ui/Command.js" data-source-line="82" class="sc-source-link">ui/Command.js#82</a></div></div><div class="se-description"><p>Determines command state, based on passed params and context. The command
+state is usually used as props for tool components.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">params</td><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>Provides documentSession, selectionState, surface, selection</p>
+</td></tr><tr class="se-param"><td class="se-param-name">context</td><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>Provides app-specific context.</p>
+</td></tr></table></div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><p>This shows the implementation of <a href="../ui/EditAnnotationCommand.html#getCommandState">EditAnnotationCommand#getCommandState</a></p>
+<pre><code class="hljs">getCommandState(<span class="hljs-keyword">params</span>) {
+  <span class="hljs-keyword">const</span> sel = <span class="hljs-keyword">this</span>._getSelection(<span class="hljs-keyword">params</span>)
+  <span class="hljs-keyword">const</span> annos = <span class="hljs-keyword">params</span>.selectionState.getAnnotationsForType(<span class="hljs-keyword">this</span>.config.nodeType)
+  <span class="hljs-keyword">const</span> newState = {
+    disabled: <span class="hljs-literal">true</span>,
+  }
+
+  <span class="hljs-keyword">if</span> (annos.length === <span class="hljs-number">1</span> &amp;&amp; sel.isPropertySelection()) {
+    newState.disabled = <span class="hljs-literal">false</span>
+    newState.node = annos[<span class="hljs-number">0</span>]
+  }
+}
+</code></pre>
+</div></div></div></div><div data-id="ui/Command#execute()" id="execute" class="sc-method"><div class="sc-signature"><a href="../ui/Command.html#execute" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">execute</span>(<span class="se-arguments">params, context</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.5.5/ui/Command.js#L94" target="_blank" data-source-file="ui/Command.js" data-source-line="94" class="sc-source-link">ui/Command.js#94</a></div></div><div class="se-description"><p>Execute command and perform operations on the document</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">params</td><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>Provides commandState, documentSession, selectionState, surface, selection</p>
+</td></tr><tr class="se-param"><td class="se-param-name">context</td><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>Provides app-specific context.</p>
+</td></tr></table><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>info object with execution details</p>
+</td></tr></table></div></div></div></div></div></div></div></div>
+  </body>
+</html>

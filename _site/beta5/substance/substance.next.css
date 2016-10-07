@@ -6,30 +6,89 @@
 -------------------------------------------------- */
 :root {
   /* Layout */
+  --small-layout-width: 300px;
+  --medium-layout-width: 620px;
+  --large-layout-width: 960px;
 
   /* Normalized heights (used by buttons and inputs) */
+  --base-height: 40px;
+  --short-height: 20px;
+  --border-radius: 5px;
 
   /* Colors */
+  --dark-bg-color: #2E2E2E;
+  --border-color: #E0E4E4;
+  --dark-border-color: #777;
 
-  /* Used by Button component */ /* #f8f8f8; */
+  /* Used by Button component */
+  --button-color: rgba(0,0,0,0.75);
+
+  --fill-white-color: #fff;
+  --fill-light-color: #f7f9f9; /* #f8f8f8; */
+  --fill-dark-color: #404040;
 
   /* Depending on a base-color */
+  --darken-color-1: rgba(0,0,0,0.05);
+  --darken-color-2: rgba(0,0,0,0.10);
+  --darken-color-3: rgba(0,0,0,0.25);
+  --darken-color-4: rgba(0,0,0,0.50);
+  --darken-color-5: rgba(0,0,0,0.75);
 
-  /* We disable this for now, as accessibility needs more discussion */ /* #1795CD;/* #5BE3FF;
+  --lighten-color-1: rgba(0,0,0,0.05);
+  --lighten-color-2: rgba(0,0,0,0.10);
+  --lighten-color-3: rgba(0,0,0,0.25);
+  --lighten-color-4: rgba(0,0,0,0.50);
+  --lighten-color-5: rgba(0,0,0,0.75);
+
+  --link-color: #1795CD;
+
+  /* We disable this for now, as accessibility needs more discussion */
+  --focus-outline-color: transparent; /* #1795CD;/* #5BE3FF;
 
   /* Font colors */
+  --default-text-color: rgba(0,0,0,0.75);
+  --light-text-color: rgba(0,0,0,.40);
 
   /* Default padding */
+  --default-padding: 20px;
 
   /* Prose font sizes */
+  --default-font-size: 16px;
+  --small-font-size: 13px;
+
+  --large-font-size: 20px;
+  --xlarge-font-size: 25px;
   /* Title font sizes */
+  --title-font-size: 38px;
   /* Heading font sizes */
+  --h1-font-size: 26px;
+  --h2-font-size: 22px;
+  --h3-font-size: 18px;
+  --h4-font-size: 16px;
+
+  --strong-font-weight: 600;
+  --highlight-color-1: #0b9dd9;
+  --highlight-color-2: #91bb04;
+  --heading-letterspacing: -0.5px;
 
   /* code-font */
+  --font-family-code: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  --font-size-code: 14px;
 
   /* RGB #A3CDFD = HSB 209,29,80 */
+  --local-selection-color: #A3CDFD;
 
   /* Collaborator colors */
+  --collaborator-color-1: #A4E57A;
+  --collaborator-color-2: #BC90FF;
+  --collaborator-color-3: #D6BB4C;
+  --collaborator-color-4: #BAA6A0;
+  --collaborator-color-5: #7BB5B3;
+  --collaborator-color-6: #FF7B7B;
+  --collaborator-color-7: #A0CC00;
+  --collaborator-color-8: #89CAFF;
+  --collaborator-color-9: #FF9FBF;
+  --collaborator-color-10: #FFB533;
 }
 /* TODO: @import './css/_index.css';*/
 /* switch-text-type */
@@ -71,7 +130,7 @@
   z-index: 5000;
   min-width: 150px;
   box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.15);
-  border: 1px solid #E0E4E4;
+  border: 1px solid var(--border-color);
 }
 .sc-switch-text-type .se-options .se-option {
   display: block;
@@ -85,11 +144,11 @@
 .sc-switch-text-type.sm-open .se-options { display: block; }
 /* blockquote */
 .sc-blockquote {
-  border-left: 2px solid #E0E4E4;
+  border-left: 2px solid var(--border-color);
   padding-left: 30px;
 }
 .sc-switch-text-type .se-option.sm-blockquote {
-  border-left: 2px solid #E0E4E4;
+  border-left: 2px solid var(--border-color);
 }
 /* button */
 /*
@@ -107,27 +166,14 @@
   Outline style
   =============================================================
 */
-.sc-button.sm-style-outline {
-  position: relative;
-  height: 30px;
-  min-width: 30px;
-  text-align: center;/*font-size: var(--small-font-size);*//*
-    TODO: if we put --small-font-size here = 13px
-    we get different alignments for buttons with
-    vs buttons without labels.
-  */
-  font-weight: 600;
-  font-size: 12px;
-  border-radius: 15px;
-  border: 1px solid #E0E4E4;
-  padding-left: 7px;
-  padding-right: 7px;
-}
+.sc-button.sm-style-outline,
 .sc-button.sm-style-outline-dark {
   position: relative;
   height: 30px;
   min-width: 30px;
-  text-align: center;/*font-size: var(--small-font-size);*//*
+  text-align: center;
+  /*font-size: var(--small-font-size);*/
+  /*
     TODO: if we put --small-font-size here = 13px
     we get different alignments for buttons with
     vs buttons without labels.
@@ -135,7 +181,7 @@
   font-weight: 600;
   font-size: 12px;
   border-radius: 15px;
-  border: 1px solid #E0E4E4;
+  border: 1px solid var(--border-color);
   padding-left: 7px;
   padding-right: 7px;
 }
@@ -157,12 +203,12 @@
   padding-left: 5px;
 }
 .sc-button.sm-style-outline.sm-active {
-  border-color: #2E2E2E;
-  background: #2E2E2E;
+  border-color: var(--dark-bg-color);
+  background: var(--dark-bg-color);
   color: rgba(255,255,255, 1);
 }
 .sc-button.sm-style-outline:focus {
-  background: #E0E4E4;
+  background: var(--border-color);
 }
 .sc-button.sm-style-outline.sm-active:focus {
   border-color: #444;
@@ -235,19 +281,19 @@
 }
 /* code */
 .sc-code {
-  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-  font-size: 14px;
-  background: rgba(0,0,0,0.05);
+  font-family: var(--font-family-code);
+  font-size: var(--font-size-code);
+  background: var(--lighten-color-1);
   padding: 2px 0px;
 }
 /* codeblock */
 .sc-codeblock {
-  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-family: var(--font-family-code);
   font-size: 15px;
 }
 // Toolbar styles
 .sc-switch-text-type .se-option.sm-codeblock {
-  font-family: Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-family: var(--font-family-code);
   font-size: 15px;
 }
 /* emphasis */
@@ -256,72 +302,65 @@
 }
 /* heading */
 .sc-heading {
-  font-weight: 600;
-  letter-spacing: -0.5px;
+  font-weight: var(--strong-font-weight);
+  letter-spacing: var(--heading-letterspacing);
 }
 .sc-heading.sm-level-1 {
-  font-size: 26px;
+  font-size: var(--h1-font-size);
 }
 .sc-heading.sm-level-2 {
-  font-size: 22px;
+  font-size: var(--h2-font-size);
 }
 .sc-heading.sm-level-3 {
-  font-size: 18px;
+  font-size: var(--h3-font-size);
 }
 .sc-heading.sm-level-4 {
-  font-size: 16px;
+  font-size: var(--h4-font-size);
 }
 /* Overrides for SwitchTextType tool */
 .sc-switch-text-type .se-option.sm-heading1 {
-  font-size:  26px;
-  font-weight:  600;
+  font-size:  var(--h1-font-size);
+  font-weight:  var(--strong-font-weight);
 }
 .sc-switch-text-type .se-option.sm-heading2 {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: var(--h2-font-size);
+  font-weight: var(--strong-font-weight);
 }
 .sc-switch-text-type .se-option.sm-heading3 {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: var(--h3-font-size);
+  font-weight: var(--strong-font-weight);
 }
 .sc-switch-text-type .se-option.sm-heading4 {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--h4-font-size);
+  font-weight: var(--strong-font-weight);
 }
 /* inline-wrapper */
 .sc-inline-wrapper { display: block; margin-top: 10px; }
 .sc-inline-wrapper > .se-container { display: block; }
-.sc-inline-wrapper.sm-default-style.sm-selected > .se-container {
-  background: rgba(163,205,253, 0.6);
-  outline: 2px solid;
-  outline-color: #A3CDFD;
-}
+.sc-inline-wrapper.sm-default-style.sm-selected > .se-container,
 .sc-inline-wrapper.sm-default-style.sm-co-selected > .se-container {
   background: rgba(163,205,253, 0.6);
   outline: 2px solid;
-  outline-color: #A3CDFD;
+  outline-color: var(--local-selection-color);
 }
-.sc-inline-wrapper.sm-default-style.sm-focused > .se-container {
-  outline: 2px solid;
-  outline-color: #A3CDFD;
-}
+.sc-inline-wrapper.sm-default-style.sm-focused > .se-container,
 .sc-inline-wrapper.sm-default-style.sm-co-focused > .se-container {
   outline: 2px solid;
-  outline-color: #A3CDFD;
+  outline-color: var(--local-selection-color);
 }
 /* paragraph */
 .sc-paragraph {}
 /* prose-editor */
 .sc-prose-editor {}
 .sc-prose-editor .sc-container-editor {
-  padding:  20px;
+  padding:  var(--default-padding);
 }
 /* Add padding to each child except last one */
 .sc-prose-editor .sc-container-editor > * + * {
-  padding-top:  20px;
+  padding-top:  var(--default-padding);
 }
 .sc-prose-editor .sc-toolbar {
-  border-bottom: 1px solid  #E0E4E4;
+  border-bottom: 1px solid  var(--border-color);
 }
 .sc-prose-editor-overlay-tools {}
 .sc-prose-editor-overlay-tools::before {
@@ -405,7 +444,7 @@
   border-color: transparent transparent #2E2E2C transparent;
 }
 .sc-tool-dropdown > .se-options > .se-content {
-  background: #2E2E2E;
+  background: var(--dark-bg-color);
   border-radius: 5px;
 }
 .sc-tool-group {
@@ -520,17 +559,17 @@ Don't grow, don't shrink, use width or height for size determination */
 }
 /* layout */
 .sc-layout {
-  padding: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: var(--default-padding);
+  padding-top: var(--default-padding);
+  padding-bottom: var(--default-padding);
   width: 100%; /* by default takes the full width */
 }
 .sc-layout.sm-no-padding { padding: 0; }
 .sc-layout.sm-text-align-center { text-align: center; }
 .sc-layout.sm-text-align-right { text-align: right;}
-.sc-layout.sm-width-small { max-width: 300px; margin: 0px auto; }
-.sc-layout.sm-width-medium { max-width: 620px; margin: 0px auto; }
-.sc-layout.sm-width-large { max-width: 960px; margin: 0px auto; }
+.sc-layout.sm-width-small { max-width: var(--small-layout-width); margin: 0px auto; }
+.sc-layout.sm-width-medium { max-width: var(--medium-layout-width); margin: 0px auto; }
+.sc-layout.sm-width-large { max-width: var(--large-layout-width); margin: 0px auto; }
 /*
   When used inside layouts paragraphs and headings get some
   padding by default.
@@ -538,19 +577,11 @@ Don't grow, don't shrink, use width or height for size determination */
   TODO: maybe this should be activated explicitly through a
   Prose component that turns on the text paddings.
 */
-.sc-layout > p { padding-bottom: 20px; }
-.sc-layout > h1 {
-  padding-bottom: 20px;
-}
-.sc-layout > h2 {
-  padding-bottom: 20px;
-}
-.sc-layout > h3 {
-  padding-bottom: 20px;
-}
-.sc-layout > h4 {
-  padding-bottom: 20px;
-}
+.sc-layout > p { padding-bottom: var(--default-padding); }
+.sc-layout > h1,
+.sc-layout > h2,
+.sc-layout > h3,
+.sc-layout > h4 { padding-bottom: var(--default-padding); }
 /* tabbed-pane */
 .sc-tabbed-pane { position: absolute; top: 0px; left: 0px; right: 0px; bottom: 0px; }
 .sc-tabbed-pane .se-tabs { height: 40px; border-bottom: 1px solid #ddd; }
@@ -625,9 +656,9 @@ Don't grow, don't shrink, use width or height for size determination */
   background: white;
   box-shadow: 0 0 25px 0 rgba(0,0,0,0.8);
 }
-.sc-modal.sm-width-small .se-body { max-width: 300px; }
-.sc-modal.sm-width-medium .se-body { max-width: 620px; }
-.sc-modal.sm-width-large .se-body { max-width: 960px; }
+.sc-modal.sm-width-small .se-body { max-width: var(--small-layout-width); }
+.sc-modal.sm-width-medium .se-body { max-width: var(--medium-layout-width); }
+.sc-modal.sm-width-large .se-body { max-width: var(--large-layout-width); }
 /* input */
 /*
   TODO: Provide different styles (analoge to _button.css);
@@ -662,11 +693,11 @@ Don't grow, don't shrink, use width or height for size determination */
 }
 .sc-isolated-node > .se-container > .se-cursor.sm-before {
   left: -5px;
-  border-left: 2px solid #A3CDFD;
+  border-left: 2px solid var(--local-selection-color);
 }
 .sc-isolated-node > .se-container > .se-cursor.sm-after {
   right: -5px;
-  border-right: 2px solid #A3CDFD;
+  border-right: 2px solid var(--local-selection-color);
 }
 .sc-isolated-node > .se-container.sm-full-width {
   display: block;
@@ -679,23 +710,16 @@ Don't grow, don't shrink, use width or height for size determination */
   font-size: 1px;
   opacity: 0;
 }
-.sc-isolated-node.sm-default-style.sm-selected > .se-container {
-  background: rgba(163,205,253, 0.6);
-  outline: 2px solid;
-  outline-color: #A3CDFD;
-}
+.sc-isolated-node.sm-default-style.sm-selected > .se-container,
 .sc-isolated-node.sm-default-style.sm-co-selected > .se-container {
   background: rgba(163,205,253, 0.6);
   outline: 2px solid;
-  outline-color: #A3CDFD;
+  outline-color: var(--local-selection-color);
 }
-.sc-isolated-node.sm-default-style.sm-focused > .se-container {
-  outline: 2px solid;
-  outline-color: #A3CDFD;
-}
+.sc-isolated-node.sm-default-style.sm-focused > .se-container,
 .sc-isolated-node.sm-default-style.sm-co-focused > .se-container {
   outline: 2px solid;
-  outline-color: #A3CDFD;
+  outline-color: var(--local-selection-color);
 }
 /* inline-node */
 .sc-inline-node {
@@ -725,7 +749,7 @@ Don't grow, don't shrink, use width or height for size determination */
 .sc-toc .se-toc-entries .se-toc-entry {
   color: #777;
   font-weight: 600;
-  letter-spacing: -0.5px;
+  letter-spacing: var(--heading-letterspacing);
   display: block;
   padding: 2px 0px;
   position: relative;
@@ -751,12 +775,12 @@ Don't grow, don't shrink, use width or height for size determination */
 .sc-surface *[contenteditable="true"] { cursor: text; }
 // We want Firefox to have a transparent native selection
 ::-moz-selection { background: rgba(77, 149, 233, 0.46); }
-.sm-selected-node { outline: 2px solid; outline-color: #A3CDFD; }
-.sm-selected-node.sm-collaborator-1 { outline-color: #A4E57A; }
-.sm-selected-node.sm-collaborator-2 { outline-color: #BC90FF; }
-.sm-selected-node.sm-collaborator-3 { outline-color: #D6BB4C; }
-.sm-selected-node.sm-collaborator-4 { outline-color: #BAA6A0; }
-.sm-selected-node.sm-collaborator-5 { outline-color: #7BB5B3; }
+.sm-selected-node { outline: 2px solid; outline-color: var(--local-selection-color); }
+.sm-selected-node.sm-collaborator-1 { outline-color: var(--collaborator-color-1); }
+.sm-selected-node.sm-collaborator-2 { outline-color: var(--collaborator-color-2); }
+.sm-selected-node.sm-collaborator-3 { outline-color: var(--collaborator-color-3); }
+.sm-selected-node.sm-collaborator-4 { outline-color: var(--collaborator-color-4); }
+.sm-selected-node.sm-collaborator-5 { outline-color: var(--collaborator-color-5); }
 /* text-property */
 .sc-text-property { white-space: pre-wrap; }
 .sc-text-property .se-cursor { position: relative; }
@@ -769,16 +793,16 @@ Don't grow, don't shrink, use width or height for size determination */
   background: #999;
 }
 /* Cursor */
-.sc-text-property .se-cursor.sm-collaborator-1  .se-cursor-inner { background: #A4E57A; }
-.sc-text-property .se-cursor.sm-collaborator-2  .se-cursor-inner { background: #BC90FF; }
-.sc-text-property .se-cursor.sm-collaborator-3  .se-cursor-inner { background: #D6BB4C; }
-.sc-text-property .se-cursor.sm-collaborator-4  .se-cursor-inner { background: #BAA6A0; }
-.sc-text-property .se-cursor.sm-collaborator-5  .se-cursor-inner { background: #7BB5B3; }
-.sc-text-property .se-cursor.sm-collaborator-6  .se-cursor-inner { background: #FF7B7B; }
-.sc-text-property .se-cursor.sm-collaborator-7  .se-cursor-inner { background: #A0CC00; }
-.sc-text-property .se-cursor.sm-collaborator-8  .se-cursor-inner { background: #89CAFF; }
-.sc-text-property .se-cursor.sm-collaborator-9  .se-cursor-inner { background: #FF9FBF; }
-.sc-text-property .se-cursor.sm-collaborator-10 .se-cursor-inner { background: #FFB533; }
+.sc-text-property .se-cursor.sm-collaborator-1  .se-cursor-inner { background: var(--collaborator-color-1); }
+.sc-text-property .se-cursor.sm-collaborator-2  .se-cursor-inner { background: var(--collaborator-color-2); }
+.sc-text-property .se-cursor.sm-collaborator-3  .se-cursor-inner { background: var(--collaborator-color-3); }
+.sc-text-property .se-cursor.sm-collaborator-4  .se-cursor-inner { background: var(--collaborator-color-4); }
+.sc-text-property .se-cursor.sm-collaborator-5  .se-cursor-inner { background: var(--collaborator-color-5); }
+.sc-text-property .se-cursor.sm-collaborator-6  .se-cursor-inner { background: var(--collaborator-color-6); }
+.sc-text-property .se-cursor.sm-collaborator-7  .se-cursor-inner { background: var(--collaborator-color-7); }
+.sc-text-property .se-cursor.sm-collaborator-8  .se-cursor-inner { background: var(--collaborator-color-8); }
+.sc-text-property .se-cursor.sm-collaborator-9  .se-cursor-inner { background: var(--collaborator-color-9); }
+.sc-text-property .se-cursor.sm-collaborator-10 .se-cursor-inner { background: var(--collaborator-color-10); }
 /* Selection Fragment */
 .sc-text-property .se-selection-fragment { background-color: #ddd; }
 .sc-text-property .se-selection-fragment.sm-collaborator-1  { background: rgba(--collaborator-color-1, 0.30); }
@@ -793,4 +817,4 @@ Don't grow, don't shrink, use width or height for size determination */
 .sc-text-property .se-selection-fragment.sm-collaborator-10 { background: rgba(--collaborator-color-10, 0.30); }
 .sc-text-property .se-container-annotation.se-anchor { position: relative; }
 .sc-text-property .sm-highlighted { background: #ddd; }
-/*# sourceMappingURL=substance.css.map */
+/*# sourceMappingURL=substance.next.css.map */

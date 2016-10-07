@@ -1,0 +1,281 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="github.css" rel="stylesheet" type="text/css">
+    <link href='substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="about.html">Substance</a></div><div class="se-pages"><a href="about.html" class="se-page">About</a><a href="guides.html" class="se-page">Guides</a><a href="api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-page-toc"><a href="guides.html" class="se-title">Guides</a><div class="se-sections"><a href="your-first-editor.html" class="se-section">Your first editor</a><a href="integrating-substance.html" class="se-section">Integration</a></div></div></div><div class="se-main-section"><div data-id="your-first-editor" class="sc-content"><div class="se-title">Your first editor</div><div class="se-description"><p>This guide will teach you how to build a simple Substance editor with basic editing functionalities. We call it <a href="http://github.com/substance/simple-writer" target="_blank">SimpleWriter</a>.</p>
+<h2>The model</h2>
+<p>Let's start with defining a model that our editor can operate on. We want to support the following node types:</p>
+<ul>
+<li><code>Body</code> - holds references to the actual content elements</li>
+<li><code>Paragraph</code> a text paragraph that can be annotated</li>
+<li><code>Heading</code> Headings of 3 different levels</li>
+<li><code>Strong</code> Annotation that marks text as <strong>strong</strong></li>
+<li><code>Emphasis</code> Annotation that marks text as <em>emphasized</em></li>
+<li><code>Link</code> Link annotation</li>
+<li><code>Comment</code> Comments in the text</li>
+</ul>
+<p>Substance has a number of preimplemented node types, so we only need define the Body and Comment nodes.</p>
+<p>The body node inherits from <a href="model/Container.html">Container</a>.</p>
+<pre><code class="hljs lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Body</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Container</span> </span>{}
+
+Body.define({
+  type: <span class="hljs-string">'body'</span>
+})
+</code></pre>
+<p>The Comment node is a <a href="model/PropertyAnnotation.html">PropertyAnnotation</a> and defines a content property to hold the comment text.</p>
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Comment</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PropertyAnnotation</span> </span>{}
+
+<span class="hljs-type">Comment</span>.define({
+  <span class="hljs-class"><span class="hljs-keyword">type</span></span>: <span class="hljs-symbol">'commen</span>t',
+  content: { <span class="hljs-class"><span class="hljs-keyword">type</span></span>: <span class="hljs-symbol">'strin</span>g', <span class="hljs-keyword">default</span>: '' }
+})
+</code></pre>
+<h2>Node Converters</h2>
+<p>We choose HTML as a serialization format for our article. Hence, we need to define a converter for our body node, which converts an HTML body element to a Substance body node referencing a sequence of content nodes (paragraphs, headings).</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  type: <span class="hljs-string">'body'</span>,
+  tagName: <span class="hljs-string">'body'</span>,
+  <span class="hljs-keyword">import</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, node, converter</span>) </span>{
+    node.id = <span class="hljs-string">'body'</span>
+    node.nodes = el.children.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">child</span>) </span>{
+      <span class="hljs-keyword">var</span> childNode = converter.convertElement(child)
+      <span class="hljs-keyword">return</span> childNode.id
+    })
+  },
+  <span class="hljs-keyword">export</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">node, el, converter</span>) </span>{
+    el.append(converter.convertNodes(node.nodes))
+  }
+}
+</code></pre>
+<p>And here is the converter for the comment node.</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+
+  type: <span class="hljs-string">'comment'</span>,
+  tagName: <span class="hljs-string">'span'</span>,
+
+  matchElement: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+    <span class="hljs-keyword">return</span> el.is(<span class="hljs-string">'span[data-type="comment"]'</span>)
+  },
+
+  <span class="hljs-keyword">import</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, node</span>) </span>{
+    node.content = el.attr(<span class="hljs-string">'data-comment'</span>)
+  },
+
+  <span class="hljs-keyword">export</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">node, el</span>) </span>{
+    el.attr({
+      <span class="hljs-string">'data-type'</span>: <span class="hljs-string">'comment'</span>,
+      <span class="hljs-string">'data-comment'</span>: node.content
+    }.append(node.content))
+  }
+}
+</code></pre>
+<h2>HTML Importer</h2>
+<pre><code class="hljs lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleHTMLImporter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTMLImporter</span> </span>{
+  convertDocument(htmlEl) {
+    <span class="hljs-keyword">var</span> bodyEl = htmlEl.find(<span class="hljs-string">'body'</span>)
+    <span class="hljs-keyword">this</span>.convertElement(bodyEl)
+  }
+}
+</code></pre>
+<h2>Node Components</h2>
+<p>For each node, we need to implement a Component in order to display it. The body element for us will be where editing starts. Containers can be made editable by just wrapping them in <a href="ui/ContainerEditor.html">ContainerEditor</a>, which we do here.</p>
+<pre><code class="hljs lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BodyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render($$) {
+    <span class="hljs-keyword">let</span> node = <span class="hljs-keyword">this</span>.props.node;
+    <span class="hljs-keyword">let</span> el = $$(<span class="hljs-string">'div'</span>)
+      .addClass(<span class="hljs-string">'sc-body'</span>)
+      .attr(<span class="hljs-string">'data-id'</span>, <span class="hljs-keyword">this</span>.props.node.id);
+
+    el.append(
+      $$(ContainerEditor, {
+        disabled: <span class="hljs-keyword">this</span>.props.disabled,
+        node: node,
+        commands: <span class="hljs-keyword">this</span>.props.commands,
+        textTypes: <span class="hljs-keyword">this</span>.props.textTypes
+      }).ref(<span class="hljs-string">'body'</span>)
+    )
+    <span class="hljs-keyword">return</span> el;
+  }
+}
+</code></pre>
+<h2>Commands</h2>
+<p>In order to create comments in the user interface, we need to define a <a href="ui/Command.html">Command</a> for it.</p>
+<pre><code class="hljs lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CommentCommand</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AnnotationCommand</span> </span>{
+  canFuse()   { <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }
+  canDelete() { <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span> }
+}
+</code></pre>
+<h2>Tool Components</h2>
+<p>In order to edit comments we provide a tool component for it.</p>
+<pre><code class="hljs lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EditCommentTool</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Tool</span> </span>{
+
+  render($$) {
+    <span class="hljs-keyword">let</span> Input = <span class="hljs-keyword">this</span>.getComponent(<span class="hljs-string">'input'</span>)
+    <span class="hljs-keyword">let</span> Button = <span class="hljs-keyword">this</span>.getComponent(<span class="hljs-string">'button'</span>)
+    <span class="hljs-keyword">let</span> el = $$(<span class="hljs-string">'div'</span>).addClass(<span class="hljs-string">'sc-edit-comment-tool'</span>)
+
+    el.append(
+      $$(Input, {
+        type: <span class="hljs-string">'text'</span>,
+        path: [<span class="hljs-keyword">this</span>.props.node.id, <span class="hljs-string">'content'</span>],
+        placeholder: <span class="hljs-string">'Please enter comment here'</span>
+      }),
+      $$(Button, {
+        icon: <span class="hljs-string">'delete'</span>,
+        style: <span class="hljs-keyword">this</span>.props.style
+      }).on(<span class="hljs-string">'click'</span>, <span class="hljs-keyword">this</span>.onDelete)
+    )
+    <span class="hljs-keyword">return</span> el
+  }
+  ...
+}
+</code></pre>
+<h2>Nodes as packages</h2>
+<p>Substance uses packages where possible, to be able to extend editors with new functionalities. Each plugin/extension comes with it's own package definition.</p>
+<p>Here's the <code>BodyPackage</code>.</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  name: <span class="hljs-string">'body'</span>,
+  configure: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>{
+    config.addNode(Body)
+    config.addComponent(Body.type, BodyComponent)
+    config.addConverter(<span class="hljs-string">'html'</span>, BodyConverter)
+  }
+}
+</code></pre>
+<p>And the <code>CommentPackage</code>.</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  name: <span class="hljs-string">'link'</span>,
+  configure: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config, options</span>) </span>{
+    config.addNode(Comment)
+    config.addConverter(<span class="hljs-string">'html'</span>, CommentConverter)
+
+    <span class="hljs-comment">// Tool to insert a new comment</span>
+    config.addCommand(<span class="hljs-string">'comment'</span>, CommentCommand, {nodeType: <span class="hljs-string">'comment'</span>})
+    config.addTool(<span class="hljs-string">'comment'</span>, AnnotationTool, {target: options.toolTarget || <span class="hljs-string">'annotations'</span>})
+    <span class="hljs-comment">// Tool to edit an existing comment, should be displayed as an overlay</span>
+    config.addCommand(<span class="hljs-string">'edit-comment'</span>, EditAnnotationCommand, {nodeType: <span class="hljs-string">'comment'</span>})
+    config.addTool(<span class="hljs-string">'edit-comment'</span>, EditCommentTool, { target: <span class="hljs-string">'overlay'</span> })
+
+    <span class="hljs-comment">// Icons and labels</span>
+    config.addIcon(<span class="hljs-string">'comment'</span>, { <span class="hljs-string">'fontawesome'</span>: <span class="hljs-string">'fa-comment'</span>})
+    config.addLabel(<span class="hljs-string">'comment'</span>, <span class="hljs-string">'Comment'</span>)
+  }
+}
+</code></pre>
+<p>Now we provide a configuration on editor level.</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">import</span> {
+  BasePackage, StrongPackage, EmphasisPackage, LinkPackage, Document,
+  ParagraphPackage, HeadingPackage
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'substance'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  name: <span class="hljs-string">'simple-writer'</span>,
+  configure: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">config</span>) </span>{
+    config.defineSchema({
+      name: <span class="hljs-string">'simple-article'</span>,
+      ArticleClass: Document,
+      defaultTextType: <span class="hljs-string">'paragraph'</span>
+    })
+
+    <span class="hljs-comment">// BasePackage provides core functionaliy, such as undo/redo</span>
+    <span class="hljs-comment">// and the SwitchTextTypeTool. However, you could import those</span>
+    <span class="hljs-comment">// functionalities individually if you need more control</span>
+    config.import(BasePackage)
+
+    <span class="hljs-comment">// core nodes</span>
+    config.import(ParagraphPackage)
+    config.import(HeadingPackage)
+    config.import(StrongPackage, {toolTarget: <span class="hljs-string">'annotations'</span>})
+    config.import(EmphasisPackage, {toolTarget: <span class="hljs-string">'annotations'</span>})
+    config.import(LinkPackage, {toolTarget: <span class="hljs-string">'annotations'</span>})
+
+    <span class="hljs-comment">// custom nodes</span>
+    config.import(BodyPackage)
+    config.import(CommentPackage, {toolTarget: <span class="hljs-string">'annotations'</span>})
+
+    <span class="hljs-comment">// Override Importer/Exporter</span>
+    config.addImporter(<span class="hljs-string">'html'</span>, SimpleHTMLImporter)
+  }
+}
+</code></pre>
+<h2>Define a SimpleWriter component.</h2>
+<p>The SimpleWriter component forms our editor's heart. Some basic Substance infrastructure is set up by AbstractEditor, which we inherit from. We need to implement <a href="ui/AbstractEditor.html#render">AbstractEditor#render</a> and <a href="ui/AbstractEditor.html#documentSessionUpdated">AbstractEditor#documentSessionUpdated</a>. Substance uses a <a href="ui/Component.html">Component</a> API similar to <a href="https://facebook.github.io/react/">React</a>, which be relatively easy to understand.</p>
+<p>The following code shows the setup of an editor, rendering a toolbar on top and document's body. We delegate setting up the editor to the Body component, which is defined in a package and sets up the actual editor.</p>
+<pre><code class="hljs lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SimpleWriter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">AbstractEditor</span> </span>{
+
+  render($$) {
+    <span class="hljs-keyword">let</span> el = $$(<span class="hljs-string">'div'</span>).addClass(<span class="hljs-string">'sc-simple-writer'</span>)
+    <span class="hljs-keyword">let</span> configurator = <span class="hljs-keyword">this</span>.props.configurator
+    <span class="hljs-keyword">let</span> SplitPane = <span class="hljs-keyword">this</span>.componentRegistry.get(<span class="hljs-string">'split-pane'</span>)
+    <span class="hljs-keyword">let</span> ScrollPane = <span class="hljs-keyword">this</span>.componentRegistry.get(<span class="hljs-string">'scroll-pane'</span>)
+    <span class="hljs-keyword">let</span> commandStates = <span class="hljs-keyword">this</span>.commandManager.getCommandStates()
+    <span class="hljs-keyword">let</span> Body = <span class="hljs-keyword">this</span>.componentRegistry.get(<span class="hljs-string">'body'</span>)
+
+    <span class="hljs-keyword">let</span> contentPanel = $$(ScrollPane, {
+      scrollbarPosition: <span class="hljs-string">'right'</span>,
+      overlay: SimpleWriterOverlayTools,
+    }).append(
+      $$(Body, {
+        disabled: <span class="hljs-keyword">this</span>.props.disabled,
+        node: <span class="hljs-keyword">this</span>.doc.get(<span class="hljs-string">'body'</span>),
+        commands: configurator.getSurfaceCommandNames(),
+        textTypes: configurator.getTextTypes()
+      }).ref(<span class="hljs-string">'body'</span>)
+    ).ref(<span class="hljs-string">'contentPanel'</span>)
+
+    el.append(
+      $$(SplitPane, {splitType: <span class="hljs-string">'horizontal'</span>}).append(
+        $$(Toolbar, {
+          commandStates: commandStates
+        }).ref(<span class="hljs-string">'toolbar'</span>),
+        contentPanel
+      )
+    )
+    <span class="hljs-keyword">return</span> el
+  }
+
+  documentSessionUpdated() {
+    <span class="hljs-keyword">let</span> toolbar = <span class="hljs-keyword">this</span>.refs.toolbar
+    <span class="hljs-keyword">if</span> (toolbar) {
+      <span class="hljs-keyword">let</span> commandStates = <span class="hljs-keyword">this</span>.commandManager.getCommandStates()
+      toolbar.setProps({
+        commandStates: commandStates
+      })
+    }
+  }
+}
+</code></pre>
+<h2>Use your new editor</h2>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">let</span> cfg = <span class="hljs-keyword">new</span> Configurator()
+cfg.import(SimpleWriterPackage)
+
+<span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Import article from HTML markup</span>
+  <span class="hljs-keyword">let</span> importer = cfg.createImporter(<span class="hljs-string">'html'</span>)
+  <span class="hljs-keyword">let</span> doc = importer.importDocument(fixture)
+  <span class="hljs-comment">// This is the data structure manipulated by the editor</span>
+  <span class="hljs-keyword">let</span> documentSession = <span class="hljs-keyword">new</span> DocumentSession(doc)
+  <span class="hljs-comment">// Mount SimpleWriter to the DOM and run it.</span>
+  SimpleWriter.mount({
+    documentSession: documentSession,
+    configurator: cfg
+  }, <span class="hljs-built_in">document</span>.body)
+}
+</code></pre>
+<p>Find the complete code for <a href="https://github.com/substance/simple-writer">SimpleWriter</a> on Github.</p>
+<h2>Exercises</h2>
+<ul>
+<li>Enable a Substance core node type (e.g. Superscript, Image) for SimpleWriter (very easy)</li>
+<li>Create a simple Highlight node type to emphasize parts of the text with a yellow background. Serialize as <code>&lt;span data-type=&quot;highlight&quot;&gt;...&lt;/span&gt;</code> Tip: Look at existing implementations such as Strong. (easy)</li>
+<li>Create a new text type FancyParagraph, that works like a regular paragraph, just with different styles. Serialize as <code>&lt;p data-type=&quot;fancy&quot;&gt;...&lt;/p&gt;</code> (easy)</li>
+<li>Create a simple Person node type with properties <code>firstname</code>, <code>lastname</code>, which are editable via regular input elements. Look at <a href="https://github.com/substance/examples/blob/v1.0.0-beta.5.1/input">Input Example</a> as a reference implementation. Create a tool that allows insertion of Person nodes into the document (as a block element). Serialize as <code>&lt;div data-type=&quot;person&quot; data-firstname=&quot;John&quot; data-lastname=&quot;Doe&quot;&gt;&lt;/div&gt;</code>. (medium)</li>
+<li>Create new Monster node type that can be inserted inside the text. See <a href="https://github.com/substance/examples/blob/v1.0.0-beta.5.1/inline-node">InlineNode example</a> as a reference implementation. Render a monster as small image that appears in the text. Bonus points: Allow different monster types and provide UI to change the moster type. Render a different image for each monster type. (medium)</li>
+</ul>
+</div></div></div></div></div>
+  </body>
+</html>

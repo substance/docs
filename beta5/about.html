@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="github.css" rel="stylesheet" type="text/css">
+    <link href='substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="about.html">Substance</a></div><div class="se-pages"><a href="about.html" class="se-page">About</a><a href="guides.html" class="se-page">Guides</a><a href="api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-page-toc"><a href="about.html" class="se-title">About</a><div class="se-sections"><a href="quickstart.html" class="se-section">Quickstart</a><a href="changelog.html" class="se-section">Changelog</a><a href="roadmap.html" class="se-section">Roadmap</a><a href="license.html" class="se-section">License</a></div></div></div><div class="se-main-section"><div data-id="about" class="sc-content"><div class="se-title">About</div><div class="se-description"><p>Substance is a library for creating web-based WYSIWYG editors with all the features you would expect.</p>
+<p>As opposed to other existing editors, such as TinyMCE, Aloha etc. Substance is not a widget you include into your web app. It is a library. Widgets can lead to a bad UX. They can be considered alien isles within a web-app. And those are very limited regarding customization.</p>
+<p>The unique point of Substance is <strong>Customizability</strong>. You can <strong>customize everything</strong>. And we make this as simple as possible for you.</p>
+<p>Building an editor starts with the data. For instance, a scientific article is more complex than a blog post. Still, there is some similarity. Both of them have paragraphs, for instance. In Substance you define a schema, containing a set of Node descriptions.</p>
+<pre><code class="hljs lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Todo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">TextBlock</span> </span>{}
+
+Todo.define({
+  type: <span class="hljs-string">'todo'</span>,
+  content: <span class="hljs-string">'text'</span>,
+  done: { type: <span class="hljs-string">'bool'</span>, <span class="hljs-keyword">default</span>: <span class="hljs-literal">false</span>}
+})
+</code></pre>
+<p>Probably you are already using a certain data format, XML files or HTML. With Substance you can create a custom converter very easily.</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  type: <span class="hljs-string">'todo'</span>,
+  tagName: <span class="hljs-string">'div'</span>,
+  matchElement: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+    <span class="hljs-keyword">return</span> el.is(<span class="hljs-string">'div'</span>) &amp;&amp; el.hasClass(<span class="hljs-string">'todo'</span>)
+  },
+  <span class="hljs-keyword">import</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el, node, converter</span>) </span>{
+    node.content = converter.annotatedText(el, [node.id, <span class="hljs-string">'content'</span>])
+    node.done = el.attr(<span class="hljs-string">'data-done'</span>) === <span class="hljs-string">'1'</span>
+  },
+  <span class="hljs-keyword">export</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">node, el, converter</span>) </span>{
+    el.append(converter.annotatedText([node.id, <span class="hljs-string">'content'</span>]))
+      .addClass(<span class="hljs-string">'todo'</span>)
+      .attr(<span class="hljs-string">'done'</span>, node.done ? <span class="hljs-string">'1'</span>: <span class="hljs-string">'0'</span>);
+  }
+}
+</code></pre>
+<p>You can customize many more things: how content get rendered, toolbars with individual tools, and content transformations.</p>
+<h2>What makes Substance unique?</h2>
+<ul>
+<li>Produce and edit HTML, XML, or any kind of content format</li>
+<li>Multiple editing surfaces (e.g. one for the title, one for the document body)</li>
+<li>Annotations can span over multiple paragraphs</li>
+<li>Reusable components (SplitPane, ScrollPane, ContainerEditor, Toolbar, ...)</li>
+<li>Realtime collaboration can be enabled for any Substance editor</li>
+</ul>
+<p>For a complete list of features see <a href="https://github.com/substance/substance#features" target="_blank">here</a>.</p>
+<h2>Who is using it?</h2>
+<p>Substance has been used to power a scientific reading tool called <a href="http://elifesciences.org/elife-news/lens">eLife Lens</a>, which is used by <a href="http://elifesciences.org/">eLife</a>, the <a href="http://www.ams.org/home/page">American Mathematical Society</a> and <a href="http://elifesciences.org/elife-news/Lens-pioneered-by-eLife-to-be-piloted-by-six-additional-publishers-on-HighWire">other publishers</a>.</p>
+<p><a href="http://substance.io/texture">Texture</a> builds on Substance to realize a WYSIWYG <a href="http://jats.nlm.nih.gov/archiving/tag-library/1.1/">JATS XML</a> editor. Substance is also used to power digital archives with <a href="https://medium.com/@_daniel/publish-interactive-historical-documents-with-archivist-7019f6408ee6">Archivist</a>, data-driven documents at <a href="http://stenci.la/">Stencila</a> and news editors at <a href="http://www.infomaker.se/">Infomaker</a>. Substance is a crucial building block of PubSweet, the decoupled full-featured content production system developed by the <a href="http://coko.foundation/">Collaborative Knowledge Foundation</a></p>
+<h2>What's the state of development?</h2>
+<p>The latest release is Substance 1.0 Beta 5. The API is fairly stable and most interfaces are documented. There will be one or two more beta releases, stabilizing the features before we freeze the API for a 1.0 release.</p>
+<h2>License?</h2>
+<p>Substance is completely free and available as <a href="http://github.com/substance/substance">Open Source</a> under an MIT license.</p>
+<h2>How do I get started?</h2>
+<p>As a web-developer, jump right over to the <a href="guides.html">guides</a> section and learn how to define a custom article, write an HTML converter for it and build an editor component.</p>
+<p>Also check out <a href="https://github.com/substance/simple-writer">SimpleWriter</a> our editor reference implementation, and the <a href="https://github.com/substance/examples">examples</a> for learning about individual features.</p>
+<p>Tell us about your experiences and let us know what you liked and what's missing to solve your use-case. We're glad for feedback and contributions in any form.</p>
+<p>Happy editor building!</p>
+<p>Michael and Oliver.</p>
+</div></div></div></div></div>
+  </body>
+</html>

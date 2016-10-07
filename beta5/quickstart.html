@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="github.css" rel="stylesheet" type="text/css">
+    <link href='substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="about.html">Substance</a></div><div class="se-pages"><a href="about.html" class="se-page">About</a><a href="guides.html" class="se-page">Guides</a><a href="api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-page-toc"><a href="about.html" class="se-title">About</a><div class="se-sections"><a href="quickstart.html" class="se-section">Quickstart</a><a href="changelog.html" class="se-section">Changelog</a><a href="roadmap.html" class="se-section">Roadmap</a><a href="license.html" class="se-section">License</a></div></div></div><div class="se-main-section"><div data-id="quickstart" class="sc-content"><div class="se-title">Quickstart</div><div class="se-description"><p>The fastest way to try out Substance is including it as a script into your website.</p>
+<pre><code class="hljs lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://cdn.substance.io/substance-1.0.0-beta.5.1.js"</span>/&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"http://cdn.substance.io/substance-1.0.0-beta.5.1.css"</span>/&gt;</span>
+</code></pre>
+<p>Now you can start using Substance API's. The code below works in all modern browsers that support ES2015.</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">const</span> { ProseEditor, ProseEditorPackage, SuperscriptPackage, Configurator } = substance
+
+<span class="hljs-keyword">const</span> fixture = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">tx</span>) </span>{
+  <span class="hljs-keyword">let</span> body = tx.get(<span class="hljs-string">'body'</span>)
+  tx.create({
+    id: <span class="hljs-string">'p1'</span>,
+    type: <span class="hljs-string">'paragraph'</span>,
+    content: <span class="hljs-string">'Hello world.'</span>
+  })
+  body.show(<span class="hljs-string">'p1'</span>)
+}
+
+<span class="hljs-keyword">const</span> cfg = <span class="hljs-keyword">new</span> Configurator()
+cfg.import(ProseEditorPackage)
+cfg.import(SuperscriptPackage)
+
+<span class="hljs-built_in">window</span>.onload = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">let</span> doc = configurator.createArticle(fixture)
+  <span class="hljs-keyword">let</span> documentSession = <span class="hljs-keyword">new</span> DocumentSession(doc)
+  ProseEditor.mount({
+    documentSession: documentSession,
+    configurator: configurator
+  }, <span class="hljs-built_in">document</span>.body)
+}
+</code></pre>
+<h2>Install as package</h2>
+<p>Of course Substance can be used via npm and integrated into development toolchains, such as Rollup, Browserify, Webpack. To learn more please read the <a href="integrating-substance.html">integrating-substance</a> guide.</p>
+</div></div></div></div></div>
+  </body>
+</html>

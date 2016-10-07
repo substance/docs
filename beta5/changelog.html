@@ -1,0 +1,88 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="github.css" rel="stylesheet" type="text/css">
+    <link href='substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="about.html">Substance</a></div><div class="se-pages"><a href="about.html" class="se-page">About</a><a href="guides.html" class="se-page">Guides</a><a href="api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-page-toc"><a href="about.html" class="se-title">About</a><div class="se-sections"><a href="quickstart.html" class="se-section">Quickstart</a><a href="changelog.html" class="se-section">Changelog</a><a href="roadmap.html" class="se-section">Roadmap</a><a href="license.html" class="se-section">License</a></div></div></div><div class="se-main-section"><div data-id="changelog" class="sc-content"><div class="se-title">Changelog</div><div class="se-description"><h2>Beta 5</h2>
+<ul>
+<li>Substance is now written in ES6</li>
+<li>More usage options: Use Substance via <code>&lt;script&gt;</code> tag or use a module bundler of your choice (Rollup, Browserify, Webpack, ...)</li>
+<li>Pure CSS instead of SASS for easier integration</li>
+<li>Extracted develoment environment into substance-bundler tool.</li>
+<li>Extracted test environment into substance-test</li>
+<li>Extracted API docs generator into substance-docgen</li>
+<li>Improved Tool API: Simplified command and tool APIs.</li>
+<li>Commands are now stateless and can be parametrized in the configurator</li>
+<li>Added tool targets: Determines where a tool gets rendered (e.g. in the toolbar or in an overlay)</li>
+<li>Gutter support for ScrollPane: Render tools in a gutter, vertically aligned with the current selection</li>
+<li>Removed experimental list and table packages: They will come back to core as soon as they are completed</li>
+<li>Stabilized Beta 4 features</li>
+</ul>
+<h2>Beta 4</h2>
+<ul>
+<li>Added support for realtime collaboration</li>
+<li>Added persistence interfaces to store versions and snaphots on the server</li>
+<li>Added a package system to provide a simple plugin mechanism</li>
+<li>Introduced the concept of an <code>IsolatedNode</code> enabling arbitrary complex editors and external components (such code editors)</li>
+<li>Optimized rendering engine</li>
+<li>Enabled server side rendering</li>
+<li>Added support for text macros</li>
+<li>Added <code>IconProvider</code> to generalize icon usage and make them configurable in packages</li>
+<li>Added <code>LabelProvider</code> for configurable multi language support</li>
+<li>Improved <code>ProseEditor</code> that can be extended through packages</li>
+<li>Improved <code>Component</code> API, with first-class debugging support</li>
+<li>Generalized commands and tools</li>
+<li>Added first version of tables and lists</li>
+<li>Improved XML/HTML import/export API</li>
+<li>Ported test suite from <code>QUnit</code> over to <code>tape</code></li>
+<li>Fixed hundreds of issues and bugs</li>
+<li>Improved cross-browser compatibility</li>
+<li>Added many examples documenting core features</li>
+<li>Removed jQuery dependency</li>
+</ul>
+<h2>Beta 3</h2>
+<ul>
+<li>Added a Router implementation that can serialize component states to hash fragments</li>
+<li>Added ui/ScrollPane Component used to wrap any content and make it scrollable within a container (1ae97f9)</li>
+<li>Added ui/TOC as an interface for custom Table of Contents implementations (1ae97f9)</li>
+<li>Added util/server for easier development (7e12ae7)</li>
+<li>Added TabbedPane component (105e80d)</li>
+<li>Added SplitPane component (105e80d)</li>
+<li>Fixed a bug where Firefox ignored input events (e3d6173)</li>
+<li>Fixed an issue in ui/Component where owner and parent were confused (085a695)</li>
+<li>Fixed numerous issues related to mapping DOM selections to model selections</li>
+<li>Fixed a bug where nodes that have no addressable text property could not be rendered</li>
+<li>Fixed an edge case where triple clicking inside a paragraph with inline nodes did not led to an undesired selection</li>
+<li>Fixed an issue where focusedSurface is set too late on the controller</li>
+<li>Fixed an issue where an image wrapped in a selection was not deleted</li>
+<li>Fixed an bug where selection was mapped incorrectly at the end of the paragraph (76eab1f)</li>
+<li>Fixed several converter issues related to XML parsing and serializing (#391)</li>
+<li>Improved API documentation</li>
+<li>Fixed an issue where typing over an inline node did not remove it</li>
+<li>Added ui/Highlights class for distributed management of highlights</li>
+<li>Removed ui/ContentPanel in favor of an improved ScrollPane implementation</li>
+<li>Improved Clipboard: Copy and pasting between browsers now works seamlessly</li>
+<li>ScrollPane is now aware of TOC instances (when provided)</li>
+</ul>
+<h2>Beta 2</h2>
+<ul>
+<li>Simplified Node API: Props are now stored on the node directly</li>
+<li>New source directory and file layout optimized for deep-requiring individual classes</li>
+<li>New DOMElement API for interacting with DOM elements</li>
+<li>Improved Converter API: Now independent from the Article class</li>
+<li>Overhauled API for Tools: Logic now lives in Command implementations that are independent from the UI</li>
+<li>Editors are now Components implementing the Surface API</li>
+<li>CSS overhaul: improved modularity, prefixing to avoid collisions</li>
+<li>New predefined node types: Embed, Superscript, Subscript, Code.</li>
+<li>Removed FormEditor interface in favour of more fine-grained control using new TextPropertyEditor component</li>
+<li>API docs provided via new Substance DocumentationReader</li>
+</ul>
+<h2>Beta 1</h2>
+<p>Initial release</p>
+</div></div></div></div></div>
+  </body>
+</html>

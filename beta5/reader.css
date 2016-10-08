@@ -14,7 +14,13 @@ body {
 }
 
 p {
-  padding-bottom: 10px;
+  padding-bottom: 20px;
+
+}
+
+h2 {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 code {
@@ -115,7 +121,7 @@ blockquote {
 }
 
 .sc-api-toc .se-category .se-label {
-  font-size: 14px;
+  font-size: 16px;
   color: #777;
 }
 
@@ -144,9 +150,10 @@ blockquote {
 }
 
 .sc-api-page .se-category > .se-label {
-  font-size: 25px;
-  font-weight: 600;
-
+  font-size: 16px;
+  color: #777;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ddd;
 }
 
 .sc-api-page .se-category > .se-items > .se-item > a {
@@ -178,6 +185,10 @@ blockquote {
 
 .sc-api-page .se-member {
   padding: 5px 30px;
+}
+
+.sc-api-page .se-member a {
+  color: inherit;
 }
 
 
@@ -298,6 +309,8 @@ blockquote {
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
   text-decoration: none;
 }
+
+
 .sc-signature > .se-source {
   padding-bottom: 10px;
   line-height: 15px;

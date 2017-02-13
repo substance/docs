@@ -1,0 +1,250 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="../github.css" rel="stylesheet" type="text/css">
+    <link href='../substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='../reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="../getting-started.html">Substance</a></div><div class="se-pages"><a href="../getting-started.html" class="se-page">Getting started</a><a href="../api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-api-toc"><div class="se-category"><div class="se-label">Classes</div><div class="se-items"><a href="../ui/AbstractEditor.html" class="se-item">AbstractEditor</a><a href="../ui/AnnotationCommand.html" class="se-item">AnnotationCommand</a><a href="../ui/Command.html" class="se-item">Command</a><a href="../ui/Component.html" class="se-item">Component</a><a href="../util/Configurator.html" class="se-item">Configurator</a><a href="../model/ContainerSelection.html" class="se-item">ContainerSelection</a><a href="../model/DOMImporter.html" class="se-item">DOMImporter</a><a href="../model/Document.html" class="se-item">Document</a><a href="../model/DocumentNode.html" class="se-item">DocumentNode</a><a href="../ui/EditAnnotationCommand.html" class="se-item">EditAnnotationCommand</a><a href="../model/Editing.html" class="se-item">Editing</a><a href="../util/EventEmitter.html" class="se-item">EventEmitter</a><a href="../packages/inline-node/InsertInlineNodeCommand.html" class="se-item">InsertInlineNodeCommand</a><a href="../model/data/NodeIndex.html" class="se-item">NodeIndex</a><a href="../model/PropertyAnnotation.html" class="se-item">PropertyAnnotation</a><a href="../model/PropertySelection.html" class="se-item">PropertySelection</a><a href="../packages/prose-editor/ProseEditor.html" class="se-item">ProseEditor</a><a href="../packages/scroll-pane/ScrollPane.html" class="se-item">ScrollPane</a><a href="../model/Selection.html" class="se-item">Selection</a><a href="../packages/spell-check/SpellCheckCommand.html" class="se-item">SpellCheckCommand</a><a href="../packages/surface/Surface.html" class="se-item">Surface</a><a href="../model/TextNode.html" class="se-item">TextNode</a><a href="../model/TransactionDocument.html" class="se-item">TransactionDocument</a><a href="../ui/VirtualElement.html" class="se-item">VirtualElement</a></div></div><div class="se-category"><div class="se-label">Components</div><div class="se-items"><a href="../ui/AnnotatedTextComponent.html" class="se-item">AnnotatedTextComponent</a><a href="../ui/AnnotationComponent.html" class="se-item">AnnotationComponent</a><a href="../ui/AnnotationTool.html" class="se-item">AnnotationTool</a><a href="../packages/body-scroll-pane/BodyScrollPane.html" class="se-item">BodyScrollPane</a><a href="../ui/ContainerEditor.html" class="se-item">ContainerEditor</a><a href="../packages/link/EditLinkTool.html" class="se-item">EditLinkTool</a><a href="../packages/layout/Layout.html" class="se-item">Layout</a><a href="../packages/modal/Modal.html" class="se-item">Modal</a><a href="../packages/scrollbar/Scrollbar.html" class="se-item">Scrollbar</a><a href="../packages/split-pane/SplitPane.html" class="se-item">SplitPane</a><a href="../packages/switch-text-type/SwitchTextTypeTool.html" class="se-item">SwitchTextTypeTool</a><a href="../ui/TextPropertyComponent.html" class="se-item">TextPropertyComponent</a><a href="../ui/TextPropertyEditor.html" class="se-item">TextPropertyEditor</a><a href="../packages/tools/Tool.html" class="se-item">Tool</a></div></div><div class="se-category"><div class="se-label">Modules</div><div class="se-items"><a href="../util/platform.html" class="se-item">platform</a></div></div></div></div><div class="se-main-section"><div data-id="ui/Component" class="sc-class"><div class="sc-doc-heading"><div class="se-header"><span class="se-name">Component</span></div><div class="se-details class"><strong class="se-type">Class</strong><span class="se-source"><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L99" target="_blank" data-source-file="ui/Component.js" data-source-line="99" class="sc-source-link">ui/Component.js#99</a></span><span class="se-extends"><span> inherits from </span><span></span></span></div></div><div class="se-description"><p>A light-weight component implementation inspired by
+<a href="https://facebook.github.io/react/" target="_blank">React</a> and <a href="http://emberjs.com/">Ember</a>.
+In contrast to the large frameworks it does much less things automagically in
+favour of synchronous rendering and a minimalistic life-cycle. It also
+provides <em>up-tree</em> communication and <em>dependency injection</em>.</p>
+<h3>Why synchronous rendering?</h3>
+<p>Synchronous rendering, while it may <em>seem</em> less performant, is necessary
+because substance must render the model, after it has changed before the next
+change is triggered by the user.</p>
+<p>Asynchronous rendering as it exists in React means that the UI will
+eventually <em>catch</em> up to changes in the model. This is not acceptable in
+substance because substance plays with contenteditable and thus, cursor
+positions, etc are maintained in the browser's DOM. If we went the async way,
+the cursor in the DOM would be briefly inconsistent with the cursor in the
+model. In this brief window, changes triggered by the user would be impossible
+to apply.</p>
+<h3>Concepts:</h3>
+<ul>
+<li>
+<p><code>props</code> are provided by a parent component.  An initial set of properties is provided
+via constructor. After that, the parent component can call <code>setProps</code> or <code>extendProps</code>
+to update these properties which triggers rerendering if the properties change.</p>
+</li>
+<li>
+<p><code>state</code> is a set of flags and values which are used to control how the component
+gets rendered given the current props. Using <code>setState</code> the component can change
+its internal state, which leads to a rerendering if the state changes.
+Prefer using <code>extendState</code> rather than <code>setState</code>.</p>
+<p>Normally, a component maintains its own state. It isn't recommended that a
+parent pass in or update state. If you find the need for this, you should be
+looking at <code>props</code>.</p>
+<p>State would be useful in situations where the component itself controls some
+aspect of rendering. Eg. whether a dropdown is open or not could be a state
+within the dropdown component itself since no other component needs to know
+it.</p>
+</li>
+<li>
+<p>A child component with a <code>ref</code> id will be reused on rerender. All others will be
+wiped and rerender from scratch. If you want to preserve a grand-child (or lower), then
+make sure that all anchestors have a ref id. After rendering the child will be
+accessible via <code>this.refs[ref]</code>.</p>
+</li>
+<li>
+<p>A component can send actions via <code>send</code> which are bubbled up through all parent
+components until one handles it. A component declares that it can handle an
+action by calling the <code>handleActions</code> method on itself in the constructor or
+the <code>didUpdate</code> lifecycle hook.</p>
+</li>
+</ul>
+<h3>Lifecycle hooks</h3>
+<p>The <a href="../ui/RenderingEngine.html">RenderingEngine</a> triggers a set of hooks for you to define behavior
+in various stages of the rendering cycle. The names are pretty self
+explanatory. If in doubt, please check out the method documentation below.</p>
+<ol>
+<li><a href="../ui/Component.html#didMount">Component#didMount</a></li>
+<li><a href="../ui/Component.html#didUpdate">Component#didUpdate</a></li>
+<li><a href="../ui/Component.html#dispose">Component#dispose</a></li>
+<li><a href="../ui/Component.html#willReceiveProps">Component#willReceiveProps</a></li>
+<li><a href="../ui/Component.html#willUpdateState">Component#willUpdateState</a></li>
+</ol>
+</div><div class="se-usage"><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><p>Define a component:</p>
+<pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloMessage</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render() {
+    <span class="hljs-keyword">return</span> $$(<span class="hljs-symbol">'di</span>v').append(
+      <span class="hljs-symbol">'Hello</span> ',
+      <span class="hljs-keyword">this</span>.props.name
+    )
+  }
+}
+</code></pre>
+<p>And mount it to a DOM Element:</p>
+<pre><code class="hljs"><span class="hljs-selector-tag">HelloMessage</span><span class="hljs-selector-class">.mount</span>({<span class="hljs-attribute">name</span>: <span class="hljs-string">'John'</span>}, <span class="hljs-selector-tag">document</span><span class="hljs-selector-class">.body</span>)
+</code></pre>
+</div></div></div></div><div class="se-member-category"><div class="se-members"><div data-id="ui/Component()" id="Component" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#Component" class="se-declaration"><span class="se-storage">new </span><span class="se-name">Component</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Constructor</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L107" target="_blank" data-source-file="ui/Component.js" data-source-line="107" class="sc-source-link">ui/Component.js#107</a></div></div><div class="se-description"><p>Construcutor is only used internally.</p>
+</div></div></div></div><div class="se-member-category"><div class="se-members"><div data-id="ui/Component#getChildContext()" id="getChildContext" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getChildContext" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getChildContext</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L196" target="_blank" data-source-file="ui/Component.js" data-source-line="196" class="sc-source-link">ui/Component.js#196</a></div></div><div class="se-description"><p>Provides the context which is delivered to every child component. Override
+if you want to provide your own child context. Child context is available to
+all components rendered from within this component's render method as
+<code>this.context</code>.</p>
+</div><div class="sc-params"><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>the child context</p>
+</td></tr></table></div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">A</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+...
+  getChildContext() {
+    <span class="hljs-comment">// Optional, but useful to merge super's context</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-type">Object</span>.assign({}, <span class="hljs-keyword">super</span>.getChildContext(), {foo: <span class="hljs-symbol">'ba</span>r'})
+  }
+
+  render($$) {
+    <span class="hljs-keyword">return</span> $$(<span class="hljs-type">B</span>)
+  }
+}
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">B</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  render($$) {
+    <span class="hljs-comment">// this.context.foo is available here</span>
+  }
+}
+</code></pre>
+<p>Component</p>
+</div></div></div></div><div data-id="ui/Component#getInitialState()" id="getInitialState" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getInitialState" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getInitialState</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L208" target="_blank" data-source-file="ui/Component.js" data-source-line="208" class="sc-source-link">ui/Component.js#208</a></div></div><div class="se-description"><p>Override this within your component to provide the initial state for the
+component. This method is internally called by the
+<a href="../ui/RenderingEngine.html">RenderingEngine</a> and the state defined here is made available to
+the <a href="../ui/Component.html#render">Component#render</a> method as this.state.</p>
+</div><div class="sc-params"><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>the initial state</p>
+</td></tr></table></div></div><div data-id="ui/Component#getParent()" id="getParent" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getParent" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getParent</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L217" target="_blank" data-source-file="ui/Component.js" data-source-line="217" class="sc-source-link">ui/Component.js#217</a></div></div><div class="se-description"><p>Provides the parent of this component.</p>
+</div><div class="sc-params"><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Component</span></td><td class="se-param-description"><p>the parent component or null if this component does not have a parent.</p>
+</td></tr></table></div></div><div data-id="ui/Component#getRoot()" id="getRoot" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getRoot" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getRoot</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L226" target="_blank" data-source-file="ui/Component.js" data-source-line="226" class="sc-source-link">ui/Component.js#226</a></div></div><div class="se-description"><p>Get the top-most Component. This the component mounted using
+<a href="../ui/Component.html#mount">ui/Component.mount</a></p>
+</div><div class="sc-params"><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Component</span></td><td class="se-param-description"><p>The root component</p>
+</td></tr></table></div></div><div data-id="ui/Component#getLabel()" id="getLabel" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getLabel" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getLabel</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L253" target="_blank" data-source-file="ui/Component.js" data-source-line="253" class="sc-source-link">ui/Component.js#253</a></div></div><div class="se-description"><p>Short hand for using labelProvider API</p>
+</div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs">render($$) {
+  <span class="hljs-keyword">let</span> <span class="hljs-keyword">el</span> = $$(<span class="hljs-string">'div'</span>).addClass(<span class="hljs-string">'sc-my-component'</span>)
+  <span class="hljs-keyword">el</span>.<span class="hljs-keyword">append</span>(this.getLabel(<span class="hljs-string">'first-name'</span>))
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">el</span>
+}
+</code></pre>
+</div></div></div></div><div data-id="ui/Component#getComponent()" id="getComponent" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getComponent" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getComponent</span>(<span class="se-arguments">componentName, maybe</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L279" target="_blank" data-source-file="ui/Component.js" data-source-line="279" class="sc-source-link">ui/Component.js#279</a></div></div><div class="se-description"><p>Get a component class for the component name provided. Use this within the
+render method to render children nodes.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">componentName</td><td class="se-param-type"><span>String</span></td><td class="se-param-description"><p>The component's registration name</p>
+</td></tr><tr class="se-param"><td class="se-param-name">maybe</td><td class="se-param-type"><span>Boolean</span></td><td class="se-param-description"><p>if <code>true</code> then does not throw when no Component is found</p>
+</td></tr></table><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Class</span></td><td class="se-param-description"><p>The ComponentClass</p>
+</td></tr></table></div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs"><span class="hljs-function"><span class="hljs-title">render</span><span class="hljs-params">($$)</span></span> {
+  let el = $$(<span class="hljs-string">'div'</span>).addClass(<span class="hljs-string">'sc-my-component'</span>)
+  let <span class="hljs-selector-tag">caption</span> = this<span class="hljs-selector-class">.props</span><span class="hljs-selector-class">.node</span><span class="hljs-selector-class">.getCaption</span>() <span class="hljs-comment">// some method that returns a node</span>
+  let CaptionClass = this.getComponent(<span class="hljs-selector-tag">caption</span>.type)
+  el.append($$(CaptionClass, {node: caption}))
+  return el
+}
+</code></pre>
+</div></div></div></div><div data-id="ui/Component#render()" id="render" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#render" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">render</span>(<span class="se-arguments">$$</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L308" target="_blank" data-source-file="ui/Component.js" data-source-line="308" class="sc-source-link">ui/Component.js#308</a></div></div><div class="se-description"><p>Render the component.</p>
+<p>ATTENTION: this does not create a DOM presentation but
+a virtual representation which is compiled into a DOM element later.</p>
+<p>Every Component should override this method.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">$$</td><td class="se-param-type"><span>Function</span></td><td class="se-param-description"><p>method to create components</p>
+</td></tr></table><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>VirtualElement</span></td><td class="se-param-description"><p>VirtualElement created using {@param $$}</p>
+</td></tr></table></div></div><div data-id="ui/Component#mount()" id="mount" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#mount" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">mount</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L325" target="_blank" data-source-file="ui/Component.js" data-source-line="325" class="sc-source-link">ui/Component.js#325</a></div></div><div class="se-description"><p>Mount a component to the DOM.</p>
+</div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs"><span class="hljs-keyword">var</span> app = Texture.mount({
+  configurator: configurator,
+  documentId: <span class="hljs-string">'elife-15278'</span>
+}, <span class="hljs-built_in">document</span>.body)
+</code></pre>
+</div></div></div></div><div data-id="ui/Component#shouldRerender()" id="shouldRerender" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#shouldRerender" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">shouldRerender</span>(<span class="se-arguments">newProps, newState</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L355" target="_blank" data-source-file="ui/Component.js" data-source-line="355" class="sc-source-link">ui/Component.js#355</a></div></div><div class="se-description"><p>Determines if Component should be rendered again using <a href="../ui/Component.html#rerender">ui/Component#rerender</a>
+after changing props. For comparisons, you can use <code>this.props</code> and
+<code>newProps</code>.</p>
+<p>The default implementation simply returns true.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">newProps</td><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>The new props being applied to this component.</p>
+</td></tr><tr class="se-param"><td class="se-param-name">newState</td><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>The new state being applied</p>
+</td></tr></table><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span></span></td><td class="se-param-description"><p>a boolean indicating whether rerender() should be run.</p>
+</td></tr></table></div></div><div data-id="ui/Component#rerender()" id="rerender" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#rerender" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">rerender</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L364" target="_blank" data-source-file="ui/Component.js" data-source-line="364" class="sc-source-link">ui/Component.js#364</a></div></div><div class="se-description"><p>Rerenders the component.</p>
+<p>Call this to manually trigger a rerender.</p>
+</div></div><div data-id="ui/Component#triggerDidMount()" id="triggerDidMount" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#triggerDidMount" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">triggerDidMount</span>(<span class="se-arguments">isMounted</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L409" target="_blank" data-source-file="ui/Component.js" data-source-line="409" class="sc-source-link">ui/Component.js#409</a></div></div><div class="se-description"><p>Triggers didMount handlers recursively.</p>
+<p>Gets called when using <code>component.mount(el)</code> on an element being
+in the DOM already. Typically this is done for a root component.</p>
+<p>If this is not possible because you want to do things differently, make sure
+you call 'component.triggerDidMount()' on root components.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">isMounted</td><td class="se-param-type"><span></span></td><td class="se-param-description"><p>an optional param for optimization, it's used mainly internally</p>
+</td></tr></table></div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs"><span class="hljs-keyword">var</span> frag = <span class="hljs-built_in">document</span>.createDocumentFragment()
+<span class="hljs-keyword">var</span> comp = MyComponent.mount(frag)
+...
+$(<span class="hljs-string">'body'</span>).append(frag)
+comp.triggerDidMount()
+</code></pre>
+</div></div></div></div><div data-id="ui/Component#didMount()" id="didMount" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#didMount" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">didMount</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L456" target="_blank" data-source-file="ui/Component.js" data-source-line="456" class="sc-source-link">ui/Component.js#456</a></div></div><div class="se-description"><p>Called when the element is inserted into the DOM. Typically, you can use
+this to set up subscriptions to changes in the document or in a node of
+your interest.</p>
+<p>Remember to unsubscribe from all changes in the <a href="../ui/Component.html#dispose">ui/Component#dispose</a>
+method otherwise listeners you have attached may be called without a context.</p>
+</div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  didMount() {
+    <span class="hljs-keyword">this</span>.context.editorSession.onRender(<span class="hljs-string">'document'</span>, <span class="hljs-keyword">this</span>.rerender, <span class="hljs-keyword">this</span>, {
+      path: [<span class="hljs-keyword">this</span>.props.node.id, <span class="hljs-string">'label'</span>]
+    })
+  }
+
+  dispose() {
+    <span class="hljs-keyword">this</span>.context.editorSession.off(<span class="hljs-keyword">this</span>)
+  }
+}
+</code></pre>
+<p>Make sure that you call <code>component.mount(el)</code> using an element
+which is already in the DOM.</p>
+<pre><code class="hljs lang-javascript"><span class="hljs-keyword">var</span> component = <span class="hljs-keyword">new</span> MyComponent()
+component.mount($(<span class="hljs-string">'body'</span>)[<span class="hljs-number">0</span>])
+</code></pre>
+</div></div></div></div><div data-id="ui/Component#didUpdate()" id="didUpdate" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#didUpdate" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">didUpdate</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L462" target="_blank" data-source-file="ui/Component.js" data-source-line="462" class="sc-source-link">ui/Component.js#462</a></div></div><div class="se-description"><p>Hook which is called after state or props have been updated and the implied
+rerender is completed.</p>
+</div></div><div data-id="ui/Component#isMounted()" id="isMounted" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#isMounted" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">isMounted</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L467" target="_blank" data-source-file="ui/Component.js" data-source-line="467" class="sc-source-link">ui/Component.js#467</a></div></div><div class="se-description"></div><div class="sc-params"><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>boolean</span></td><td class="se-param-description"><p>indicating if this component has been mounted</p>
+</td></tr></table></div></div><div data-id="ui/Component#triggerDispose()" id="triggerDispose" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#triggerDispose" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">triggerDispose</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L476" target="_blank" data-source-file="ui/Component.js" data-source-line="476" class="sc-source-link">ui/Component.js#476</a></div></div><div class="se-description"><p>Triggers dispose handlers recursively.</p>
+</div></div><div data-id="ui/Component#dispose()" id="dispose" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#dispose" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">dispose</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L490" target="_blank" data-source-file="ui/Component.js" data-source-line="490" class="sc-source-link">ui/Component.js#490</a></div></div><div class="se-description"><p>A hook which is called when the component is unmounted, i.e. removed from DOM,
+hence disposed. See <a href="../ui/Component.html#didMount">ui/Component#didMount</a> for example usage.</p>
+<p>Remember to unsubscribe all change listeners here.</p>
+</div></div><div data-id="ui/Component#send()" id="send" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#send" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">send</span>(<span class="se-arguments">action, ...</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L511" target="_blank" data-source-file="ui/Component.js" data-source-line="511" class="sc-source-link">ui/Component.js#511</a></div></div><div class="se-description"><p>Send an action request to the parent component, bubbling up the component
+hierarchy until an action handler is found.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">action</td><td class="se-param-type"><span></span></td><td class="se-param-description"><p>the name of the action</p>
+</td></tr><tr class="se-param"><td class="se-param-name">...</td><td class="se-param-type"><span></span></td><td class="se-param-description"><p>arbitrary number of arguments</p>
+</td></tr></table><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Boolean</span></td><td class="se-param-description"><p>true if the action was handled, false otherwise</p>
+</td></tr></table></div></div><div data-id="ui/Component#handleActions()" id="handleActions" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#handleActions" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">handleActions</span>(<span class="se-arguments">actionHandler</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L547" target="_blank" data-source-file="ui/Component.js" data-source-line="547" class="sc-source-link">ui/Component.js#547</a></div></div><div class="se-description"><p>Define action handlers. Call this during construction/initialization of a component.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">actionHandler</td><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>An object where the keys define the handled     actions and the values define the handler to be invoked.</p>
+<p>These handlers are automatically removed once the Component is disposed, so
+there is no need to unsubscribe these handlers in the {@link ui/Component#dispose}
+hook.</p>
+</td></tr></table></div><div class="sc-example"><div class="se-heading">Example</div><div class="se-body"><div class="se-description"><pre><code class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Component</span> </span>{
+  constructor(...args) {
+    <span class="hljs-keyword">super</span>(...args)
+    <span class="hljs-keyword">this</span>.handleActions({
+     <span class="hljs-symbol">'openPromp</span>t': <span class="hljs-keyword">this</span>.openPrompt,
+     <span class="hljs-symbol">'closePromp</span>t': <span class="hljs-keyword">this</span>.closePrompt
+    })
+  }
+}
+</code></pre>
+</div></div></div></div><div data-id="ui/Component#handleAction()" id="handleAction" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#handleAction" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">handleAction</span>(<span class="se-arguments">action, a</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L560" target="_blank" data-source-file="ui/Component.js" data-source-line="560" class="sc-source-link">ui/Component.js#560</a></div></div><div class="se-description"><p>Define an action handler. Call this during construction/initialization of a component.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">action</td><td class="se-param-type"><span>String</span></td><td class="se-param-description"><p>name</p>
+</td></tr><tr class="se-param"><td class="se-param-name">a</td><td class="se-param-type"><span>Functon</span></td><td class="se-param-description"><p>function of this component.</p>
+</td></tr></table></div></div><div data-id="ui/Component#getState()" id="getState" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getState" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getState</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L573" target="_blank" data-source-file="ui/Component.js" data-source-line="573" class="sc-source-link">ui/Component.js#573</a></div></div><div class="se-description"><p>Get the current component state</p>
+</div><div class="sc-params"><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>the current state</p>
+</td></tr></table></div></div><div data-id="ui/Component#setState()" id="setState" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#setState" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">setState</span>(<span class="se-arguments">newState</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L591" target="_blank" data-source-file="ui/Component.js" data-source-line="591" class="sc-source-link">ui/Component.js#591</a></div></div><div class="se-description"><p>Sets the state of this component, potentially leading to a rerender. It is
+better practice to use <a href="../ui/Component.html#extendState">ui/Component#extendState</a>. That way, the code
+which updates state only updates part relevant to it.</p>
+<p>Eg. If you have a Component that has a dropdown open state flag and another
+enabled/disabled state flag for a node in the dropdown, you want to isolate
+the pieces of your code making the two changes. The part of your code
+opening and closing the dropdown should not also automatically change or
+remove the enabled flag.</p>
+<p>Note: Usually this is used by the component itself.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">newState</td><td class="se-param-type"><span>object</span></td><td class="se-param-description"><p>an object with a partial update.</p>
+</td></tr></table></div></div><div data-id="ui/Component#extendState()" id="extendState" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#extendState" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">extendState</span>(<span class="se-arguments">newState</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L615" target="_blank" data-source-file="ui/Component.js" data-source-line="615" class="sc-source-link">ui/Component.js#615</a></div></div><div class="se-description"><p>This is similar to <code>setState()</code> but extends the existing state instead of
+replacing it.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">newState</td><td class="se-param-type"><span>object</span></td><td class="se-param-description"><p>an object with a partial update.</p>
+</td></tr></table></div></div><div data-id="ui/Component#willUpdateState()" id="willUpdateState" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#willUpdateState" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">willUpdateState</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L623" target="_blank" data-source-file="ui/Component.js" data-source-line="623" class="sc-source-link">ui/Component.js#623</a></div></div><div class="se-description"><p>Called before state is changed.</p>
+</div></div><div data-id="ui/Component#getProps()" id="getProps" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#getProps" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">getProps</span>(<span class="se-arguments"></span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L631" target="_blank" data-source-file="ui/Component.js" data-source-line="631" class="sc-source-link">ui/Component.js#631</a></div></div><div class="se-description"><p>Get the current properties</p>
+</div><div class="sc-params"><div class="se-returns se-label">Returns</div><table class="se-params-table"><tr class="se-param"><td class="se-param-type"><span>Object</span></td><td class="se-param-description"><p>the current state</p>
+</td></tr></table></div></div><div data-id="ui/Component#setProps()" id="setProps" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#setProps" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">setProps</span>(<span class="se-arguments">an</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L640" target="_blank" data-source-file="ui/Component.js" data-source-line="640" class="sc-source-link">ui/Component.js#640</a></div></div><div class="se-description"><p>Sets the properties of this component, potentially leading to a rerender.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">an</td><td class="se-param-type"><span>object</span></td><td class="se-param-description"><p>object with properties</p>
+</td></tr></table></div></div><div data-id="ui/Component#extendProps()" id="extendProps" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#extendProps" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">extendProps</span>(<span class="se-arguments">an</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L671" target="_blank" data-source-file="ui/Component.js" data-source-line="671" class="sc-source-link">ui/Component.js#671</a></div></div><div class="se-description"><p>Extends the properties of the component, without necessarily leading to a
+rerender.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">an</td><td class="se-param-type"><span>object</span></td><td class="se-param-description"><p>object with properties</p>
+</td></tr></table></div></div><div data-id="ui/Component#willReceiveProps()" id="willReceiveProps" class="sc-method"><div class="sc-signature"><a href="../ui/Component.html#willReceiveProps" class="se-declaration"><span class="se-storage">this.</span><span class="se-name">willReceiveProps</span>(<span class="se-arguments">newProps</span>)</a><div class="se-source"><strong>Method</strong><span> defined in </span><a href="https://github.com/substance/substance/blob/v1.0.0-beta.6/ui/Component.js#L682" target="_blank" data-source-file="ui/Component.js" data-source-line="682" class="sc-source-link">ui/Component.js#682</a></div></div><div class="se-description"><p>Hook which is called before properties are updated. Use this to dispose objects which will be replaced when properties change.</p>
+<p>For example you can use this to derive state from props.</p>
+</div><div class="sc-params"><div class="se-label">Parameters</div><table class="se-params-table"><tr class="se-param"><td class="se-param-name">newProps</td><td class="se-param-type"><span>object</span></td><td class="se-param-description"></td></tr></table></div></div></div></div></div></div></div></div>
+  </body>
+</html>

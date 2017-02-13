@@ -1,0 +1,149 @@
+<html>
+  <head>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,600' rel='stylesheet' type='text/css'>
+    <link href="github.css" rel="stylesheet" type="text/css">
+    <link href='substance/substance.css' rel='stylesheet' type='text/css'/>
+    <link href='reader.css' rel='stylesheet' type='text/css'/>
+  </head>
+  <body>
+    <div class="sc-documentation-reader sc-controller"><div class="sc-navbar"><div class="se-title"><a href="getting-started.html">Substance</a></div><div class="se-pages"><a href="getting-started.html" class="se-page">Getting started</a><a href="api.html" class="se-page">API</a></div></div><div class="se-page-content"><div class="se-context-section"><div class="sc-page-toc"><a href="getting-started.html" class="se-title">Getting started</a><div class="se-sections"><a href="your-first-editor.html" class="se-section">Your first editor</a><a href="integrating-substance.html" class="se-section">Integration</a></div></div></div><div class="se-main-section"><div data-id="integrating-substance" class="sc-content"><div class="se-title">Integration</div><div class="se-description"><p>You can install Substance via npm and use it with a build tool of your choice.</p>
+<pre><code class="hljs lang-bash">npm install substance
+</code></pre>
+<p>Let's assume the following project structure.</p>
+<pre><code class="hljs lang-bash">app - application setup (html, css, js)
+lib - reusable library code of your editor
+node_modules - dependencies such as substance and font-awesome
+</code></pre>
+<h2>Bundling</h2>
+<p>Now we want to create a distribution (bundle), that combines all those source files into dist folder that can be hosted on a webserver.</p>
+<pre><code class="hljs lang-bash">dist/index.html - HTML page
+dist/app.css - bundled CSS
+dist/app.js - bundled Javascript code
+dist/substance/*
+dist/font-awesome/*
+</code></pre>
+<p>Your <code>index.html</code> file should look like this:</p>
+<pre><code class="hljs lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./substance/substance.js"</span>/&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/javascript"</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"./app.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text/css"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"./app.css"</span>/&gt;</span>
+</code></pre>
+<h3>Substance Bundler</h3>
+<p>Substance Bundler is our own build tool, which combines <code>chokidar</code> for file watching, <code>rollup</code> for bundling Javascript, <code>postcss</code> for CSS, and coming with a concept of tasks as you know it from <code>gulp</code>.</p>
+<p>First you need to install <code>substance-bundler</code>:</p>
+<pre><code class="hljs lang-bash">npm install --save-dev substance-bundler
+</code></pre>
+<p>Then write a build script <code>make.js</code> that does the actual work:</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">var</span> b = <span class="hljs-built_in">require</span>(<span class="hljs-string">'substance-bundler'</span>)
+
+b.task(<span class="hljs-string">'clean'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  b.rm(<span class="hljs-string">'./dist'</span>)
+})
+
+b.task(<span class="hljs-string">'assets'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  b.copy(<span class="hljs-string">'node_modules/substance/dist'</span>, <span class="hljs-string">'./dist/substance'</span>)
+  b.copy(<span class="hljs-string">'node_modules/font-awesome'</span>, <span class="hljs-string">'./dist/font-awesome'</span>)
+})
+
+b.task(<span class="hljs-string">'build'</span>, [<span class="hljs-string">'clean'</span>, <span class="hljs-string">'assets'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  b.copy(<span class="hljs-string">'app/index.html'</span>, <span class="hljs-string">'./dist/index.html'</span>)
+  b.css(<span class="hljs-string">'app/app.css'</span>, <span class="hljs-string">'./dist/app.css'</span>)
+  b.js(<span class="hljs-string">'app/app.js'</span>, {
+    target: {
+      dest: <span class="hljs-string">'./dist/app.js'</span>,
+      format: <span class="hljs-string">'umd'</span>,
+      moduleName: <span class="hljs-string">'app'</span>
+    },
+    external: [<span class="hljs-string">'substance'</span>]
+  })
+})
+
+b.task(<span class="hljs-string">'default'</span>, [<span class="hljs-string">'build'</span>])
+</code></pre>
+<p>To create your bundle you run</p>
+<pre><code class="hljs lang-bash">node make
+</code></pre>
+<p>If you want to look at a complete project setup, just clone and run <a href="http://github.com/substance/simple-writer" target="_blank">SimpleWriter</a>.</p>
+<h3>Browserify and Babel</h3>
+<p>If you want to build your project with <code>browserify</code> you can do this</p>
+<p>First you would install <code>browserify</code>:</p>
+<pre><code class="hljs lang-bash">npm install -g browserify
+</code></pre>
+<p>They you need to install babelify</p>
+<pre><code class="hljs lang-bash">npm install babel-preset-es2015 babelify
+</code></pre>
+<p>To bundle <code>dist/app.js</code> you run:</p>
+<pre><code class="hljs lang-bash">browserify app/app.js -t babelify -o dist/app.js
+</code></pre>
+<h3>Rollup and Bublé</h3>
+<p>You can use <code>rollup</code> together with some plugins to bundle Javascript.</p>
+<p>First install rollup:</p>
+<pre><code class="hljs">npm <span class="hljs-keyword">install</span> -g <span class="hljs-keyword">rollup</span>
+</code></pre>
+<p>Then install <code>bublé</code>:</p>
+<pre><code class="hljs">npm <span class="hljs-keyword">install</span> <span class="hljs-keyword">rollup</span>-<span class="hljs-keyword">plugin</span>-buble
+</code></pre>
+<p>Create a <code>rollup.config.js</code> which looks like</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">import</span> buble <span class="hljs-keyword">from</span> <span class="hljs-string">'rollup-plugin-buble'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  entry: <span class="hljs-string">'src/app.js'</span>,
+  plugins: [
+    buble()
+  ],
+  <span class="hljs-comment">// This tells rollup to consider substance as external dependency</span>
+  external: [ <span class="hljs-string">'substance'</span> ],
+  format: <span class="hljs-string">'umd'</span>,
+  moduleName: <span class="hljs-string">'app'</span>
+}
+</code></pre>
+<p>To build <code>dist/app.js</code> you run</p>
+<pre><code class="hljs lang-bash">rollup -c -o dist/app.js
+</code></pre>
+<p>If you want to create a single file bundle, i.e. with Substance code included, you need the following additional plugins</p>
+<pre><code class="hljs">npm <span class="hljs-keyword">install</span> <span class="hljs-keyword">rollup</span>-<span class="hljs-keyword">plugin</span>-node-resolve <span class="hljs-keyword">rollup</span>-<span class="hljs-keyword">plugin</span>-commonjs
+</code></pre>
+<p>And your <code>rollup.config.js</code> looks like:</p>
+<pre><code class="hljs lang-js"><span class="hljs-keyword">import</span> resolve <span class="hljs-keyword">from</span> <span class="hljs-string">'rollup-plugin-node-resolve'</span>
+<span class="hljs-keyword">import</span> commonjs <span class="hljs-keyword">from</span> <span class="hljs-string">'rollup-plugin-commonjs'</span>
+<span class="hljs-keyword">import</span> buble <span class="hljs-keyword">from</span> <span class="hljs-string">'rollup-plugin-buble'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  entry: <span class="hljs-string">'src/app.js'</span>,
+  plugins: [
+    resolve({
+      <span class="hljs-comment">// consider the browser field in `package.json`</span>
+      browser: <span class="hljs-literal">true</span>,
+      <span class="hljs-comment">// use es6 entry points</span>
+      jsnext: <span class="hljs-literal">true</span>
+    }),
+    commonjs({
+      <span class="hljs-comment">// lodash is used as commonjs module</span>
+      include: [ <span class="hljs-string">'/**/lodash-es/**'</span> ]
+    }),
+    buble()
+  ],
+  format: <span class="hljs-string">'umd'</span>,
+  moduleName: <span class="hljs-string">'app'</span>
+}
+</code></pre>
+<blockquote>
+<p>Note: bundling substance into your <code>app.js</code> will slow down your builds a bit.</p>
+</blockquote>
+<h3>Other tools</h3>
+<p>You are free to use other build tools, such as <a href="https://webpack.github.io/">Webpack</a> or Gulp. Please consult the websites
+of those projects for usage documentation.</p>
+<p>Substance comes with a distribution folder <code>dist</code> with following content:</p>
+<ul>
+<li><code>substance.js</code>: a UMD bundle for the browser transpiled to ES5. Include it in your webpage and it will register Substance API under <code>window.substance</code>.</li>
+<li><code>substance.js.map</code>: source maps for <code>substance.js</code></li>
+<li><code>substance.css</code>: A bundled CSS file indcluding styles for all core packages. It has been transpiled to CSS 2.1, i.e. with variables replaced.</li>
+<li><code>substance.css.map</code>: source maps for <code>substance.css</code></li>
+<li><code>subsatnce.next.css</code>: same as <code>substance.css</code> but using modern CSS features, such as CSS variables.</li>
+<li><code>substance.css.next.map</code>: source maps for <code>substance.next.css</code></li>
+<li><code>substance-pagestyle.css</code>: pagestyles that we use in our Substance apps.</li>
+<li><code>substance-reset.css</code>: CSS that clears default styles.</li>
+</ul>
+</div></div></div></div></div>
+  </body>
+</html>
